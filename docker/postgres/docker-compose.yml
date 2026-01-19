@@ -1,0 +1,23 @@
+services:
+  postgres:
+    image: postgres:14
+    container_name: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-root}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    networks:
+      - homelab
+    deploy:
+      resources:
+        limits:
+          cpus: "${POSTGRES_CPU_LIMIT:-1}"
+          memory: ${POSTGRES_MEMORY_LIMIT:-1G}
+
+networks:
+  homelab:
+    external: true
