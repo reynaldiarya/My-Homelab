@@ -194,7 +194,7 @@ MARIADB_MEMORY_LIMIT=2G
 ## 📝 Notes
 
 - All services use the `homelab` network for inter-container communication
-- Data is stored in `./data` folder within each service directory (gitignored)
+- Data is persistent using named volumes managed by Docker
 - Default ports can be changed via environment variables
 - Global timezone is configured via `TZ` variable in `.env`
 

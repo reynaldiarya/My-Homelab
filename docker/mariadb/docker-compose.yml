@@ -10,7 +10,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./data:/var/lib/mysql
+      - mariadb_data:/var/lib/mysql
     networks:
       - homelab
     deploy:
@@ -22,3 +22,6 @@ services:
 networks:
   homelab:
     external: true
+
+volumes:
+  mariadb_data:

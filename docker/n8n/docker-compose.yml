@@ -16,7 +16,7 @@ services:
       DB_POSTGRESDB_SCHEMA: public
       DB_POSTGRESDB_PASSWORD: ${N8N_DB_PASSWORD:-password}
     volumes:
-      - ./data:/home/node/.n8n
+      - n8n_data:/home/node/.n8n
     networks:
       - homelab
     deploy:
@@ -28,3 +28,6 @@ services:
 networks:
   homelab:
     external: true
+
+volumes:
+  n8n_data:

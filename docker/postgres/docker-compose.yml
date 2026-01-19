@@ -9,7 +9,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     networks:
       - homelab
     deploy:
@@ -21,3 +21,6 @@ services:
 networks:
   homelab:
     external: true
+
+volumes:
+  postgres_data:

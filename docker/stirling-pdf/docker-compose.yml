@@ -9,10 +9,10 @@ services:
       SECURITY_ENABLELOGIN: "${STIRLING_PDF_SECURITY_ENABLELOGIN:-true}"
       LANGS: "${STIRLING_PDF_LANGS:-en_US}"
     volumes:
-      - ./data/tessdata:/usr/share/tessdata
-      - ./data/configs:/configs
-      - ./data/logs:/logs
-      - ./data/pipeline:/pipeline
+      - stirling_pdf_tessdata:/usr/share/tessdata
+      - stirling_pdf_configs:/configs
+      - stirling_pdf_logs:/logs
+      - stirling_pdf_pipeline:/pipeline
     networks:
       - homelab
     deploy:
@@ -24,3 +24,9 @@ services:
 networks:
   homelab:
     external: true
+
+volumes:
+  stirling_pdf_tessdata:
+  stirling_pdf_configs:
+  stirling_pdf_logs:
+  stirling_pdf_pipeline:

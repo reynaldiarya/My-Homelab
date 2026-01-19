@@ -12,7 +12,7 @@ services:
       APIKEY: ${SERPBEAR_APIKEY:-changeme}
       NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-http://localhost:3000}
     volumes:
-      - ./data:/app/data
+      - serpbear_data:/app/data
     networks:
       - homelab
     deploy:
@@ -24,3 +24,6 @@ services:
 networks:
   homelab:
     external: true
+
+volumes:
+  serpbear_data:
