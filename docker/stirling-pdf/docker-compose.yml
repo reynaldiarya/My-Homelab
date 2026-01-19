@@ -1,0 +1,26 @@
+services:
+  stirling-pdf:
+    image: stirlingtools/stirling-pdf:latest
+    container_name: stirling-pdf
+    restart: unless-stopped
+    ports:
+      - "${STIRLING_PDF_PORT:-8088}:8080"
+    environment:
+      SECURITY_ENABLELOGIN: "${STIRLING_PDF_SECURITY_ENABLELOGIN:-true}"
+      LANGS: "${STIRLING_PDF_LANGS:-en_US}"
+    volumes:
+      - ./data/tessdata:/usr/share/tessdata
+      - ./data/configs:/configs
+      - ./data/logs:/logs
+      - ./data/pipeline:/pipeline
+    networks:
+      - homelab
+    deploy:
+      resources:
+        limits:
+          cpus: "${STIRLING_PDF_CPU_LIMIT:-1}"
+          memory: ${STIRLING_PDF_MEMORY_LIMIT:-512M}
+
+networks:
+  homelab:
+    external: true
