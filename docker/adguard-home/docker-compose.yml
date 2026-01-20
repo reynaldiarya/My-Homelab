@@ -1,0 +1,31 @@
+services:
+  adguard-home:
+    image: adguard/adguardhome:latest
+    container_name: adguard-home
+    restart: unless-stopped
+    environment:
+      - TZ=${TZ:-Asia/Jakarta}
+    volumes:
+      - adguard_home_work:/opt/adguardhome/work
+      - adguard_home_conf:/opt/adguardhome/conf
+    ports:
+      - '53:53/tcp'
+      - '53:53/udp'
+      - '${ADGUARD_HOME_PORT:-80}:80/tcp'
+      # Initial Setup Port
+      - '${ADGUARD_HOME_SETUP_PORT:-3000}:3000/tcp'
+    networks:
+      - homelab
+    deploy:
+      resources:
+        limits:
+          cpus: "${ADGUARD_HOME_CPU_LIMIT:-0.5}"
+          memory: ${ADGUARD_HOME_MEMORY_LIMIT:-256M}
+
+networks:
+  homelab:
+    external: true
+
+volumes:
+  adguard_home_work:
+  adguard_home_conf:

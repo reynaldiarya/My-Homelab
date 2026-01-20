@@ -16,6 +16,12 @@
 .PHONY: start-wallos stop-wallos update-wallos logs-wallos
 .PHONY: start-stirling-pdf stop-stirling-pdf update-stirling-pdf logs-stirling-pdf
 .PHONY: start-listmonk stop-listmonk update-listmonk logs-listmonk
+.PHONY: start-adguard-home stop-adguard-home update-adguard-home logs-adguard-home
+.PHONY: start-grafana stop-grafana update-grafana logs-grafana
+.PHONY: start-openspeedtest stop-openspeedtest update-openspeedtest logs-openspeedtest
+.PHONY: start-smokeping stop-smokeping update-smokeping logs-smokeping
+.PHONY: start-uptime-kuma stop-uptime-kuma update-uptime-kuma logs-uptime-kuma
+
 
 # Default target
 help:
@@ -40,7 +46,8 @@ help:
 	@echo "Available services:"
 	@echo "  mariadb, postgres, redis, mongodb, portainer,"
 	@echo "  n8n, actual-budget, serpbear, changedetection,"
-	@echo "  wallos, stirling-pdf, listmonk"
+	@echo "  wallos, stirling-pdf, listmonk, adguard-home,"
+	@echo "  grafana, openspeedtest, smokeping, uptime-kuma"
 	@echo ""
 	@echo "Examples:"
 	@echo "  make start-mariadb"
@@ -70,6 +77,11 @@ start-all: network
 	docker compose -f docker/wallos/docker-compose.yml up -d
 	docker compose -f docker/stirling-pdf/docker-compose.yml up -d
 	docker compose -f docker/listmonk/docker-compose.yml up -d
+	docker compose -f docker/adguard-home/docker-compose.yml up -d
+	docker compose -f docker/grafana/docker-compose.yml up -d
+	docker compose -f docker/openspeedtest/docker-compose.yml up -d
+	docker compose -f docker/smokeping/docker-compose.yml up -d
+	docker compose -f docker/uptime-kuma/docker-compose.yml up -d
 	@echo "✅ All services started!"
 
 stop-all:
@@ -86,6 +98,11 @@ stop-all:
 	docker compose -f docker/wallos/docker-compose.yml down
 	docker compose -f docker/stirling-pdf/docker-compose.yml down
 	docker compose -f docker/listmonk/docker-compose.yml down
+	docker compose -f docker/adguard-home/docker-compose.yml down
+	docker compose -f docker/grafana/docker-compose.yml down
+	docker compose -f docker/openspeedtest/docker-compose.yml down
+	docker compose -f docker/smokeping/docker-compose.yml down
+	docker compose -f docker/uptime-kuma/docker-compose.yml down
 	@echo "✅ All services stopped!"
 
 update-all: network
@@ -114,6 +131,16 @@ update-all: network
 	docker compose -f docker/stirling-pdf/docker-compose.yml up -d
 	docker compose -f docker/listmonk/docker-compose.yml pull
 	docker compose -f docker/listmonk/docker-compose.yml up -d
+	docker compose -f docker/adguard-home/docker-compose.yml pull
+	docker compose -f docker/adguard-home/docker-compose.yml up -d
+	docker compose -f docker/grafana/docker-compose.yml pull
+	docker compose -f docker/grafana/docker-compose.yml up -d
+	docker compose -f docker/openspeedtest/docker-compose.yml pull
+	docker compose -f docker/openspeedtest/docker-compose.yml up -d
+	docker compose -f docker/smokeping/docker-compose.yml pull
+	docker compose -f docker/smokeping/docker-compose.yml up -d
+	docker compose -f docker/uptime-kuma/docker-compose.yml pull
+	docker compose -f docker/uptime-kuma/docker-compose.yml up -d
 	@echo "✅ All services updated!"
 
 logs-all:
@@ -310,3 +337,83 @@ update-listmonk: network
 
 logs-listmonk:
 	docker compose -f docker/listmonk/docker-compose.yml logs -f
+
+# ================================
+# AdGuard Home
+# ================================
+start-adguard-home: network
+	docker compose -f docker/adguard-home/docker-compose.yml up -d
+
+stop-adguard-home:
+	docker compose -f docker/adguard-home/docker-compose.yml down
+
+update-adguard-home: network
+	docker compose -f docker/adguard-home/docker-compose.yml pull
+	docker compose -f docker/adguard-home/docker-compose.yml up -d
+
+logs-adguard-home:
+	docker compose -f docker/adguard-home/docker-compose.yml logs -f
+
+# ================================
+# Grafana
+# ================================
+start-grafana: network
+	docker compose -f docker/grafana/docker-compose.yml up -d
+
+stop-grafana:
+	docker compose -f docker/grafana/docker-compose.yml down
+
+update-grafana: network
+	docker compose -f docker/grafana/docker-compose.yml pull
+	docker compose -f docker/grafana/docker-compose.yml up -d
+
+logs-grafana:
+	docker compose -f docker/grafana/docker-compose.yml logs -f
+
+# ================================
+# OpenSpeedTest
+# ================================
+start-openspeedtest: network
+	docker compose -f docker/openspeedtest/docker-compose.yml up -d
+
+stop-openspeedtest:
+	docker compose -f docker/openspeedtest/docker-compose.yml down
+
+update-openspeedtest: network
+	docker compose -f docker/openspeedtest/docker-compose.yml pull
+	docker compose -f docker/openspeedtest/docker-compose.yml up -d
+
+logs-openspeedtest:
+	docker compose -f docker/openspeedtest/docker-compose.yml logs -f
+
+# ================================
+# SmokePing
+# ================================
+start-smokeping: network
+	docker compose -f docker/smokeping/docker-compose.yml up -d
+
+stop-smokeping:
+	docker compose -f docker/smokeping/docker-compose.yml down
+
+update-smokeping: network
+	docker compose -f docker/smokeping/docker-compose.yml pull
+	docker compose -f docker/smokeping/docker-compose.yml up -d
+
+logs-smokeping:
+	docker compose -f docker/smokeping/docker-compose.yml logs -f
+
+# ================================
+# Uptime Kuma
+# ================================
+start-uptime-kuma: network
+	docker compose -f docker/uptime-kuma/docker-compose.yml up -d
+
+stop-uptime-kuma:
+	docker compose -f docker/uptime-kuma/docker-compose.yml down
+
+update-uptime-kuma: network
+	docker compose -f docker/uptime-kuma/docker-compose.yml pull
+	docker compose -f docker/uptime-kuma/docker-compose.yml up -d
+
+logs-uptime-kuma:
+	docker compose -f docker/uptime-kuma/docker-compose.yml logs -f

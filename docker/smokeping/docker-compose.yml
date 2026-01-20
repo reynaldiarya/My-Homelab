@@ -1,0 +1,30 @@
+services:
+  smokeping:
+    image: lscr.io/linuxserver/smokeping:latest
+    container_name: smokeping
+    hostname: smokeping
+    environment:
+      - PUID=${SMOKEPING_PUID:-1000}
+      - PGID=${SMOKEPING_PGID:-1000}
+      - TZ=${TZ:-Asia/Jakarta}
+    volumes:
+      - smokeping_config:/config
+      - smokeping_data:/data
+    ports:
+      - "${SMOKEPING_PORT:-8080}:80"
+    restart: unless-stopped
+    networks:
+      - homelab
+    deploy:
+      resources:
+        limits:
+          cpus: "${SMOKEPING_CPU_LIMIT:-0.5}"
+          memory: ${SMOKEPING_MEMORY_LIMIT:-256M}
+
+networks:
+  homelab:
+    external: true
+
+volumes:
+  smokeping_config:
+  smokeping_data:

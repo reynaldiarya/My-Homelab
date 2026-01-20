@@ -24,9 +24,12 @@ A curated collection of Docker Compose configurations for my personal homelab. T
 
 ### Management & Monitoring
 
-| Service                          | Port | Description          |
-| -------------------------------- | ---- | -------------------- |
-| [Portainer](./docker/portainer/) | 9443 | Docker management UI |
+| Service                              | Port | Description             |
+| ------------------------------------ | ---- | ----------------------- |
+| [Portainer](./docker/portainer/)     | 9443 | Docker management UI    |
+| [Grafana](./docker/grafana/)         | 3330 | Metrics visualization   |
+| [Uptime Kuma](./docker/uptime-kuma/) | 3001 | Uptime monitoring       |
+| [SmokePing](./docker/smokeping/)     | 8080 | Network latency monitor |
 
 ### Automation
 
@@ -54,6 +57,13 @@ A curated collection of Docker Compose configurations for my personal homelab. T
 | Service                        | Port | Description                       |
 | ------------------------------ | ---- | --------------------------------- |
 | [Listmonk](./docker/listmonk/) | 9000 | Newsletter & mailing list manager |
+
+### Networking
+
+| Service                                  | Port | Description           |
+| ---------------------------------------- | ---- | --------------------- |
+| [AdGuard Home](./docker/adguard-home/)   | 80   | DNS ad blocker        |
+| [OpenSpeedTest](./docker/openspeedtest/) | 3002 | Network speed testing |
 
 ## 🚀 Quick Start
 
@@ -125,7 +135,12 @@ My-Homelab/
 │   ├── serpbear/
 │   ├── stirling-pdf/
 │   ├── wallos/
-│   └── listmonk/
+│   ├── listmonk/
+│   ├── adguard-home/
+│   ├── grafana/
+│   ├── openspeedtest/
+│   ├── smokeping/
+│   └── uptime-kuma/
 ├── .env.example
 ├── .gitignore
 ├── Makefile
@@ -146,7 +161,7 @@ My-Homelab/
 | `make update-<service>` | Update a specific service |
 | `make logs-<service>`   | View service logs         |
 
-**Available services:** `mariadb`, `postgres`, `redis`, `mongodb`, `portainer`, `n8n`, `actual-budget`, `serpbear`, `changedetection`, `wallos`, `stirling-pdf`, `listmonk`
+**Available services:** `mariadb`, `postgres`, `redis`, `mongodb`, `portainer`, `n8n`, `actual-budget`, `serpbear`, `changedetection`, `wallos`, `stirling-pdf`, `listmonk`, `adguard-home`, `grafana`, `openspeedtest`, `smokeping`, `uptime-kuma`
 
 ### Examples
 
@@ -191,6 +206,11 @@ MARIADB_MEMORY_LIMIT=2G
 | Wallos             | 0.5 | 256M   |
 | Stirling PDF       | 1   | 512M   |
 | Listmonk           | 1   | 1G     |
+| AdGuard Home       | 0.5 | 256M   |
+| Grafana            | 1   | 512M   |
+| OpenSpeedTest      | 0.5 | 256M   |
+| SmokePing          | 0.5 | 256M   |
+| Uptime Kuma        | 0.5 | 256M   |
 
 ## 🔐 Security
 

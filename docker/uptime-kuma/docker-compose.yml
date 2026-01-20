@@ -1,0 +1,25 @@
+services:
+  uptime-kuma:
+    image: louislam/uptime-kuma:2
+    container_name: uptime-kuma
+    restart: unless-stopped
+    environment:
+      - TZ=${TZ:-Asia/Jakarta}
+    volumes:
+      - uptime_kuma_data:/app/data
+    ports:
+      - "${UPTIME_KUMA_PORT:-3001}:3001"
+    networks:
+      - homelab
+    deploy:
+      resources:
+        limits:
+          cpus: "${UPTIME_KUMA_CPU_LIMIT:-0.5}"
+          memory: ${UPTIME_KUMA_MEMORY_LIMIT:-256M}
+
+networks:
+  homelab:
+    external: true
+
+volumes:
+  uptime_kuma_data:
