@@ -15,6 +15,7 @@
 .PHONY: start-changedetection stop-changedetection update-changedetection logs-changedetection
 .PHONY: start-wallos stop-wallos update-wallos logs-wallos
 .PHONY: start-stirling-pdf stop-stirling-pdf update-stirling-pdf logs-stirling-pdf
+.PHONY: start-listmonk stop-listmonk update-listmonk logs-listmonk
 
 # Default target
 help:
@@ -38,8 +39,8 @@ help:
 	@echo ""
 	@echo "Available services:"
 	@echo "  mariadb, postgres, redis, mongodb, portainer,"
-	@echo "  n8n, actual-budget, serpbear,"
-	@echo "  changedetection, wallos, stirling-pdf"
+	@echo "  n8n, actual-budget, serpbear, changedetection,"
+	@echo "  wallos, stirling-pdf, listmonk"
 	@echo ""
 	@echo "Examples:"
 	@echo "  make start-mariadb"
@@ -68,6 +69,7 @@ start-all: network
 	docker compose -f docker/changedetection/docker-compose.yml up -d
 	docker compose -f docker/wallos/docker-compose.yml up -d
 	docker compose -f docker/stirling-pdf/docker-compose.yml up -d
+	docker compose -f docker/listmonk/docker-compose.yml up -d
 	@echo "✅ All services started!"
 
 stop-all:
@@ -83,6 +85,7 @@ stop-all:
 	docker compose -f docker/changedetection/docker-compose.yml down
 	docker compose -f docker/wallos/docker-compose.yml down
 	docker compose -f docker/stirling-pdf/docker-compose.yml down
+	docker compose -f docker/listmonk/docker-compose.yml down
 	@echo "✅ All services stopped!"
 
 update-all: network
@@ -109,6 +112,8 @@ update-all: network
 	docker compose -f docker/wallos/docker-compose.yml up -d
 	docker compose -f docker/stirling-pdf/docker-compose.yml pull
 	docker compose -f docker/stirling-pdf/docker-compose.yml up -d
+	docker compose -f docker/listmonk/docker-compose.yml pull
+	docker compose -f docker/listmonk/docker-compose.yml up -d
 	@echo "✅ All services updated!"
 
 logs-all:
@@ -289,3 +294,19 @@ update-stirling-pdf: network
 
 logs-stirling-pdf:
 	docker compose -f docker/stirling-pdf/docker-compose.yml logs -f
+
+# ================================
+# Listmonk
+# ================================
+start-listmonk: network
+	docker compose -f docker/listmonk/docker-compose.yml up -d
+
+stop-listmonk:
+	docker compose -f docker/listmonk/docker-compose.yml down
+
+update-listmonk: network
+	docker compose -f docker/listmonk/docker-compose.yml pull
+	docker compose -f docker/listmonk/docker-compose.yml up -d
+
+logs-listmonk:
+	docker compose -f docker/listmonk/docker-compose.yml logs -f

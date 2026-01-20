@@ -49,6 +49,12 @@ A curated collection of Docker Compose configurations for my personal homelab. T
 | [ChangeDetection](./docker/changedetection/) | 5000 | Website change monitoring |
 | [Stirling PDF](./docker/stirling-pdf/)       | 8088 | PDF toolkit               |
 
+### Marketing
+
+| Service                        | Port | Description                       |
+| ------------------------------ | ---- | --------------------------------- |
+| [Listmonk](./docker/listmonk/) | 9000 | Newsletter & mailing list manager |
+
 ## 🚀 Quick Start
 
 ### 1. Install Docker & Docker Compose
@@ -118,7 +124,8 @@ My-Homelab/
 │   ├── redis/
 │   ├── serpbear/
 │   ├── stirling-pdf/
-│   └── wallos/
+│   ├── wallos/
+│   └── listmonk/
 ├── .env.example
 ├── .gitignore
 ├── Makefile
@@ -139,7 +146,7 @@ My-Homelab/
 | `make update-<service>` | Update a specific service |
 | `make logs-<service>`   | View service logs         |
 
-**Available services:** `mariadb`, `postgres`, `redis`, `mongodb`, `portainer`, `n8n`, `actual-budget`, `serpbear`, `changedetection`, `wallos`, `stirling-pdf`
+**Available services:** `mariadb`, `postgres`, `redis`, `mongodb`, `portainer`, `n8n`, `actual-budget`, `serpbear`, `changedetection`, `wallos`, `stirling-pdf`, `listmonk`
 
 ### Examples
 
@@ -183,6 +190,7 @@ MARIADB_MEMORY_LIMIT=2G
 | Sockpuppet Browser | 1   | 1G     |
 | Wallos             | 0.5 | 256M   |
 | Stirling PDF       | 1   | 512M   |
+| Listmonk           | 1   | 1G     |
 
 ## 🔐 Security
 
