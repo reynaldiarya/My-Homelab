@@ -21,6 +21,7 @@
 .PHONY: start-openspeedtest stop-openspeedtest update-openspeedtest logs-openspeedtest
 .PHONY: start-smokeping stop-smokeping update-smokeping logs-smokeping
 .PHONY: start-uptime-kuma stop-uptime-kuma update-uptime-kuma logs-uptime-kuma
+.PHONY: start-flaresolverr stop-flaresolverr update-flaresolverr logs-flaresolverr
 
 
 # Default target
@@ -47,6 +48,7 @@ help:
 	@echo "  mariadb, postgres, redis, mongodb, portainer,"
 	@echo "  n8n, actual-budget, serpbear, changedetection,"
 	@echo "  wallos, stirling-pdf, listmonk, adguard-home,"
+	@echo "  flaresolverr,"
 	@echo "  grafana, openspeedtest, smokeping, uptime-kuma"
 	@echo ""
 	@echo "Examples:"
@@ -82,6 +84,7 @@ start-all: network
 	docker compose -f docker/openspeedtest/docker-compose.yml up -d
 	docker compose -f docker/smokeping/docker-compose.yml up -d
 	docker compose -f docker/uptime-kuma/docker-compose.yml up -d
+	docker compose -f docker/flaresolverr/docker-compose.yml up -d
 	@echo "✅ All services started!"
 
 stop-all:
@@ -103,6 +106,7 @@ stop-all:
 	docker compose -f docker/openspeedtest/docker-compose.yml down
 	docker compose -f docker/smokeping/docker-compose.yml down
 	docker compose -f docker/uptime-kuma/docker-compose.yml down
+	docker compose -f docker/flaresolverr/docker-compose.yml down
 	@echo "✅ All services stopped!"
 
 update-all: network
@@ -141,6 +145,8 @@ update-all: network
 	docker compose -f docker/smokeping/docker-compose.yml up -d
 	docker compose -f docker/uptime-kuma/docker-compose.yml pull
 	docker compose -f docker/uptime-kuma/docker-compose.yml up -d
+	docker compose -f docker/flaresolverr/docker-compose.yml pull
+	docker compose -f docker/flaresolverr/docker-compose.yml up -d
 	@echo "✅ All services updated!"
 
 logs-all:
@@ -417,3 +423,19 @@ update-uptime-kuma: network
 
 logs-uptime-kuma:
 	docker compose -f docker/uptime-kuma/docker-compose.yml logs -f
+
+# ================================
+# FlareSolverr
+# ================================
+start-flaresolverr: network
+	docker compose -f docker/flaresolverr/docker-compose.yml up -d
+
+stop-flaresolverr:
+	docker compose -f docker/flaresolverr/docker-compose.yml down
+
+update-flaresolverr: network
+	docker compose -f docker/flaresolverr/docker-compose.yml pull
+	docker compose -f docker/flaresolverr/docker-compose.yml up -d
+
+logs-flaresolverr:
+	docker compose -f docker/flaresolverr/docker-compose.yml logs -f

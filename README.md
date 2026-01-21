@@ -51,6 +51,7 @@ A curated collection of Docker Compose configurations for my personal homelab. T
 | [SerpBear](./docker/serpbear/)               | 3000 | SEO rank tracking         |
 | [ChangeDetection](./docker/changedetection/) | 5000 | Website change monitoring |
 | [Stirling PDF](./docker/stirling-pdf/)       | 8088 | PDF toolkit               |
+| [FlareSolverr](./docker/flaresolverr/)       | 8191 | Cloudflare bypass proxy   |
 
 ### Marketing
 
@@ -140,7 +141,8 @@ My-Homelab/
 │   ├── grafana/
 │   ├── openspeedtest/
 │   ├── smokeping/
-│   └── uptime-kuma/
+│   ├── uptime-kuma/
+│   └── flaresolverr/
 ├── .env.example
 ├── .gitignore
 ├── Makefile
@@ -161,7 +163,7 @@ My-Homelab/
 | `make update-<service>` | Update a specific service |
 | `make logs-<service>`   | View service logs         |
 
-**Available services:** `mariadb`, `postgres`, `redis`, `mongodb`, `portainer`, `n8n`, `actual-budget`, `serpbear`, `changedetection`, `wallos`, `stirling-pdf`, `listmonk`, `adguard-home`, `grafana`, `openspeedtest`, `smokeping`, `uptime-kuma`
+**Available services:** `mariadb`, `postgres`, `redis`, `mongodb`, `portainer`, `n8n`, `actual-budget`, `serpbear`, `changedetection`, `wallos`, `stirling-pdf`, `listmonk`, `adguard-home`, `grafana`, `openspeedtest`, `smokeping`, `uptime-kuma`, `flaresolverr`
 
 ### Examples
 
@@ -211,6 +213,7 @@ MARIADB_MEMORY_LIMIT=2G
 | OpenSpeedTest      | 0.5 | 256M   |
 | SmokePing          | 0.5 | 256M   |
 | Uptime Kuma        | 0.5 | 256M   |
+| FlareSolverr       | 1   | 1G     |
 
 ## 🔐 Security
 
