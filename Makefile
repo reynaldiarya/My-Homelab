@@ -5,29 +5,29 @@
 # Docker Compose with env file
 DOCKER_COMPOSE = docker compose --env-file .env
 
+# Phony targets sorted alphabetically
 .PHONY: help network
 .PHONY: start-all stop-all update-all logs-all
+.PHONY: start-actual-budget stop-actual-budget update-actual-budget logs-actual-budget
+.PHONY: start-adguard-home stop-adguard-home update-adguard-home logs-adguard-home
+.PHONY: start-changedetection stop-changedetection update-changedetection logs-changedetection
+.PHONY: start-flaresolverr stop-flaresolverr update-flaresolverr logs-flaresolverr
+.PHONY: start-grafana stop-grafana update-grafana logs-grafana
+.PHONY: start-it-tools stop-it-tools update-it-tools logs-it-tools
+.PHONY: start-listmonk stop-listmonk update-listmonk logs-listmonk
 .PHONY: start-mariadb stop-mariadb update-mariadb logs-mariadb
+.PHONY: start-mongodb stop-mongodb update-mongodb logs-mongodb
+.PHONY: start-n8n stop-n8n update-n8n logs-n8n
+.PHONY: start-openspeedtest stop-openspeedtest update-openspeedtest logs-openspeedtest
+.PHONY: start-portainer stop-portainer update-portainer logs-portainer
 .PHONY: start-postgres stop-postgres update-postgres logs-postgres
 .PHONY: start-redis stop-redis update-redis logs-redis
-.PHONY: start-mongodb stop-mongodb update-mongodb logs-mongodb
-.PHONY: start-portainer stop-portainer update-portainer logs-portainer
-.PHONY: start-n8n stop-n8n update-n8n logs-n8n
-.PHONY: start-actual-budget stop-actual-budget update-actual-budget logs-actual-budget
-.PHONY: start-serpbear stop-serpbear update-serpbear logs-serpbear
-.PHONY: start-changedetection stop-changedetection update-changedetection logs-changedetection
-.PHONY: start-wallos stop-wallos update-wallos logs-wallos
-.PHONY: start-stirling-pdf stop-stirling-pdf update-stirling-pdf logs-stirling-pdf
-.PHONY: start-listmonk stop-listmonk update-listmonk logs-listmonk
-.PHONY: start-adguard-home stop-adguard-home update-adguard-home logs-adguard-home
-.PHONY: start-grafana stop-grafana update-grafana logs-grafana
-.PHONY: start-openspeedtest stop-openspeedtest update-openspeedtest logs-openspeedtest
-.PHONY: start-smokeping stop-smokeping update-smokeping logs-smokeping
-.PHONY: start-uptime-kuma stop-uptime-kuma update-uptime-kuma logs-uptime-kuma
-.PHONY: start-flaresolverr stop-flaresolverr update-flaresolverr logs-flaresolverr
-.PHONY: start-it-tools stop-it-tools update-it-tools logs-it-tools
 .PHONY: start-ryot stop-ryot update-ryot logs-ryot
-
+.PHONY: start-serpbear stop-serpbear update-serpbear logs-serpbear
+.PHONY: start-smokeping stop-smokeping update-smokeping logs-smokeping
+.PHONY: start-stirling-pdf stop-stirling-pdf update-stirling-pdf logs-stirling-pdf
+.PHONY: start-uptime-kuma stop-uptime-kuma update-uptime-kuma logs-uptime-kuma
+.PHONY: start-wallos stop-wallos update-wallos logs-wallos
 
 # Default target
 help:
@@ -49,12 +49,12 @@ help:
 	@echo "  make update-<service> - Update a service"
 	@echo "  make logs-<service>   - View service logs"
 	@echo ""
-	@echo "Available services:"
-	@echo "  mariadb, postgres, redis, mongodb, portainer,"
-	@echo "  n8n, actual-budget, serpbear, changedetection,"
-	@echo "  wallos, stirling-pdf, listmonk, adguard-home,"
-	@echo "  flaresolverr, it-tools, ryot,"
-	@echo "  grafana, openspeedtest, smokeping, uptime-kuma"
+	@echo "Available services (A-Z):"
+	@echo "  actual-budget, adguard-home, changedetection,"
+	@echo "  flaresolverr, grafana, it-tools, listmonk,"
+	@echo "  mariadb, mongodb, n8n, openspeedtest, portainer,"
+	@echo "  postgres, redis, ryot, serpbear, smokeping,"
+	@echo "  stirling-pdf, uptime-kuma, wallos"
 	@echo ""
 	@echo "Examples:"
 	@echo "  make start-mariadb"
@@ -68,102 +68,214 @@ network:
 	docker network create homelab || true
 
 # ================================
-# All Services
+# All Services (Sorted A-Z)
 # ================================
 start-all: network
 	@echo "Starting all services..."
+	$(DOCKER_COMPOSE) -f docker/actual-budget/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/adguard-home/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/changedetection/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/flaresolverr/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/grafana/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/it-tools/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/listmonk/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/mariadb/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/mongodb/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/n8n/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/openspeedtest/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/portainer/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/postgres/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/redis/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/mongodb/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/portainer/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/n8n/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/actual-budget/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/serpbear/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/changedetection/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/wallos/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/stirling-pdf/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/listmonk/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/adguard-home/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/grafana/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/openspeedtest/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/smokeping/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/uptime-kuma/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/flaresolverr/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/it-tools/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/ryot/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/serpbear/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/smokeping/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/stirling-pdf/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/uptime-kuma/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/wallos/docker-compose.yml up -d
 	@echo "✅ All services started!"
 
 stop-all:
 	@echo "Stopping all services..."
+	$(DOCKER_COMPOSE) -f docker/actual-budget/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/adguard-home/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/changedetection/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/flaresolverr/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/grafana/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/it-tools/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/listmonk/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/mariadb/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/mongodb/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/n8n/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/openspeedtest/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/portainer/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/postgres/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/redis/docker-compose.yml down
-	$(DOCKER_COMPOSE) -f docker/mongodb/docker-compose.yml down
-	$(DOCKER_COMPOSE) -f docker/portainer/docker-compose.yml down
-	$(DOCKER_COMPOSE) -f docker/n8n/docker-compose.yml down
-	$(DOCKER_COMPOSE) -f docker/actual-budget/docker-compose.yml down
-	$(DOCKER_COMPOSE) -f docker/serpbear/docker-compose.yml down
-	$(DOCKER_COMPOSE) -f docker/changedetection/docker-compose.yml down
-	$(DOCKER_COMPOSE) -f docker/wallos/docker-compose.yml down
-	$(DOCKER_COMPOSE) -f docker/stirling-pdf/docker-compose.yml down
-	$(DOCKER_COMPOSE) -f docker/listmonk/docker-compose.yml down
-	$(DOCKER_COMPOSE) -f docker/adguard-home/docker-compose.yml down
-	$(DOCKER_COMPOSE) -f docker/grafana/docker-compose.yml down
-	$(DOCKER_COMPOSE) -f docker/openspeedtest/docker-compose.yml down
-	$(DOCKER_COMPOSE) -f docker/smokeping/docker-compose.yml down
-	$(DOCKER_COMPOSE) -f docker/uptime-kuma/docker-compose.yml down
-	$(DOCKER_COMPOSE) -f docker/flaresolverr/docker-compose.yml down
-	$(DOCKER_COMPOSE) -f docker/it-tools/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/ryot/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/serpbear/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/smokeping/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/stirling-pdf/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/uptime-kuma/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/wallos/docker-compose.yml down
 	@echo "✅ All services stopped!"
 
 update-all: network
 	@echo "Updating all services..."
+	$(DOCKER_COMPOSE) -f docker/actual-budget/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/actual-budget/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/adguard-home/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/adguard-home/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/changedetection/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/changedetection/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/flaresolverr/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/flaresolverr/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/grafana/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/grafana/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/it-tools/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/it-tools/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/listmonk/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/listmonk/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/mariadb/docker-compose.yml pull
 	$(DOCKER_COMPOSE) -f docker/mariadb/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/mongodb/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/mongodb/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/n8n/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/n8n/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/openspeedtest/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/openspeedtest/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/portainer/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/portainer/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/postgres/docker-compose.yml pull
 	$(DOCKER_COMPOSE) -f docker/postgres/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/redis/docker-compose.yml pull
 	$(DOCKER_COMPOSE) -f docker/redis/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/mongodb/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/mongodb/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/portainer/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/portainer/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/n8n/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/n8n/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/actual-budget/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/actual-budget/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/serpbear/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/serpbear/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/changedetection/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/changedetection/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/wallos/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/wallos/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/stirling-pdf/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/stirling-pdf/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/listmonk/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/listmonk/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/adguard-home/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/adguard-home/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/grafana/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/grafana/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/openspeedtest/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/openspeedtest/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/smokeping/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/smokeping/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/uptime-kuma/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/uptime-kuma/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/flaresolverr/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/flaresolverr/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/it-tools/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/it-tools/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/ryot/docker-compose.yml pull
 	$(DOCKER_COMPOSE) -f docker/ryot/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/serpbear/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/serpbear/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/smokeping/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/smokeping/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/stirling-pdf/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/stirling-pdf/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/uptime-kuma/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/uptime-kuma/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/wallos/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/wallos/docker-compose.yml up -d
 	@echo "✅ All services updated!"
 
 logs-all:
 	@echo "Use 'make logs-<service>' for individual service logs"
+
+# ================================
+# Actual Budget
+# ================================
+start-actual-budget: network
+	$(DOCKER_COMPOSE) -f docker/actual-budget/docker-compose.yml up -d
+
+stop-actual-budget:
+	$(DOCKER_COMPOSE) -f docker/actual-budget/docker-compose.yml down
+
+update-actual-budget: network
+	$(DOCKER_COMPOSE) -f docker/actual-budget/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/actual-budget/docker-compose.yml up -d
+
+logs-actual-budget:
+	$(DOCKER_COMPOSE) -f docker/actual-budget/docker-compose.yml logs -f
+
+# ================================
+# AdGuard Home
+# ================================
+start-adguard-home: network
+	$(DOCKER_COMPOSE) -f docker/adguard-home/docker-compose.yml up -d
+
+stop-adguard-home:
+	$(DOCKER_COMPOSE) -f docker/adguard-home/docker-compose.yml down
+
+update-adguard-home: network
+	$(DOCKER_COMPOSE) -f docker/adguard-home/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/adguard-home/docker-compose.yml up -d
+
+logs-adguard-home:
+	$(DOCKER_COMPOSE) -f docker/adguard-home/docker-compose.yml logs -f
+
+# ================================
+# ChangeDetection
+# ================================
+start-changedetection: network
+	$(DOCKER_COMPOSE) -f docker/changedetection/docker-compose.yml up -d
+
+stop-changedetection:
+	$(DOCKER_COMPOSE) -f docker/changedetection/docker-compose.yml down
+
+update-changedetection: network
+	$(DOCKER_COMPOSE) -f docker/changedetection/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/changedetection/docker-compose.yml up -d
+
+logs-changedetection:
+	$(DOCKER_COMPOSE) -f docker/changedetection/docker-compose.yml logs -f
+
+# ================================
+# FlareSolverr
+# ================================
+start-flaresolverr: network
+	$(DOCKER_COMPOSE) -f docker/flaresolverr/docker-compose.yml up -d
+
+stop-flaresolverr:
+	$(DOCKER_COMPOSE) -f docker/flaresolverr/docker-compose.yml down
+
+update-flaresolverr: network
+	$(DOCKER_COMPOSE) -f docker/flaresolverr/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/flaresolverr/docker-compose.yml up -d
+
+logs-flaresolverr:
+	$(DOCKER_COMPOSE) -f docker/flaresolverr/docker-compose.yml logs -f
+
+# ================================
+# Grafana
+# ================================
+start-grafana: network
+	$(DOCKER_COMPOSE) -f docker/grafana/docker-compose.yml up -d
+
+stop-grafana:
+	$(DOCKER_COMPOSE) -f docker/grafana/docker-compose.yml down
+
+update-grafana: network
+	$(DOCKER_COMPOSE) -f docker/grafana/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/grafana/docker-compose.yml up -d
+
+logs-grafana:
+	$(DOCKER_COMPOSE) -f docker/grafana/docker-compose.yml logs -f
+
+# ================================
+# IT Tools
+# ================================
+start-it-tools: network
+	$(DOCKER_COMPOSE) -f docker/it-tools/docker-compose.yml up -d
+
+stop-it-tools:
+	$(DOCKER_COMPOSE) -f docker/it-tools/docker-compose.yml down
+
+update-it-tools: network
+	$(DOCKER_COMPOSE) -f docker/it-tools/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/it-tools/docker-compose.yml up -d
+
+logs-it-tools:
+	$(DOCKER_COMPOSE) -f docker/it-tools/docker-compose.yml logs -f
+
+# ================================
+# Listmonk
+# ================================
+start-listmonk: network
+	$(DOCKER_COMPOSE) -f docker/listmonk/docker-compose.yml up -d
+
+stop-listmonk:
+	$(DOCKER_COMPOSE) -f docker/listmonk/docker-compose.yml down
+
+update-listmonk: network
+	$(DOCKER_COMPOSE) -f docker/listmonk/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/listmonk/docker-compose.yml up -d
+
+logs-listmonk:
+	$(DOCKER_COMPOSE) -f docker/listmonk/docker-compose.yml logs -f
 
 # ================================
 # MariaDB
@@ -180,6 +292,70 @@ update-mariadb: network
 
 logs-mariadb:
 	$(DOCKER_COMPOSE) -f docker/mariadb/docker-compose.yml logs -f
+
+# ================================
+# MongoDB
+# ================================
+start-mongodb: network
+	$(DOCKER_COMPOSE) -f docker/mongodb/docker-compose.yml up -d
+
+stop-mongodb:
+	$(DOCKER_COMPOSE) -f docker/mongodb/docker-compose.yml down
+
+update-mongodb: network
+	$(DOCKER_COMPOSE) -f docker/mongodb/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/mongodb/docker-compose.yml up -d
+
+logs-mongodb:
+	$(DOCKER_COMPOSE) -f docker/mongodb/docker-compose.yml logs -f
+
+# ================================
+# N8N
+# ================================
+start-n8n: network
+	$(DOCKER_COMPOSE) -f docker/n8n/docker-compose.yml up -d
+
+stop-n8n:
+	$(DOCKER_COMPOSE) -f docker/n8n/docker-compose.yml down
+
+update-n8n: network
+	$(DOCKER_COMPOSE) -f docker/n8n/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/n8n/docker-compose.yml up -d
+
+logs-n8n:
+	$(DOCKER_COMPOSE) -f docker/n8n/docker-compose.yml logs -f
+
+# ================================
+# OpenSpeedTest
+# ================================
+start-openspeedtest: network
+	$(DOCKER_COMPOSE) -f docker/openspeedtest/docker-compose.yml up -d
+
+stop-openspeedtest:
+	$(DOCKER_COMPOSE) -f docker/openspeedtest/docker-compose.yml down
+
+update-openspeedtest: network
+	$(DOCKER_COMPOSE) -f docker/openspeedtest/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/openspeedtest/docker-compose.yml up -d
+
+logs-openspeedtest:
+	$(DOCKER_COMPOSE) -f docker/openspeedtest/docker-compose.yml logs -f
+
+# ================================
+# Portainer
+# ================================
+start-portainer: network
+	$(DOCKER_COMPOSE) -f docker/portainer/docker-compose.yml up -d
+
+stop-portainer:
+	$(DOCKER_COMPOSE) -f docker/portainer/docker-compose.yml down
+
+update-portainer: network
+	$(DOCKER_COMPOSE) -f docker/portainer/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/portainer/docker-compose.yml up -d
+
+logs-portainer:
+	$(DOCKER_COMPOSE) -f docker/portainer/docker-compose.yml logs -f
 
 # ================================
 # PostgreSQL
@@ -214,68 +390,20 @@ logs-redis:
 	$(DOCKER_COMPOSE) -f docker/redis/docker-compose.yml logs -f
 
 # ================================
-# MongoDB
+# Ryot
 # ================================
-start-mongodb: network
-	$(DOCKER_COMPOSE) -f docker/mongodb/docker-compose.yml up -d
+start-ryot: network
+	$(DOCKER_COMPOSE) -f docker/ryot/docker-compose.yml up -d
 
-stop-mongodb:
-	$(DOCKER_COMPOSE) -f docker/mongodb/docker-compose.yml down
+stop-ryot:
+	$(DOCKER_COMPOSE) -f docker/ryot/docker-compose.yml down
 
-update-mongodb: network
-	$(DOCKER_COMPOSE) -f docker/mongodb/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/mongodb/docker-compose.yml up -d
+update-ryot: network
+	$(DOCKER_COMPOSE) -f docker/ryot/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/ryot/docker-compose.yml up -d
 
-logs-mongodb:
-	$(DOCKER_COMPOSE) -f docker/mongodb/docker-compose.yml logs -f
-
-# ================================
-# Portainer
-# ================================
-start-portainer: network
-	$(DOCKER_COMPOSE) -f docker/portainer/docker-compose.yml up -d
-
-stop-portainer:
-	$(DOCKER_COMPOSE) -f docker/portainer/docker-compose.yml down
-
-update-portainer: network
-	$(DOCKER_COMPOSE) -f docker/portainer/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/portainer/docker-compose.yml up -d
-
-logs-portainer:
-	$(DOCKER_COMPOSE) -f docker/portainer/docker-compose.yml logs -f
-
-# ================================
-# N8N
-# ================================
-start-n8n: network
-	$(DOCKER_COMPOSE) -f docker/n8n/docker-compose.yml up -d
-
-stop-n8n:
-	$(DOCKER_COMPOSE) -f docker/n8n/docker-compose.yml down
-
-update-n8n: network
-	$(DOCKER_COMPOSE) -f docker/n8n/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/n8n/docker-compose.yml up -d
-
-logs-n8n:
-	$(DOCKER_COMPOSE) -f docker/n8n/docker-compose.yml logs -f
-
-# ================================
-# Actual Budget
-# ================================
-start-actual-budget: network
-	$(DOCKER_COMPOSE) -f docker/actual-budget/docker-compose.yml up -d
-
-stop-actual-budget:
-	$(DOCKER_COMPOSE) -f docker/actual-budget/docker-compose.yml down
-
-update-actual-budget: network
-	$(DOCKER_COMPOSE) -f docker/actual-budget/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/actual-budget/docker-compose.yml up -d
-
-logs-actual-budget:
-	$(DOCKER_COMPOSE) -f docker/actual-budget/docker-compose.yml logs -f
+logs-ryot:
+	$(DOCKER_COMPOSE) -f docker/ryot/docker-compose.yml logs -f
 
 # ================================
 # SerpBear
@@ -294,36 +422,20 @@ logs-serpbear:
 	$(DOCKER_COMPOSE) -f docker/serpbear/docker-compose.yml logs -f
 
 # ================================
-# ChangeDetection
+# SmokePing
 # ================================
-start-changedetection: network
-	$(DOCKER_COMPOSE) -f docker/changedetection/docker-compose.yml up -d
+start-smokeping: network
+	$(DOCKER_COMPOSE) -f docker/smokeping/docker-compose.yml up -d
 
-stop-changedetection:
-	$(DOCKER_COMPOSE) -f docker/changedetection/docker-compose.yml down
+stop-smokeping:
+	$(DOCKER_COMPOSE) -f docker/smokeping/docker-compose.yml down
 
-update-changedetection: network
-	$(DOCKER_COMPOSE) -f docker/changedetection/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/changedetection/docker-compose.yml up -d
+update-smokeping: network
+	$(DOCKER_COMPOSE) -f docker/smokeping/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/smokeping/docker-compose.yml up -d
 
-logs-changedetection:
-	$(DOCKER_COMPOSE) -f docker/changedetection/docker-compose.yml logs -f
-
-# ================================
-# Wallos
-# ================================
-start-wallos: network
-	$(DOCKER_COMPOSE) -f docker/wallos/docker-compose.yml up -d
-
-stop-wallos:
-	$(DOCKER_COMPOSE) -f docker/wallos/docker-compose.yml down
-
-update-wallos: network
-	$(DOCKER_COMPOSE) -f docker/wallos/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/wallos/docker-compose.yml up -d
-
-logs-wallos:
-	$(DOCKER_COMPOSE) -f docker/wallos/docker-compose.yml logs -f
+logs-smokeping:
+	$(DOCKER_COMPOSE) -f docker/smokeping/docker-compose.yml logs -f
 
 # ================================
 # Stirling PDF
@@ -342,86 +454,6 @@ logs-stirling-pdf:
 	$(DOCKER_COMPOSE) -f docker/stirling-pdf/docker-compose.yml logs -f
 
 # ================================
-# Listmonk
-# ================================
-start-listmonk: network
-	$(DOCKER_COMPOSE) -f docker/listmonk/docker-compose.yml up -d
-
-stop-listmonk:
-	$(DOCKER_COMPOSE) -f docker/listmonk/docker-compose.yml down
-
-update-listmonk: network
-	$(DOCKER_COMPOSE) -f docker/listmonk/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/listmonk/docker-compose.yml up -d
-
-logs-listmonk:
-	$(DOCKER_COMPOSE) -f docker/listmonk/docker-compose.yml logs -f
-
-# ================================
-# AdGuard Home
-# ================================
-start-adguard-home: network
-	$(DOCKER_COMPOSE) -f docker/adguard-home/docker-compose.yml up -d
-
-stop-adguard-home:
-	$(DOCKER_COMPOSE) -f docker/adguard-home/docker-compose.yml down
-
-update-adguard-home: network
-	$(DOCKER_COMPOSE) -f docker/adguard-home/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/adguard-home/docker-compose.yml up -d
-
-logs-adguard-home:
-	$(DOCKER_COMPOSE) -f docker/adguard-home/docker-compose.yml logs -f
-
-# ================================
-# Grafana
-# ================================
-start-grafana: network
-	$(DOCKER_COMPOSE) -f docker/grafana/docker-compose.yml up -d
-
-stop-grafana:
-	$(DOCKER_COMPOSE) -f docker/grafana/docker-compose.yml down
-
-update-grafana: network
-	$(DOCKER_COMPOSE) -f docker/grafana/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/grafana/docker-compose.yml up -d
-
-logs-grafana:
-	$(DOCKER_COMPOSE) -f docker/grafana/docker-compose.yml logs -f
-
-# ================================
-# OpenSpeedTest
-# ================================
-start-openspeedtest: network
-	$(DOCKER_COMPOSE) -f docker/openspeedtest/docker-compose.yml up -d
-
-stop-openspeedtest:
-	$(DOCKER_COMPOSE) -f docker/openspeedtest/docker-compose.yml down
-
-update-openspeedtest: network
-	$(DOCKER_COMPOSE) -f docker/openspeedtest/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/openspeedtest/docker-compose.yml up -d
-
-logs-openspeedtest:
-	$(DOCKER_COMPOSE) -f docker/openspeedtest/docker-compose.yml logs -f
-
-# ================================
-# SmokePing
-# ================================
-start-smokeping: network
-	$(DOCKER_COMPOSE) -f docker/smokeping/docker-compose.yml up -d
-
-stop-smokeping:
-	$(DOCKER_COMPOSE) -f docker/smokeping/docker-compose.yml down
-
-update-smokeping: network
-	$(DOCKER_COMPOSE) -f docker/smokeping/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/smokeping/docker-compose.yml up -d
-
-logs-smokeping:
-	$(DOCKER_COMPOSE) -f docker/smokeping/docker-compose.yml logs -f
-
-# ================================
 # Uptime Kuma
 # ================================
 start-uptime-kuma: network
@@ -438,49 +470,17 @@ logs-uptime-kuma:
 	$(DOCKER_COMPOSE) -f docker/uptime-kuma/docker-compose.yml logs -f
 
 # ================================
-# FlareSolverr
+# Wallos
 # ================================
-start-flaresolverr: network
-	$(DOCKER_COMPOSE) -f docker/flaresolverr/docker-compose.yml up -d
+start-wallos: network
+	$(DOCKER_COMPOSE) -f docker/wallos/docker-compose.yml up -d
 
-stop-flaresolverr:
-	$(DOCKER_COMPOSE) -f docker/flaresolverr/docker-compose.yml down
+stop-wallos:
+	$(DOCKER_COMPOSE) -f docker/wallos/docker-compose.yml down
 
-update-flaresolverr: network
-	$(DOCKER_COMPOSE) -f docker/flaresolverr/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/flaresolverr/docker-compose.yml up -d
+update-wallos: network
+	$(DOCKER_COMPOSE) -f docker/wallos/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/wallos/docker-compose.yml up -d
 
-logs-flaresolverr:
-	$(DOCKER_COMPOSE) -f docker/flaresolverr/docker-compose.yml logs -f
-
-# ================================
-# IT Tools
-# ================================
-start-it-tools: network
-	$(DOCKER_COMPOSE) -f docker/it-tools/docker-compose.yml up -d
-
-stop-it-tools:
-	$(DOCKER_COMPOSE) -f docker/it-tools/docker-compose.yml down
-
-update-it-tools: network
-	$(DOCKER_COMPOSE) -f docker/it-tools/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/it-tools/docker-compose.yml up -d
-
-logs-it-tools:
-	$(DOCKER_COMPOSE) -f docker/it-tools/docker-compose.yml logs -f
-
-# ================================
-# Ryot
-# ================================
-start-ryot: network
-	$(DOCKER_COMPOSE) -f docker/ryot/docker-compose.yml up -d
-
-stop-ryot:
-	$(DOCKER_COMPOSE) -f docker/ryot/docker-compose.yml down
-
-update-ryot: network
-	$(DOCKER_COMPOSE) -f docker/ryot/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/ryot/docker-compose.yml up -d
-
-logs-ryot:
-	$(DOCKER_COMPOSE) -f docker/ryot/docker-compose.yml logs -f
+logs-wallos:
+	$(DOCKER_COMPOSE) -f docker/wallos/docker-compose.yml logs -f
