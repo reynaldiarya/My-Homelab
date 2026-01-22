@@ -1,0 +1,24 @@
+services:
+  ryot:
+    image: ignisda/ryot:v10
+    container_name: ryot
+    restart: unless-stopped
+    ports:
+      - ${RYOT_PORT}:8000
+    environment:
+      - TZ=${TZ:-Asia/Jakarta}
+      - FRONTEND_URL=${RYOT_FRONTEND_URL:-http://localhost:8000}
+      - DATABASE_URL=${RYOT_DATABASE_URL:-postgres://root:password@postgres:5432/ryot}
+      - SERVER_ADMIN_ACCESS_TOKEN=${RYOT_SERVER_ADMIN_ACCESS_TOKEN:-Z?fYC-S1TJvbXXQxeA83}
+      - SERVER_IMPORTER_TRAKT_CLIENT_ID=${RYOT_SERVER_IMPORTER_TRAKT_CLIENT_ID}
+      - MOVIES_AND_SHOWS_TMDB_ACCESS_TOKEN=${RYOT_MOVIES_AND_SHOWS_TMDB_ACCESS_TOKEN}
+    networks:
+      - homelab
+    deploy:
+      resources:
+        limits:
+          cpus: ${RYOT_CPU_LIMIT:-0.5}
+          memory: ${RYOT_MEMORY_LIMIT:-512M}
+networks:
+  homelab:
+    external: true

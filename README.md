@@ -44,6 +44,12 @@ A curated collection of Docker Compose configurations for my personal homelab. T
 | [Actual Budget](./docker/actual-budget/) | 5006 | Personal finance manager |
 | [Wallos](./docker/wallos/)               | 8282 | Subscription tracker     |
 
+### Media & Entertainment
+
+| Service                | Port | Description            |
+| ---------------------- | ---- | ---------------------- |
+| [Ryot](./docker/ryot/) | 8800 | Media tracking manager |
+
 ### Tools & Utilities
 
 | Service                                      | Port | Description               |
@@ -52,6 +58,7 @@ A curated collection of Docker Compose configurations for my personal homelab. T
 | [ChangeDetection](./docker/changedetection/) | 5000 | Website change monitoring |
 | [Stirling PDF](./docker/stirling-pdf/)       | 8088 | PDF toolkit               |
 | [FlareSolverr](./docker/flaresolverr/)       | 8191 | Cloudflare bypass proxy   |
+| [IT Tools](./docker/it-tools/)               | 8056 | Developer utilities       |
 
 ### Marketing
 
@@ -142,7 +149,9 @@ My-Homelab/
 │   ├── openspeedtest/
 │   ├── smokeping/
 │   ├── uptime-kuma/
-│   └── flaresolverr/
+│   ├── flaresolverr/
+│   ├── it-tools/
+│   └── ryot/
 ├── .env.example
 ├── .gitignore
 ├── Makefile
@@ -163,7 +172,7 @@ My-Homelab/
 | `make update-<service>` | Update a specific service |
 | `make logs-<service>`   | View service logs         |
 
-**Available services:** `mariadb`, `postgres`, `redis`, `mongodb`, `portainer`, `n8n`, `actual-budget`, `serpbear`, `changedetection`, `wallos`, `stirling-pdf`, `listmonk`, `adguard-home`, `grafana`, `openspeedtest`, `smokeping`, `uptime-kuma`, `flaresolverr`
+**Available services:** `mariadb`, `postgres`, `redis`, `mongodb`, `portainer`, `n8n`, `actual-budget`, `serpbear`, `changedetection`, `wallos`, `stirling-pdf`, `listmonk`, `adguard-home`, `grafana`, `openspeedtest`, `smokeping`, `uptime-kuma`, `flaresolverr`, `it-tools`, `ryot`
 
 ### Examples
 
@@ -214,6 +223,8 @@ MARIADB_MEMORY_LIMIT=2G
 | SmokePing          | 0.5 | 256M   |
 | Uptime Kuma        | 0.5 | 256M   |
 | FlareSolverr       | 1   | 1G     |
+| IT Tools           | 0.5 | 256M   |
+| Ryot               | 0.5 | 512M   |
 
 ## 🔐 Security
 

@@ -22,6 +22,8 @@
 .PHONY: start-smokeping stop-smokeping update-smokeping logs-smokeping
 .PHONY: start-uptime-kuma stop-uptime-kuma update-uptime-kuma logs-uptime-kuma
 .PHONY: start-flaresolverr stop-flaresolverr update-flaresolverr logs-flaresolverr
+.PHONY: start-it-tools stop-it-tools update-it-tools logs-it-tools
+.PHONY: start-ryot stop-ryot update-ryot logs-ryot
 
 
 # Default target
@@ -48,7 +50,7 @@ help:
 	@echo "  mariadb, postgres, redis, mongodb, portainer,"
 	@echo "  n8n, actual-budget, serpbear, changedetection,"
 	@echo "  wallos, stirling-pdf, listmonk, adguard-home,"
-	@echo "  flaresolverr,"
+	@echo "  flaresolverr, it-tools, ryot,"
 	@echo "  grafana, openspeedtest, smokeping, uptime-kuma"
 	@echo ""
 	@echo "Examples:"
@@ -85,6 +87,8 @@ start-all: network
 	docker compose -f docker/smokeping/docker-compose.yml up -d
 	docker compose -f docker/uptime-kuma/docker-compose.yml up -d
 	docker compose -f docker/flaresolverr/docker-compose.yml up -d
+	docker compose -f docker/it-tools/docker-compose.yml up -d
+	docker compose -f docker/ryot/docker-compose.yml up -d
 	@echo "✅ All services started!"
 
 stop-all:
@@ -107,6 +111,8 @@ stop-all:
 	docker compose -f docker/smokeping/docker-compose.yml down
 	docker compose -f docker/uptime-kuma/docker-compose.yml down
 	docker compose -f docker/flaresolverr/docker-compose.yml down
+	docker compose -f docker/it-tools/docker-compose.yml down
+	docker compose -f docker/ryot/docker-compose.yml down
 	@echo "✅ All services stopped!"
 
 update-all: network
@@ -147,6 +153,10 @@ update-all: network
 	docker compose -f docker/uptime-kuma/docker-compose.yml up -d
 	docker compose -f docker/flaresolverr/docker-compose.yml pull
 	docker compose -f docker/flaresolverr/docker-compose.yml up -d
+	docker compose -f docker/it-tools/docker-compose.yml pull
+	docker compose -f docker/it-tools/docker-compose.yml up -d
+	docker compose -f docker/ryot/docker-compose.yml pull
+	docker compose -f docker/ryot/docker-compose.yml up -d
 	@echo "✅ All services updated!"
 
 logs-all:
@@ -439,3 +449,35 @@ update-flaresolverr: network
 
 logs-flaresolverr:
 	docker compose -f docker/flaresolverr/docker-compose.yml logs -f
+
+# ================================
+# IT Tools
+# ================================
+start-it-tools: network
+	docker compose -f docker/it-tools/docker-compose.yml up -d
+
+stop-it-tools:
+	docker compose -f docker/it-tools/docker-compose.yml down
+
+update-it-tools: network
+	docker compose -f docker/it-tools/docker-compose.yml pull
+	docker compose -f docker/it-tools/docker-compose.yml up -d
+
+logs-it-tools:
+	docker compose -f docker/it-tools/docker-compose.yml logs -f
+
+# ================================
+# Ryot
+# ================================
+start-ryot: network
+	docker compose -f docker/ryot/docker-compose.yml up -d
+
+stop-ryot:
+	docker compose -f docker/ryot/docker-compose.yml down
+
+update-ryot: network
+	docker compose -f docker/ryot/docker-compose.yml pull
+	docker compose -f docker/ryot/docker-compose.yml up -d
+
+logs-ryot:
+	docker compose -f docker/ryot/docker-compose.yml logs -f
