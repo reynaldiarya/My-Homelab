@@ -240,6 +240,16 @@ MARIADB_MEMORY_LIMIT=2G
 - Default ports can be changed via environment variables
 - Global timezone is configured via `TZ` variable in `.env`
 
-## 📄 License
+## �‍💻 Development
+
+### Formatting
+
+To format all `docker-compose.yml` files:
+
+```bash
+npx prettier --write "docker/**/*.yml"
+```
+
+## �📄 License
 
 MIT License - Free to use and modify
