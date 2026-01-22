@@ -1,18 +1,18 @@
 services:
-    openspeedtest:
-        image: openspeedtest/latest
-        container_name: openspeedtest
-        restart: unless-stopped
-        ports:
-            - "${OPENSPEEDTEST_PORT:-3000}:3000"
-        networks:
-            - homelab
-        deploy:
-            resources:
-                limits:
-                    cpus: "${OPENSPEEDTEST_CPU_LIMIT:-0.5}"
-                    memory: ${OPENSPEEDTEST_MEMORY_LIMIT:-256M}
+  openspeedtest:
+    image: openspeedtest/latest
+    container_name: openspeedtest
+    restart: unless-stopped
+    ports:
+      - "${OPENSPEEDTEST_PORT:-3000}:3000"
+    networks:
+      - homelab
+    deploy:
+      resources:
+        limits:
+          cpus: "${OPENSPEEDTEST_CPU_LIMIT:-0.5}"
+          memory: ${OPENSPEEDTEST_MEMORY_LIMIT:-256M}
 
 networks:
-    homelab:
-        external: true
+  homelab:
+    external: true

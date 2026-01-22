@@ -8,7 +8,12 @@ services:
     networks:
       - homelab
     hostname: listmonk.example.com
-    command: [ sh, -c, "./listmonk --install --idempotent --yes --config '' && ./listmonk --upgrade --yes --config '' && ./listmonk --config ''" ]
+    command:
+      [
+        sh,
+        -c,
+        "./listmonk --install --idempotent --yes --config '' && ./listmonk --upgrade --yes --config '' && ./listmonk --config ''",
+      ]
     environment:
       LISTMONK_app__address: 0.0.0.0:9000
       LISTMONK_db__user: ${LISTMONK_DB_USER:-root}
