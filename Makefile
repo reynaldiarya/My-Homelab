@@ -19,6 +19,7 @@ DOCKER_COMPOSE = docker compose --env-file .env
 .PHONY: start-mongodb stop-mongodb update-mongodb logs-mongodb
 .PHONY: start-n8n stop-n8n update-n8n logs-n8n
 .PHONY: start-ollama stop-ollama update-ollama logs-ollama
+.PHONY: start-open-webui stop-open-webui update-open-webui logs-open-webui
 .PHONY: start-openspeedtest stop-openspeedtest update-openspeedtest logs-openspeedtest
 .PHONY: start-portainer stop-portainer update-portainer logs-portainer
 .PHONY: start-postgres stop-postgres update-postgres logs-postgres
@@ -53,9 +54,9 @@ help:
 	@echo "Available services (A-Z):"
 	@echo "  actual-budget, adguard-home, changedetection,"
 	@echo "  flaresolverr, grafana, it-tools, listmonk,"
-	@echo "  mariadb, mongodb, n8n, ollama, openspeedtest,"
-	@echo "  portainer, postgres, redis, ryot, serpbear, smokeping,"
-	@echo "  stirling-pdf, uptime-kuma, wallos"
+	@echo "  mariadb, mongodb, n8n, ollama, open-webui,"
+	@echo "  openspeedtest, portainer, postgres, redis, ryot,"
+	@echo "  serpbear, smokeping, stirling-pdf, uptime-kuma, wallos"
 	@echo ""
 	@echo "Examples:"
 	@echo "  make start-mariadb"
@@ -341,6 +342,22 @@ update-ollama: network
 
 logs-ollama:
 	$(DOCKER_COMPOSE) -f docker/ollama/docker-compose.yml logs -f
+
+# ================================
+# Open WebUI
+# ================================
+start-open-webui: network
+	$(DOCKER_COMPOSE) -f docker/open-webui/docker-compose.yml up -d
+
+stop-open-webui:
+	$(DOCKER_COMPOSE) -f docker/open-webui/docker-compose.yml down
+
+update-open-webui: network
+	$(DOCKER_COMPOSE) -f docker/open-webui/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/open-webui/docker-compose.yml up -d
+
+logs-open-webui:
+	$(DOCKER_COMPOSE) -f docker/open-webui/docker-compose.yml logs -f
 
 # ================================
 # OpenSpeedTest

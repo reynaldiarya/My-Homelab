@@ -46,9 +46,10 @@ A curated collection of Docker Compose configurations for my personal homelab. T
 
 ### AI & Machine Learning
 
-| Service                    | Port  | Description                    |
-| -------------------------- | ----- | ------------------------------ |
-| [Ollama](./docker/ollama/) | 11434 | Local LLM server (GPU support) |
+| Service                            | Port  | Description                    |
+| ---------------------------------- | ----- | ------------------------------ |
+| [Ollama](./docker/ollama/)         | 11434 | Local LLM server (GPU support) |
+| [Open WebUI](./docker/open-webui/) | 3000  | Web UI for Ollama              |
 
 ### Media & Entertainment
 
@@ -144,6 +145,7 @@ My-Homelab/
 │   ├── mongodb/
 │   ├── n8n/
 │   ├── ollama/
+│   ├── open-webui/
 │   ├── portainer/
 │   ├── postgres/
 │   ├── redis/
@@ -179,7 +181,7 @@ My-Homelab/
 | `make update-<service>` | Update a specific service |
 | `make logs-<service>`   | View service logs         |
 
-**Available services:** `mariadb`, `postgres`, `redis`, `mongodb`, `portainer`, `n8n`, `ollama`, `actual-budget`, `serpbear`, `changedetection`, `wallos`, `stirling-pdf`, `listmonk`, `adguard-home`, `grafana`, `openspeedtest`, `smokeping`, `uptime-kuma`, `flaresolverr`, `it-tools`, `ryot`
+**Available services:** `mariadb`, `postgres`, `redis`, `mongodb`, `portainer`, `n8n`, `ollama`, `open-webui`, `actual-budget`, `serpbear`, `changedetection`, `wallos`, `stirling-pdf`, `listmonk`, `adguard-home`, `grafana`, `openspeedtest`, `smokeping`, `uptime-kuma`, `flaresolverr`, `it-tools`, `ryot`
 
 ### Examples
 
@@ -233,6 +235,7 @@ MARIADB_MEMORY_LIMIT=2G
 | IT Tools           | 0.5 | 256M   |
 | Ryot               | 0.5 | 512M   |
 | Ollama             | 4   | 8G     |
+| Open WebUI         | 1   | 1G     |
 
 ## 🔐 Security
 
