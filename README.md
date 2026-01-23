@@ -44,6 +44,12 @@ A curated collection of Docker Compose configurations for my personal homelab. T
 | [Actual Budget](./docker/actual-budget/) | 5006 | Personal finance manager |
 | [Wallos](./docker/wallos/)               | 8282 | Subscription tracker     |
 
+### AI & Machine Learning
+
+| Service                    | Port  | Description                    |
+| -------------------------- | ----- | ------------------------------ |
+| [Ollama](./docker/ollama/) | 11434 | Local LLM server (GPU support) |
+
 ### Media & Entertainment
 
 | Service                | Port | Description            |
@@ -137,6 +143,7 @@ My-Homelab/
 │   ├── mariadb/
 │   ├── mongodb/
 │   ├── n8n/
+│   ├── ollama/
 │   ├── portainer/
 │   ├── postgres/
 │   ├── redis/
@@ -172,7 +179,7 @@ My-Homelab/
 | `make update-<service>` | Update a specific service |
 | `make logs-<service>`   | View service logs         |
 
-**Available services:** `mariadb`, `postgres`, `redis`, `mongodb`, `portainer`, `n8n`, `actual-budget`, `serpbear`, `changedetection`, `wallos`, `stirling-pdf`, `listmonk`, `adguard-home`, `grafana`, `openspeedtest`, `smokeping`, `uptime-kuma`, `flaresolverr`, `it-tools`, `ryot`
+**Available services:** `mariadb`, `postgres`, `redis`, `mongodb`, `portainer`, `n8n`, `ollama`, `actual-budget`, `serpbear`, `changedetection`, `wallos`, `stirling-pdf`, `listmonk`, `adguard-home`, `grafana`, `openspeedtest`, `smokeping`, `uptime-kuma`, `flaresolverr`, `it-tools`, `ryot`
 
 ### Examples
 
@@ -225,6 +232,7 @@ MARIADB_MEMORY_LIMIT=2G
 | FlareSolverr       | 1   | 1G     |
 | IT Tools           | 0.5 | 256M   |
 | Ryot               | 0.5 | 512M   |
+| Ollama             | 4   | 8G     |
 
 ## 🔐 Security
 

@@ -18,6 +18,7 @@ DOCKER_COMPOSE = docker compose --env-file .env
 .PHONY: start-mariadb stop-mariadb update-mariadb logs-mariadb
 .PHONY: start-mongodb stop-mongodb update-mongodb logs-mongodb
 .PHONY: start-n8n stop-n8n update-n8n logs-n8n
+.PHONY: start-ollama stop-ollama update-ollama logs-ollama
 .PHONY: start-openspeedtest stop-openspeedtest update-openspeedtest logs-openspeedtest
 .PHONY: start-portainer stop-portainer update-portainer logs-portainer
 .PHONY: start-postgres stop-postgres update-postgres logs-postgres
@@ -52,8 +53,8 @@ help:
 	@echo "Available services (A-Z):"
 	@echo "  actual-budget, adguard-home, changedetection,"
 	@echo "  flaresolverr, grafana, it-tools, listmonk,"
-	@echo "  mariadb, mongodb, n8n, openspeedtest, portainer,"
-	@echo "  postgres, redis, ryot, serpbear, smokeping,"
+	@echo "  mariadb, mongodb, n8n, ollama, openspeedtest,"
+	@echo "  portainer, postgres, redis, ryot, serpbear, smokeping,"
 	@echo "  stirling-pdf, uptime-kuma, wallos"
 	@echo ""
 	@echo "Examples:"
@@ -324,6 +325,22 @@ update-n8n: network
 
 logs-n8n:
 	$(DOCKER_COMPOSE) -f docker/n8n/docker-compose.yml logs -f
+
+# ================================
+# Ollama
+# ================================
+start-ollama: network
+	$(DOCKER_COMPOSE) -f docker/ollama/docker-compose.yml up -d
+
+stop-ollama:
+	$(DOCKER_COMPOSE) -f docker/ollama/docker-compose.yml down
+
+update-ollama: network
+	$(DOCKER_COMPOSE) -f docker/ollama/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/ollama/docker-compose.yml up -d
+
+logs-ollama:
+	$(DOCKER_COMPOSE) -f docker/ollama/docker-compose.yml logs -f
 
 # ================================
 # OpenSpeedTest

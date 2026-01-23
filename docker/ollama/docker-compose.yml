@@ -1,0 +1,33 @@
+services:
+  ollama:
+    image: ollama/ollama #If you have a amd gpu use ollama/ollama:rocm
+    container_name: ollama
+    volumes:
+      - ollama_data:/root/.ollama
+    ports:
+      - ${OLLAMA_PORT:-11434}:11434
+    restart: unless-stopped
+    ## AMD GPU Support (ROCm) ##
+    # devices:
+    #   - /dev/kfd:/dev/kfd
+    #   - /dev/dri:/dev/dri
+    # environment:
+    #   - HSA_OVERRIDE_GFX_VERSION=${OLLAMA_HSA_OVERRIDE_GFX_VERSION:-10.3.0}
+    deploy:
+      resources:
+        ## NVIDIA GPU Support ##
+        # reservations:
+        #   devices:
+        #     - driver: nvidia
+        #       count: all
+        #       capabilities: [gpu]
+        limits:
+          cpus: "${OLLAMA_CPU_LIMIT:-4}"
+          memory: ${OLLAMA_MEMORY_LIMIT:-8G}
+
+networks:
+  homelab:
+    external: true
+
+volumes:
+  ollama_data:
