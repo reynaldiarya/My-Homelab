@@ -29,6 +29,8 @@ services:
     container_name: browser-sockpuppet-chrome
     hostname: browser-sockpuppet-chrome
     restart: unless-stopped
+    ports:
+      - "${SOCKPUPPET_PORT:-3000}:3000"
     cap_add:
       - SYS_ADMIN
     environment:
