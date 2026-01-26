@@ -79,6 +79,7 @@ A curated collection of Docker Compose configurations for my personal homelab. T
 | ---------------------------------------- | ---- | --------------------- |
 | [AdGuard Home](./docker/adguard-home/)   | 80   | DNS ad blocker        |
 | [OpenSpeedTest](./docker/openspeedtest/) | 3002 | Network speed testing |
+| [Socks5](./docker/socks5/)               | 1080 | SOCKS5 proxy server   |
 
 ## 🚀 Quick Start
 
@@ -181,7 +182,7 @@ My-Homelab/
 | `make update-<service>` | Update a specific service |
 | `make logs-<service>`   | View service logs         |
 
-**Available services:** `mariadb`, `postgres`, `redis`, `mongodb`, `portainer`, `n8n`, `ollama`, `open-webui`, `actual-budget`, `serpbear`, `changedetection`, `wallos`, `stirling-pdf`, `listmonk`, `adguard-home`, `grafana`, `openspeedtest`, `smokeping`, `uptime-kuma`, `flaresolverr`, `it-tools`, `ryot`
+**Available services:** `mariadb`, `postgres`, `redis`, `mongodb`, `portainer`, `n8n`, `ollama`, `open-webui`, `actual-budget`, `serpbear`, `changedetection`, `wallos`, `stirling-pdf`, `listmonk`, `adguard-home`, `grafana`, `openspeedtest`, `smokeping`, `uptime-kuma`, `flaresolverr`, `it-tools`, `ryot`, `socks5`
 
 ### Examples
 
@@ -234,6 +235,7 @@ MARIADB_MEMORY_LIMIT=2G
 | FlareSolverr       | 1   | 1G     |
 | IT Tools           | 0.5 | 256M   |
 | Ryot               | 0.5 | 512M   |
+| Socks5             | 0.5 | 512M   |
 | Ollama             | 4   | 8G     |
 | Open WebUI         | 1   | 1G     |
 

@@ -27,6 +27,7 @@ DOCKER_COMPOSE = docker compose --env-file .env
 .PHONY: start-ryot stop-ryot update-ryot logs-ryot
 .PHONY: start-serpbear stop-serpbear update-serpbear logs-serpbear
 .PHONY: start-smokeping stop-smokeping update-smokeping logs-smokeping
+.PHONY: start-socks5 stop-socks5 update-socks5 logs-socks5
 .PHONY: start-stirling-pdf stop-stirling-pdf update-stirling-pdf logs-stirling-pdf
 .PHONY: start-uptime-kuma stop-uptime-kuma update-uptime-kuma logs-uptime-kuma
 .PHONY: start-wallos stop-wallos update-wallos logs-wallos
@@ -56,7 +57,7 @@ help:
 	@echo "  flaresolverr, grafana, it-tools, listmonk,"
 	@echo "  mariadb, mongodb, n8n, ollama, open-webui,"
 	@echo "  openspeedtest, portainer, postgres, redis, ryot,"
-	@echo "  serpbear, smokeping, stirling-pdf, uptime-kuma, wallos"
+	@echo "  serpbear, smokeping, socks5, stirling-pdf, uptime-kuma, wallos"
 	@echo ""
 	@echo "Examples:"
 	@echo "  make start-mariadb"
@@ -91,6 +92,7 @@ start-all: network
 	$(DOCKER_COMPOSE) -f docker/ryot/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/serpbear/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/smokeping/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/socks5/docker-compose.yaml up -d
 	$(DOCKER_COMPOSE) -f docker/stirling-pdf/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/uptime-kuma/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/wallos/docker-compose.yml up -d
@@ -115,6 +117,7 @@ stop-all:
 	$(DOCKER_COMPOSE) -f docker/ryot/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/serpbear/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/smokeping/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/socks5/docker-compose.yaml down
 	$(DOCKER_COMPOSE) -f docker/stirling-pdf/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/uptime-kuma/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/wallos/docker-compose.yml down
@@ -156,6 +159,8 @@ update-all: network
 	$(DOCKER_COMPOSE) -f docker/serpbear/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/smokeping/docker-compose.yml pull
 	$(DOCKER_COMPOSE) -f docker/smokeping/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/socks5/docker-compose.yaml pull
+	$(DOCKER_COMPOSE) -f docker/socks5/docker-compose.yaml up -d
 	$(DOCKER_COMPOSE) -f docker/stirling-pdf/docker-compose.yml pull
 	$(DOCKER_COMPOSE) -f docker/stirling-pdf/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/uptime-kuma/docker-compose.yml pull
@@ -470,6 +475,22 @@ update-smokeping: network
 
 logs-smokeping:
 	$(DOCKER_COMPOSE) -f docker/smokeping/docker-compose.yml logs -f
+
+# ================================
+# Socks5
+# ================================
+start-socks5: network
+	$(DOCKER_COMPOSE) -f docker/socks5/docker-compose.yaml up -d
+
+stop-socks5:
+	$(DOCKER_COMPOSE) -f docker/socks5/docker-compose.yaml down
+
+update-socks5: network
+	$(DOCKER_COMPOSE) -f docker/socks5/docker-compose.yaml pull
+	$(DOCKER_COMPOSE) -f docker/socks5/docker-compose.yaml up -d
+
+logs-socks5:
+	$(DOCKER_COMPOSE) -f docker/socks5/docker-compose.yaml logs -f
 
 # ================================
 # Stirling PDF

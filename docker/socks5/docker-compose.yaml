@@ -1,0 +1,21 @@
+services:
+  socks5:
+    image: serjs/go-socks5-proxy
+    container_name: socks5
+    ports:
+      - ${SOCKS5_PORT:-1080}:1080
+    restart: unless-stopped
+    environment:
+      - PROXY_USER=${SOCKS5_USER:-your_username}
+      - PROXY_PASSWORD=${SOCKS5_PASSWORD:-your_password}
+    networks:
+      - homelab
+    deploy:
+      resources:
+        limits:
+          cpus: "${SOCKS5_CPU_LIMIT:-0.5}"
+          memory: ${SOCKS5_MEMORY_LIMIT:-512M}
+
+networks:
+  homelab:
+    external: true
