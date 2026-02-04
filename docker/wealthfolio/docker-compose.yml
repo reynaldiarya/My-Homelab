@@ -1,0 +1,27 @@
+services:
+  wealthfolio:
+    image: afadil/wealthfolio:latest
+    container_name: wealthfolio
+    restart: unless-stopped
+    ports:
+      - "${WEALTHFOLIO_PORT:-8088}:8088"
+    environment:
+      WF_LISTEN_ADDR: 0.0.0.0:8088
+      WF_DB_PATH: /data/wealthfolio.db
+      WF_SECRET_KEY: ${WEALTHFOLIO_SECRET_KEY}
+    volumes:
+      - wealthfolio_data:/data
+    networks:
+      - homelab
+    deploy:
+      resources:
+        limits:
+          cpus: "${WEALTHFOLIO_CPU_LIMIT:-0.5}"
+          memory: ${WEALTHFOLIO_MEMORY_LIMIT:-512M}
+
+networks:
+  homelab:
+    external: true
+
+volumes:
+  wealthfolio_data:

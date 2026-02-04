@@ -43,6 +43,7 @@ A curated collection of Docker Compose configurations for my personal homelab. T
 | ---------------------------------------- | ---- | ------------------------ |
 | [Actual Budget](./docker/actual-budget/) | 5006 | Personal finance manager |
 | [Wallos](./docker/wallos/)               | 8282 | Subscription tracker     |
+| [Wealthfolio](./docker/wealthfolio/)     | 8088 | Investment tracker       |
 
 ### AI & Machine Learning
 
@@ -161,7 +162,8 @@ My-Homelab/
 │   ├── uptime-kuma/
 │   ├── flaresolverr/
 │   ├── it-tools/
-│   └── ryot/
+│   ├── ryot/
+│   └── wealthfolio/
 ├── .env.example
 ├── .gitignore
 ├── Makefile
@@ -182,7 +184,7 @@ My-Homelab/
 | `make update-<service>` | Update a specific service |
 | `make logs-<service>`   | View service logs         |
 
-**Available services:** `mariadb`, `postgres`, `redis`, `mongodb`, `portainer`, `n8n`, `ollama`, `open-webui`, `actual-budget`, `serpbear`, `changedetection`, `wallos`, `stirling-pdf`, `listmonk`, `adguard-home`, `grafana`, `openspeedtest`, `smokeping`, `uptime-kuma`, `flaresolverr`, `it-tools`, `ryot`, `socks5`
+**Available services:** `mariadb`, `postgres`, `redis`, `mongodb`, `portainer`, `n8n`, `ollama`, `open-webui`, `actual-budget`, `serpbear`, `changedetection`, `wallos`, `wealthfolio`, `stirling-pdf`, `listmonk`, `adguard-home`, `grafana`, `openspeedtest`, `smokeping`, `uptime-kuma`, `flaresolverr`, `it-tools`, `ryot`, `socks5`
 
 ### Examples
 
@@ -238,6 +240,7 @@ MARIADB_MEMORY_LIMIT=2G
 | Socks5             | 0.5 | 512M   |
 | Ollama             | 4   | 8G     |
 | Open WebUI         | 1   | 1G     |
+| Wealthfolio        | 0.5 | 512M   |
 
 ## 🔐 Security
 

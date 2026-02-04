@@ -31,6 +31,7 @@ DOCKER_COMPOSE = docker compose --env-file .env
 .PHONY: start-stirling-pdf stop-stirling-pdf update-stirling-pdf logs-stirling-pdf
 .PHONY: start-uptime-kuma stop-uptime-kuma update-uptime-kuma logs-uptime-kuma
 .PHONY: start-wallos stop-wallos update-wallos logs-wallos
+.PHONY: start-wealthfolio stop-wealthfolio update-wealthfolio logs-wealthfolio
 
 # Default target
 help:
@@ -57,7 +58,8 @@ help:
 	@echo "  flaresolverr, grafana, it-tools, listmonk,"
 	@echo "  mariadb, mongodb, n8n, ollama, open-webui,"
 	@echo "  openspeedtest, portainer, postgres, redis, ryot,"
-	@echo "  serpbear, smokeping, socks5, stirling-pdf, uptime-kuma, wallos"
+	@echo "  serpbear, smokeping, socks5, stirling-pdf, uptime-kuma, wallos,"
+	@echo "  wealthfolio"
 	@echo ""
 	@echo "Examples:"
 	@echo "  make start-mariadb"
@@ -96,6 +98,7 @@ start-all: network
 	$(DOCKER_COMPOSE) -f docker/stirling-pdf/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/uptime-kuma/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/wallos/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/wealthfolio/docker-compose.yml up -d
 	@echo "✅ All services started!"
 
 stop-all:
@@ -121,6 +124,7 @@ stop-all:
 	$(DOCKER_COMPOSE) -f docker/stirling-pdf/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/uptime-kuma/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/wallos/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/wealthfolio/docker-compose.yml down
 	@echo "✅ All services stopped!"
 
 update-all: network
@@ -167,6 +171,8 @@ update-all: network
 	$(DOCKER_COMPOSE) -f docker/uptime-kuma/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/wallos/docker-compose.yml pull
 	$(DOCKER_COMPOSE) -f docker/wallos/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/wealthfolio/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/wealthfolio/docker-compose.yml up -d
 	@echo "✅ All services updated!"
 
 logs-all:
@@ -539,3 +545,19 @@ update-wallos: network
 
 logs-wallos:
 	$(DOCKER_COMPOSE) -f docker/wallos/docker-compose.yml logs -f
+
+# ================================
+# Wealthfolio
+# ================================
+start-wealthfolio: network
+	$(DOCKER_COMPOSE) -f docker/wealthfolio/docker-compose.yml up -d
+
+stop-wealthfolio:
+	$(DOCKER_COMPOSE) -f docker/wealthfolio/docker-compose.yml down
+
+update-wealthfolio: network
+	$(DOCKER_COMPOSE) -f docker/wealthfolio/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/wealthfolio/docker-compose.yml up -d
+
+logs-wealthfolio:
+	$(DOCKER_COMPOSE) -f docker/wealthfolio/docker-compose.yml logs -f
