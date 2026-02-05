@@ -26,64 +26,64 @@ A curated collection of Docker Compose configurations for my personal homelab. T
 
 | Service                              | Port | Description                   |
 | ------------------------------------ | ---- | ----------------------------- |
-| [Portainer](./docker/portainer/)     | 9443 | Docker management UI          |
-| [Homepage](./docker/homepage/)       | 3000 | Application dashboard         |
-| [Beszel](./docker/beszel/)           | 8090 | Lightweight server monitoring |
-| [Grafana](./docker/grafana/)         | 3330 | Metrics visualization         |
-| [Uptime Kuma](./docker/uptime-kuma/) | 3001 | Uptime monitoring             |
-| [SmokePing](./docker/smokeping/)     | 8080 | Network latency monitor       |
+| [Portainer](./docker/portainer/)     | 9490 | Docker management UI          |
+| [Homepage](./docker/homepage/)       | 3090 | Application dashboard         |
+| [Beszel](./docker/beszel/)           | 8093 | Lightweight server monitoring |
+| [Grafana](./docker/grafana/)         | 3091 | Metrics visualization         |
+| [Uptime Kuma](./docker/uptime-kuma/) | 3096 | Uptime monitoring             |
+| [SmokePing](./docker/smokeping/)     | 8097 | Network latency monitor       |
 
 ### Automation
 
 | Service              | Port | Description                  |
 | -------------------- | ---- | ---------------------------- |
-| [N8N](./docker/n8n/) | 5678 | Workflow automation platform |
+| [N8N](./docker/n8n/) | 5690 | Workflow automation platform |
 
 ### Finance
 
 | Service                                  | Port | Description              |
 | ---------------------------------------- | ---- | ------------------------ |
-| [Actual Budget](./docker/actual-budget/) | 5006 | Personal finance manager |
-| [Wallos](./docker/wallos/)               | 8282 | Subscription tracker     |
-| [Wealthfolio](./docker/wealthfolio/)     | 8088 | Investment tracker       |
+| [Actual Budget](./docker/actual-budget/) | 5096 | Personal finance manager |
+| [Wallos](./docker/wallos/)               | 8290 | Subscription tracker     |
+| [Wealthfolio](./docker/wealthfolio/)     | 8094 | Investment tracker       |
 
 ### AI & Machine Learning
 
 | Service                            | Port  | Description                    |
 | ---------------------------------- | ----- | ------------------------------ |
 | [Ollama](./docker/ollama/)         | 11434 | Local LLM server (GPU support) |
-| [Open WebUI](./docker/open-webui/) | 3000  | Web UI for Ollama              |
+| [Open WebUI](./docker/open-webui/) | 3092  | Web UI for Ollama              |
 
 ### Media & Entertainment
 
 | Service                | Port | Description            |
 | ---------------------- | ---- | ---------------------- |
-| [Ryot](./docker/ryot/) | 8800 | Media tracking manager |
+| [Ryot](./docker/ryot/) | 8091 | Media tracking manager |
 
 ### Tools & Utilities
 
 | Service                                      | Port | Description                 |
 | -------------------------------------------- | ---- | --------------------------- |
-| [SerpBear](./docker/serpbear/)               | 3000 | SEO rank tracking           |
-| [Bugsink](./docker/bugsink/)                 | 8000 | Error tracking (Sentry alt) |
-| [Excalidraw](./docker/excalidraw/)           | 5000 | Virtual whiteboard          |
-| [ChangeDetection](./docker/changedetection/) | 5000 | Website change monitoring   |
-| [Stirling PDF](./docker/stirling-pdf/)       | 8088 | PDF toolkit                 |
+| [SerpBear](./docker/serpbear/)               | 3093 | SEO rank tracking           |
+| [Bugsink](./docker/bugsink/)                 | 8090 | Error tracking (Sentry alt) |
+| [Excalidraw](./docker/excalidraw/)           | 5090 | Virtual whiteboard          |
+| [ChangeDetection](./docker/changedetection/) | 5091 | Website change monitoring   |
+| [Stirling PDF](./docker/stirling-pdf/)       | 8092 | PDF toolkit                 |
 | [FlareSolverr](./docker/flaresolverr/)       | 8191 | Cloudflare bypass proxy     |
-| [IT Tools](./docker/it-tools/)               | 8056 | Developer utilities         |
+| [IT Tools](./docker/it-tools/)               | 8095 | Developer utilities         |
 
 ### Marketing
 
 | Service                        | Port | Description                       |
 | ------------------------------ | ---- | --------------------------------- |
-| [Listmonk](./docker/listmonk/) | 9000 | Newsletter & mailing list manager |
+| [Listmonk](./docker/listmonk/) | 9090 | Newsletter & mailing list manager |
 
 ### Networking
 
 | Service                                  | Port | Description           |
 | ---------------------------------------- | ---- | --------------------- |
-| [AdGuard Home](./docker/adguard-home/)   | 80   | DNS ad blocker        |
-| [OpenSpeedTest](./docker/openspeedtest/) | 3002 | Network speed testing |
+| [AdGuard Home](./docker/adguard-home/)   | 8096 | DNS ad blocker        |
+| [OpenSpeedTest](./docker/openspeedtest/) | 3094 | Network speed testing |
 | [Socks5](./docker/socks5/)               | 1080 | SOCKS5 proxy server   |
 
 ## 🚀 Quick Start

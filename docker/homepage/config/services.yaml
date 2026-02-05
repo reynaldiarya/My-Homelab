@@ -2,25 +2,25 @@
 - System:
     - Beszel:
         icon: sh-beszel.png
-        href: http://localhost:8090
+        href: http://localhost:{{HOMEPAGE_VAR_BESZEL_PORT}}
         description: Lightweight Monitoring
     - Grafana:
         icon: sh-grafana.png
-        href: http://localhost:3000
+        href: http://localhost:{{HOMEPAGE_VAR_GRAFANA_PORT}}
         description: Metrics Dashboard
 
 - Network:
     - AdGuard Home:
         icon: sh-adguard-home.png
-        href: http://localhost:80
+        href: http://localhost:{{HOMEPAGE_VAR_ADGUARD_HOME_PORT}}
         description: DNS Blocker
     - Uptime Kuma:
         icon: sh-uptime-kuma.png
-        href: http://localhost:3001
+        href: http://localhost:{{HOMEPAGE_VAR_UPTIME_KUMA_PORT}}
         description: Uptime Monitor
     - Smokeping:
         icon: sh-smokeping.png
-        href: http://localhost:8888
+        href: http://localhost:{{HOMEPAGE_VAR_SMOKEPING_PORT}}
         description: Latency Monitor
     - Socks5:
         icon: mdi-security-network
@@ -30,85 +30,85 @@
 - Finance:
     - Actual Budget:
         icon: sh-actual-budget.png
-        href: http://localhost:5006
+        href: http://localhost:{{HOMEPAGE_VAR_ACTUAL_BUDGET_PORT}}
         description: Budgeting App
     - Wallos:
         icon: sh-wallos.png
-        href: http://localhost:8091
+        href: http://localhost:{{HOMEPAGE_VAR_WALLOS_PORT}}
         description: Subscription Tracker
     - Wealthfolio:
         icon: sh-wealthfolio.png
-        href: http://localhost:8088
+        href: http://localhost:{{HOMEPAGE_VAR_WEALTHFOLIO_PORT}}
         description: Investment Tracker
 
 # Tools Group
 - Tools:
     - Bugsink:
         icon: sh-bugsink.png
-        href: http://localhost:8000
+        href: http://localhost:{{HOMEPAGE_VAR_BUGSINK_PORT}}
         description: Error Tracking
     - Excalidraw:
         icon: sh-excalidraw.png
-        href: http://localhost:5000
+        href: http://localhost:{{HOMEPAGE_VAR_EXCALIDRAW_PORT}}
         description: Whiteboard
     - IT Tools:
         icon: sh-it-tools.png
-        href: http://localhost:8080
+        href: http://localhost:{{HOMEPAGE_VAR_IT_TOOLS_PORT}}
         description: Developer Tools
     - Stirling PDF:
         icon: sh-stirling-pdf.png
-        href: http://localhost:8080
+        href: http://localhost:{{HOMEPAGE_VAR_STIRLING_PDF_PORT}}
         description: PDF Tools
     - ChangeDetection:
         icon: sh-changedetection.png
-        href: http://localhost:5000
+        href: http://localhost:{{HOMEPAGE_VAR_CHANGEDETECTION_PORT}}
         description: Web Monitor
     - FlareSolverr:
         icon: sh-flaresolverr.png
-        href: http://localhost:8191
+        href: http://localhost:{{HOMEPAGE_VAR_FLARESOLVERR_PORT}}
         description: Captcha Solver
     - SerpBear:
         icon: sh-serpbear.png
-        href: http://localhost:3000
+        href: http://localhost:{{HOMEPAGE_VAR_SERPBEAR_PORT}}
         description: SEO Tracker
 
 # AI Group
 - AI:
     - Ollama:
         icon: sh-ollama.png
-        href: http://localhost:11434
+        href: http://localhost:{{HOMEPAGE_VAR_OLLAMA_PORT}}
         description: LLM Server
     - Open WebUI:
         icon: sh-open-webui.png
-        href: http://localhost:3000
+        href: http://localhost:{{HOMEPAGE_VAR_OPEN_WEBUI_PORT}}
         description: AI Chat Interface
 
 # Media Group
 - Media:
     - Ryot:
         icon: sh-ryot.png
-        href: http://localhost:8000
+        href: http://localhost:{{HOMEPAGE_VAR_RYOT_PORT}}
         description: Media Tracker
 
 # Automation
 - Automation:
     - N8N:
         icon: sh-n8n.png
-        href: http://localhost:5678
+        href: http://localhost:{{HOMEPAGE_VAR_N8N_PORT}}
         description: Workflow Automation
 
 # Management
 - Management:
     - Portainer:
         icon: sh-portainer.png
-        href: https://localhost:9443
+        href: https://localhost:{{HOMEPAGE_VAR_PORTAINER_PORT}}
         description: Docker Management
 
 # Marketing
 - Marketing:
     - Listmonk:
         icon: sh-listmonk.png
-        href: http://localhost:9000
+        href: http://localhost:{{HOMEPAGE_VAR_LISTMONK_PORT}}
         description: Newsletter Manager
 
 # Databases (Info only)
@@ -129,5 +129,5 @@
 - Misc:
     - OpenSpeedTest:
         icon: sh-openspeedtest.png
-        href: http://localhost:3000
+        href: http://localhost:{{HOMEPAGE_VAR_OPENSPEEDTEST_PORT}}
         description: Speed Test
