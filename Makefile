@@ -330,14 +330,26 @@ logs-grafana:
 # Homepage
 # ================================
 start-homepage: network
-	$(DOCKER_COMPOSE) -f docker/homepage/docker-compose.yml up -d
+	@echo "Starting Homepage..."
+	@$(DOCKER_COMPOSE) -f docker/homepage/docker-compose.yml up -d
+	@echo "Copying config files..."
+	@docker cp docker/homepage/config/. homepage:/app/config/
+	@echo "Restarting to apply config..."
+	@docker restart homepage
+	@echo "Homepage started!"
 
 stop-homepage:
 	$(DOCKER_COMPOSE) -f docker/homepage/docker-compose.yml down
 
 update-homepage: network
-	$(DOCKER_COMPOSE) -f docker/homepage/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/homepage/docker-compose.yml up -d
+	@echo "Updating Homepage..."
+	@$(DOCKER_COMPOSE) -f docker/homepage/docker-compose.yml pull
+	@$(DOCKER_COMPOSE) -f docker/homepage/docker-compose.yml up -d
+	@echo "Copying config files..."
+	@docker cp docker/homepage/config/. homepage:/app/config/
+	@echo "Restarting to apply config..."
+	@docker restart homepage
+	@echo "Homepage updated!"
 
 logs-homepage:
 	$(DOCKER_COMPOSE) -f docker/homepage/docker-compose.yml logs -f
