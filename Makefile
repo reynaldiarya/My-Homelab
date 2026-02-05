@@ -10,6 +10,7 @@ DOCKER_COMPOSE = docker compose --env-file .env
 .PHONY: start-all stop-all update-all logs-all
 .PHONY: start-actual-budget stop-actual-budget update-actual-budget logs-actual-budget
 .PHONY: start-adguard-home stop-adguard-home update-adguard-home logs-adguard-home
+.PHONY: start-beszel stop-beszel update-beszel logs-beszel
 .PHONY: start-changedetection stop-changedetection update-changedetection logs-changedetection
 .PHONY: start-flaresolverr stop-flaresolverr update-flaresolverr logs-flaresolverr
 .PHONY: start-grafana stop-grafana update-grafana logs-grafana
@@ -54,7 +55,7 @@ help:
 	@echo "  make logs-<service>   - View service logs"
 	@echo ""
 	@echo "Available services (A-Z):"
-	@echo "  actual-budget, adguard-home, changedetection,"
+	@echo "  actual-budget, adguard-home, beszel, changedetection,"
 	@echo "  flaresolverr, grafana, it-tools, listmonk,"
 	@echo "  mariadb, mongodb, n8n, ollama, open-webui,"
 	@echo "  openspeedtest, portainer, postgres, redis, ryot,"
@@ -79,6 +80,7 @@ start-all: network
 	@echo "Starting all services..."
 	$(DOCKER_COMPOSE) -f docker/actual-budget/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/adguard-home/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/beszel/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/changedetection/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/flaresolverr/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/grafana/docker-compose.yml up -d
@@ -105,6 +107,7 @@ stop-all:
 	@echo "Stopping all services..."
 	$(DOCKER_COMPOSE) -f docker/actual-budget/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/adguard-home/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/beszel/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/changedetection/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/flaresolverr/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/grafana/docker-compose.yml down
@@ -133,6 +136,8 @@ update-all: network
 	$(DOCKER_COMPOSE) -f docker/actual-budget/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/adguard-home/docker-compose.yml pull
 	$(DOCKER_COMPOSE) -f docker/adguard-home/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/beszel/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/beszel/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/changedetection/docker-compose.yml pull
 	$(DOCKER_COMPOSE) -f docker/changedetection/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/flaresolverr/docker-compose.yml pull
@@ -209,6 +214,22 @@ update-adguard-home: network
 
 logs-adguard-home:
 	$(DOCKER_COMPOSE) -f docker/adguard-home/docker-compose.yml logs -f
+
+# ================================
+# Beszel
+# ================================
+start-beszel: network
+	$(DOCKER_COMPOSE) -f docker/beszel/docker-compose.yml up -d
+
+stop-beszel:
+	$(DOCKER_COMPOSE) -f docker/beszel/docker-compose.yml down
+
+update-beszel: network
+	$(DOCKER_COMPOSE) -f docker/beszel/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/beszel/docker-compose.yml up -d
+
+logs-beszel:
+	$(DOCKER_COMPOSE) -f docker/beszel/docker-compose.yml logs -f
 
 # ================================
 # ChangeDetection

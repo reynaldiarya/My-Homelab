@@ -1,0 +1,40 @@
+services:
+  beszel:
+    image: henrygd/beszel:latest
+    container_name: beszel
+    restart: unless-stopped
+    ports:
+      - ${BESZEL_PORT:-8090}:8090
+    volumes:
+      - beszel_data:/beszel_data
+      - beszel_socket:/beszel_socket
+    deploy:
+      resources:
+        limits:
+          cpus: "${BESZEL_CPU_LIMIT:-0.5}"
+          memory: ${BESZEL_MEMORY_LIMIT:-256M}
+
+  beszel-agent:
+    image: henrygd/beszel-agent:latest
+    container_name: beszel-agent
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - beszel_agent_data:/var/lib/beszel-agent
+      - beszel_socket:/beszel_socket
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      LISTEN: /beszel_socket/beszel.sock
+      HUB_URL: ${BESZEL_AGENT_HUB_URL:-http://localhost:8090}
+      TOKEN: ${BESZEL_AGENT_TOKEN}
+      KEY: "${BESZEL_AGENT_KEY}"
+    deploy:
+      resources:
+        limits:
+          cpus: "${BESZEL_AGENT_CPU_LIMIT:-0.5}"
+          memory: ${BESZEL_AGENT_MEMORY_LIMIT:-256M}
+
+volumes:
+  beszel_data:
+  beszel_socket:
+  beszel_agent_data:

@@ -24,12 +24,13 @@ A curated collection of Docker Compose configurations for my personal homelab. T
 
 ### Management & Monitoring
 
-| Service                              | Port | Description             |
-| ------------------------------------ | ---- | ----------------------- |
-| [Portainer](./docker/portainer/)     | 9443 | Docker management UI    |
-| [Grafana](./docker/grafana/)         | 3330 | Metrics visualization   |
-| [Uptime Kuma](./docker/uptime-kuma/) | 3001 | Uptime monitoring       |
-| [SmokePing](./docker/smokeping/)     | 8080 | Network latency monitor |
+| Service                              | Port | Description                   |
+| ------------------------------------ | ---- | ----------------------------- |
+| [Portainer](./docker/portainer/)     | 9443 | Docker management UI          |
+| [Beszel](./docker/beszel/)           | 8090 | Lightweight server monitoring |
+| [Grafana](./docker/grafana/)         | 3330 | Metrics visualization         |
+| [Uptime Kuma](./docker/uptime-kuma/) | 3001 | Uptime monitoring             |
+| [SmokePing](./docker/smokeping/)     | 8080 | Network latency monitor       |
 
 ### Automation
 
@@ -184,7 +185,7 @@ My-Homelab/
 | `make update-<service>` | Update a specific service |
 | `make logs-<service>`   | View service logs         |
 
-**Available services:** `mariadb`, `postgres`, `redis`, `mongodb`, `portainer`, `n8n`, `ollama`, `open-webui`, `actual-budget`, `serpbear`, `changedetection`, `wallos`, `wealthfolio`, `stirling-pdf`, `listmonk`, `adguard-home`, `grafana`, `openspeedtest`, `smokeping`, `uptime-kuma`, `flaresolverr`, `it-tools`, `ryot`, `socks5`
+**Available services:** `mariadb`, `postgres`, `redis`, `mongodb`, `portainer`, `beszel`, `n8n`, `ollama`, `open-webui`, `actual-budget`, `serpbear`, `changedetection`, `wallos`, `wealthfolio`, `stirling-pdf`, `listmonk`, `adguard-home`, `grafana`, `openspeedtest`, `smokeping`, `uptime-kuma`, `flaresolverr`, `it-tools`, `ryot`, `socks5`
 
 ### Examples
 
@@ -221,6 +222,7 @@ MARIADB_MEMORY_LIMIT=2G
 | Redis              | 0.5 | 512M   |
 | MongoDB            | 1   | 1G     |
 | Portainer          | 0.5 | 256M   |
+| Beszel             | 0.5 | 256M   |
 | N8N                | 1   | 1G     |
 | Actual Budget      | 0.5 | 256M   |
 | SerpBear           | 0.5 | 512M   |
