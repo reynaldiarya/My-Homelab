@@ -1,0 +1,133 @@
+# System & Monitoring
+- System:
+    - Beszel:
+        icon: sh-beszel.png
+        href: http://localhost:8090
+        description: Lightweight Monitoring
+    - Grafana:
+        icon: sh-grafana.png
+        href: http://localhost:3000
+        description: Metrics Dashboard
+
+- Network:
+    - AdGuard Home:
+        icon: sh-adguard-home.png
+        href: http://localhost:80
+        description: DNS Blocker
+    - Uptime Kuma:
+        icon: sh-uptime-kuma.png
+        href: http://localhost:3001
+        description: Uptime Monitor
+    - Smokeping:
+        icon: sh-smokeping.png
+        href: http://localhost:8888
+        description: Latency Monitor
+    - Socks5:
+        icon: mdi-security-network
+        description: Proxy Server
+
+# Finance Group
+- Finance:
+    - Actual Budget:
+        icon: sh-actual-budget.png
+        href: http://localhost:5006
+        description: Budgeting App
+    - Wallos:
+        icon: sh-wallos.png
+        href: http://localhost:8091
+        description: Subscription Tracker
+    - Wealthfolio:
+        icon: sh-wealthfolio.png
+        href: http://localhost:8088
+        description: Investment Tracker
+
+# Tools Group
+- Tools:
+    - Bugsink:
+        icon: sh-bugsink.png
+        href: http://localhost:8000
+        description: Error Tracking
+    - Excalidraw:
+        icon: sh-excalidraw.png
+        href: http://localhost:5000
+        description: Whiteboard
+    - IT Tools:
+        icon: sh-it-tools.png
+        href: http://localhost:8080
+        description: Developer Tools
+    - Stirling PDF:
+        icon: sh-stirling-pdf.png
+        href: http://localhost:8080
+        description: PDF Tools
+    - ChangeDetection:
+        icon: sh-changedetection.png
+        href: http://localhost:5000
+        description: Web Monitor
+    - FlareSolverr:
+        icon: sh-flaresolverr.png
+        href: http://localhost:8191
+        description: Captcha Solver
+    - SerpBear:
+        icon: sh-serpbear.png
+        href: http://localhost:3000
+        description: SEO Tracker
+
+# AI Group
+- AI:
+    - Ollama:
+        icon: sh-ollama.png
+        href: http://localhost:11434
+        description: LLM Server
+    - Open WebUI:
+        icon: sh-open-webui.png
+        href: http://localhost:3000
+        description: AI Chat Interface
+
+# Media Group
+- Media:
+    - Ryot:
+        icon: sh-ryot.png
+        href: http://localhost:8000
+        description: Media Tracker
+
+# Automation
+- Automation:
+    - N8N:
+        icon: sh-n8n.png
+        href: http://localhost:5678
+        description: Workflow Automation
+
+# Management
+- Management:
+    - Portainer:
+        icon: sh-portainer.png
+        href: https://localhost:9443
+        description: Docker Management
+
+# Marketing
+- Marketing:
+    - Listmonk:
+        icon: sh-listmonk.png
+        href: http://localhost:9000
+        description: Newsletter Manager
+
+# Databases (Info only)
+- Databases:
+    - MariaDB:
+        icon: sh-mariadb.png
+        description: SQL Database
+    - MongoDB:
+        icon: sh-mongodb.png
+        description: NoSQL Database
+    - Postgres:
+        icon: sh-postgresql.png
+        description: SQL Database
+    - Redis:
+        icon: sh-redis.png
+        description: Cache
+
+- Misc:
+    - OpenSpeedTest:
+        icon: sh-openspeedtest.png
+        href: http://localhost:3000
+        description: Speed Test

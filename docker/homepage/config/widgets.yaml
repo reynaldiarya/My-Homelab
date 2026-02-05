@@ -1,0 +1,9 @@
+- logo:
+    icon: {{HOMEPAGE_VAR_LOGO_ICON}}
+
+- datetime:
+    text_size: lg
+    locale: id-ID
+    format:
+      dateStyle: medium
+      timeStyle: medium

@@ -1,0 +1,61 @@
+title: Homepage
+theme: dark
+color: slate
+background:
+  image: {{HOMEPAGE_VAR_BACKGROUND_IMAGE}}
+
+cardBlur: xs
+
+headerStyle: boxed
+
+fullwidth: true
+hideVersion: true
+disableCollapse: true
+useEqualHeights: true
+
+quicklaunch:
+  hideVisitURL: false
+  searchDescriptions: true
+  hideInternetSearch: true
+
+layout:
+  System:
+    tab: System
+    style: row
+    columns: 3
+  Network:
+    tab: System
+    style: row
+    columns: 3
+  Finance:
+    tab: Finance
+    style: row
+    columns: 3
+  Tools:
+    tab: Tools
+    style: row
+    columns: 3
+  AI:
+    tab: AI
+    style: row
+    columns: 2
+  Media:
+    tab: Media
+    style: row
+    columns: 3
+  Automation:
+    tab: Automation
+    style: row
+    columns: 2
+  Management:
+    tab: Management
+    style: row
+    columns: 2
+  Marketing:
+    tab: Marketing
+    style: row
+    columns: 2
+  Misc:
+    tab: Misc
+    style: row
+    columns: 4
