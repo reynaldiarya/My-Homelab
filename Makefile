@@ -11,9 +11,12 @@ DOCKER_COMPOSE = docker compose --env-file .env
 .PHONY: start-actual-budget stop-actual-budget update-actual-budget logs-actual-budget
 .PHONY: start-adguard-home stop-adguard-home update-adguard-home logs-adguard-home
 .PHONY: start-beszel stop-beszel update-beszel logs-beszel
+.PHONY: start-bugsink stop-bugsink update-bugsink logs-bugsink
 .PHONY: start-changedetection stop-changedetection update-changedetection logs-changedetection
+.PHONY: start-excalidraw stop-excalidraw update-excalidraw logs-excalidraw
 .PHONY: start-flaresolverr stop-flaresolverr update-flaresolverr logs-flaresolverr
 .PHONY: start-grafana stop-grafana update-grafana logs-grafana
+.PHONY: start-homepage stop-homepage update-homepage logs-homepage
 .PHONY: start-it-tools stop-it-tools update-it-tools logs-it-tools
 .PHONY: start-listmonk stop-listmonk update-listmonk logs-listmonk
 .PHONY: start-mariadb stop-mariadb update-mariadb logs-mariadb
@@ -55,8 +58,8 @@ help:
 	@echo "  make logs-<service>   - View service logs"
 	@echo ""
 	@echo "Available services (A-Z):"
-	@echo "  actual-budget, adguard-home, beszel, changedetection,"
-	@echo "  flaresolverr, grafana, it-tools, listmonk,"
+	@echo "  actual-budget, adguard-home, beszel, bugsink, changedetection,"
+	@echo "  excalidraw, flaresolverr, grafana, homepage, it-tools, listmonk,"
 	@echo "  mariadb, mongodb, n8n, ollama, open-webui,"
 	@echo "  openspeedtest, portainer, postgres, redis, ryot,"
 	@echo "  serpbear, smokeping, socks5, stirling-pdf, uptime-kuma, wallos,"
@@ -81,9 +84,12 @@ start-all: network
 	$(DOCKER_COMPOSE) -f docker/actual-budget/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/adguard-home/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/beszel/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/bugsink/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/changedetection/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/excalidraw/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/flaresolverr/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/grafana/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/homepage/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/it-tools/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/listmonk/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/mariadb/docker-compose.yml up -d
@@ -108,9 +114,12 @@ stop-all:
 	$(DOCKER_COMPOSE) -f docker/actual-budget/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/adguard-home/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/beszel/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/bugsink/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/changedetection/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/excalidraw/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/flaresolverr/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/grafana/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/homepage/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/it-tools/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/listmonk/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/mariadb/docker-compose.yml down
@@ -138,12 +147,18 @@ update-all: network
 	$(DOCKER_COMPOSE) -f docker/adguard-home/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/beszel/docker-compose.yml pull
 	$(DOCKER_COMPOSE) -f docker/beszel/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/bugsink/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/bugsink/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/changedetection/docker-compose.yml pull
 	$(DOCKER_COMPOSE) -f docker/changedetection/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/excalidraw/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/excalidraw/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/flaresolverr/docker-compose.yml pull
 	$(DOCKER_COMPOSE) -f docker/flaresolverr/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/grafana/docker-compose.yml pull
 	$(DOCKER_COMPOSE) -f docker/grafana/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/homepage/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/homepage/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/it-tools/docker-compose.yml pull
 	$(DOCKER_COMPOSE) -f docker/it-tools/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/listmonk/docker-compose.yml pull
@@ -232,6 +247,22 @@ logs-beszel:
 	$(DOCKER_COMPOSE) -f docker/beszel/docker-compose.yml logs -f
 
 # ================================
+# Bugsink
+# ================================
+start-bugsink: network
+	$(DOCKER_COMPOSE) -f docker/bugsink/docker-compose.yml up -d
+
+stop-bugsink:
+	$(DOCKER_COMPOSE) -f docker/bugsink/docker-compose.yml down
+
+update-bugsink: network
+	$(DOCKER_COMPOSE) -f docker/bugsink/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/bugsink/docker-compose.yml up -d
+
+logs-bugsink:
+	$(DOCKER_COMPOSE) -f docker/bugsink/docker-compose.yml logs -f
+
+# ================================
 # ChangeDetection
 # ================================
 start-changedetection: network
@@ -246,6 +277,22 @@ update-changedetection: network
 
 logs-changedetection:
 	$(DOCKER_COMPOSE) -f docker/changedetection/docker-compose.yml logs -f
+
+# ================================
+# Excalidraw
+# ================================
+start-excalidraw: network
+	$(DOCKER_COMPOSE) -f docker/excalidraw/docker-compose.yml up -d
+
+stop-excalidraw:
+	$(DOCKER_COMPOSE) -f docker/excalidraw/docker-compose.yml down
+
+update-excalidraw: network
+	$(DOCKER_COMPOSE) -f docker/excalidraw/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/excalidraw/docker-compose.yml up -d
+
+logs-excalidraw:
+	$(DOCKER_COMPOSE) -f docker/excalidraw/docker-compose.yml logs -f
 
 # ================================
 # FlareSolverr
@@ -278,6 +325,22 @@ update-grafana: network
 
 logs-grafana:
 	$(DOCKER_COMPOSE) -f docker/grafana/docker-compose.yml logs -f
+
+# ================================
+# Homepage
+# ================================
+start-homepage: network
+	$(DOCKER_COMPOSE) -f docker/homepage/docker-compose.yml up -d
+
+stop-homepage:
+	$(DOCKER_COMPOSE) -f docker/homepage/docker-compose.yml down
+
+update-homepage: network
+	$(DOCKER_COMPOSE) -f docker/homepage/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/homepage/docker-compose.yml up -d
+
+logs-homepage:
+	$(DOCKER_COMPOSE) -f docker/homepage/docker-compose.yml logs -f
 
 # ================================
 # IT Tools

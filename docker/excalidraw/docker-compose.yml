@@ -1,0 +1,12 @@
+services:
+  excalidraw:
+    image: excalidraw/excalidraw:latest
+    container_name: excalidraw
+    ports:
+      - ${EXCALIDRAW_PORT:-5000}:80
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "${EXCALIDRAW_CPU_LIMIT:-0.5}"
+          memory: ${EXCALIDRAW_MEMORY_LIMIT:-512M}

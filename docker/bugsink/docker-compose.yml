@@ -1,0 +1,30 @@
+services:
+  bugsink:
+    image: bugsink/bugsink:latest
+    container_name: bugsink
+    restart: unless-stopped
+    ports:
+      - "${BUGSINK_PORT:-8000}:8000"
+    environment:
+      SECRET_KEY: ${BUGSINK_SECRET_KEY:-wRacwzoolisZAYHaD47GZ8g7hyFmGxRdb5zy4ytOKFK1YrVGww0lgRLpuxGjxAi0}
+      CREATE_SUPERUSER: ${BUGSINK_CREATE_SUPERUSER:-admin:password}
+      PORT: ${BUGSINK_PORT:-8000}
+      DATABASE_URL: ${BUGSINK_DATABASE_URL:-postgresql://bugsinkuser:your_super_secret_password@db:5432/bugsink}
+      BEHIND_HTTPS_PROXY: ${BUGSINK_BEHIND_HTTPS_PROXY:-false}
+      BASE_URL: ${BUGSINK_BASE_URL:-http://localhost:8000}
+    healthcheck:
+      test: [ "CMD-SHELL", "python -c 'import requests; requests.get(\"http://localhost:8000/\").raise_for_status()'" ]
+      interval: 5s
+      timeout: 20s
+      retries: 10
+    networks:
+      - homelab
+    deploy:
+      resources:
+        limits:
+          cpus: "${BUGSINK_CPU_LIMIT:-0.5}"
+          memory: ${BUGSINK_MEMORY_LIMIT:-256M}
+
+networks:
+  homelab:
+    external: true

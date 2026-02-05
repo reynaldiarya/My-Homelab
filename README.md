@@ -27,6 +27,7 @@ A curated collection of Docker Compose configurations for my personal homelab. T
 | Service                              | Port | Description                   |
 | ------------------------------------ | ---- | ----------------------------- |
 | [Portainer](./docker/portainer/)     | 9443 | Docker management UI          |
+| [Homepage](./docker/homepage/)       | 3000 | Application dashboard         |
 | [Beszel](./docker/beszel/)           | 8090 | Lightweight server monitoring |
 | [Grafana](./docker/grafana/)         | 3330 | Metrics visualization         |
 | [Uptime Kuma](./docker/uptime-kuma/) | 3001 | Uptime monitoring             |
@@ -61,13 +62,15 @@ A curated collection of Docker Compose configurations for my personal homelab. T
 
 ### Tools & Utilities
 
-| Service                                      | Port | Description               |
-| -------------------------------------------- | ---- | ------------------------- |
-| [SerpBear](./docker/serpbear/)               | 3000 | SEO rank tracking         |
-| [ChangeDetection](./docker/changedetection/) | 5000 | Website change monitoring |
-| [Stirling PDF](./docker/stirling-pdf/)       | 8088 | PDF toolkit               |
-| [FlareSolverr](./docker/flaresolverr/)       | 8191 | Cloudflare bypass proxy   |
-| [IT Tools](./docker/it-tools/)               | 8056 | Developer utilities       |
+| Service                                      | Port | Description                 |
+| -------------------------------------------- | ---- | --------------------------- |
+| [SerpBear](./docker/serpbear/)               | 3000 | SEO rank tracking           |
+| [Bugsink](./docker/bugsink/)                 | 8000 | Error tracking (Sentry alt) |
+| [Excalidraw](./docker/excalidraw/)           | 5000 | Virtual whiteboard          |
+| [ChangeDetection](./docker/changedetection/) | 5000 | Website change monitoring   |
+| [Stirling PDF](./docker/stirling-pdf/)       | 8088 | PDF toolkit                 |
+| [FlareSolverr](./docker/flaresolverr/)       | 8191 | Cloudflare bypass proxy     |
+| [IT Tools](./docker/it-tools/)               | 8056 | Developer utilities         |
 
 ### Marketing
 
@@ -185,7 +188,7 @@ My-Homelab/
 | `make update-<service>` | Update a specific service |
 | `make logs-<service>`   | View service logs         |
 
-**Available services:** `mariadb`, `postgres`, `redis`, `mongodb`, `portainer`, `beszel`, `n8n`, `ollama`, `open-webui`, `actual-budget`, `serpbear`, `changedetection`, `wallos`, `wealthfolio`, `stirling-pdf`, `listmonk`, `adguard-home`, `grafana`, `openspeedtest`, `smokeping`, `uptime-kuma`, `flaresolverr`, `it-tools`, `ryot`, `socks5`
+**Available services:** `mariadb`, `postgres`, `redis`, `mongodb`, `portainer`, `beszel`, `n8n`, `ollama`, `open-webui`, `actual-budget`, `serpbear`, `changedetection`, `wallos`, `wealthfolio`, `stirling-pdf`, `listmonk`, `adguard-home`, `grafana`, `openspeedtest`, `smokeping`, `uptime-kuma`, `flaresolverr`, `it-tools`, `ryot`, `socks5`, `bugsink`, `excalidraw`, `homepage`
 
 ### Examples
 
@@ -223,6 +226,9 @@ MARIADB_MEMORY_LIMIT=2G
 | MongoDB            | 1   | 1G     |
 | Portainer          | 0.5 | 256M   |
 | Beszel             | 0.5 | 256M   |
+| Bugsink            | 0.5 | 256M   |
+| Excalidraw         | 0.5 | 512M   |
+| Homepage           | 0.5 | 256M   |
 | N8N                | 1   | 1G     |
 | Actual Budget      | 0.5 | 256M   |
 | SerpBear           | 0.5 | 512M   |
