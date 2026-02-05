@@ -2,7 +2,7 @@ title: Homepage
 theme: dark
 color: slate
 background:
-  image: { { HOMEPAGE_VAR_BACKGROUND_IMAGE } }
+  image: {{HOMEPAGE_VAR_BACKGROUND_IMAGE}}
 
 cardBlur: xs
 

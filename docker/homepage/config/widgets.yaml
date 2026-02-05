@@ -1,5 +1,5 @@
 - logo:
-    icon: { { HOMEPAGE_VAR_LOGO_ICON } }
+    icon: {{HOMEPAGE_VAR_LOGO_ICON}}
 
 - datetime:
     text_size: lg
