@@ -4,7 +4,7 @@ services:
     container_name: stirling-pdf
     restart: unless-stopped
     ports:
-      - "${STIRLING_PDF_PORT:-8080}:8080"
+      - "${STIRLING_PDF_PORT:-8092}:8080"
     environment:
       SECURITY_ENABLELOGIN: "${STIRLING_PDF_SECURITY_ENABLELOGIN:-true}"
       LANGS: "${STIRLING_PDF_LANGS:-en_US}"

@@ -3,7 +3,7 @@ services:
     image: corentinth/it-tools:latest
     container_name: it-tools
     ports:
-      - "${IT_TOOLS_PORT:-80}:80"
+      - "${IT_TOOLS_PORT:-8095}:80"
     restart: unless-stopped
     deploy:
       resources:

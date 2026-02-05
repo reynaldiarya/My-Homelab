@@ -4,7 +4,7 @@ services:
     container_name: wealthfolio
     restart: unless-stopped
     ports:
-      - "${WEALTHFOLIO_PORT:-8088}:8088"
+      - "${WEALTHFOLIO_PORT:-8094}:8088"
     environment:
       WF_LISTEN_ADDR: 0.0.0.0:8088
       WF_DB_PATH: /data/wealthfolio.db

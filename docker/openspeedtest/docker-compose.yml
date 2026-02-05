@@ -4,7 +4,7 @@ services:
     container_name: openspeedtest
     restart: unless-stopped
     ports:
-      - "${OPENSPEEDTEST_PORT:-3000}:3000"
+      - "${OPENSPEEDTEST_PORT:-3094}:3000"
     networks:
       - homelab
     deploy:

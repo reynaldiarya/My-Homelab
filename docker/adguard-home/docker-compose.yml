@@ -11,9 +11,9 @@ services:
     ports:
       - "53:53/tcp"
       - "53:53/udp"
-      - "${ADGUARD_HOME_PORT:-80}:80/tcp"
+      - "${ADGUARD_HOME_PORT:-8096}:80/tcp"
       # Initial Setup Port
-      - "${ADGUARD_HOME_SETUP_PORT:-3000}:3000/tcp"
+      - "${ADGUARD_HOME_SETUP_PORT:-3095}:3000/tcp"
     networks:
       - homelab
     deploy:

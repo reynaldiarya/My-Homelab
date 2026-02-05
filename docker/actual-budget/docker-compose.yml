@@ -4,7 +4,7 @@ services:
     container_name: actual-budget
     restart: unless-stopped
     ports:
-      - "${ACTUAL_BUDGET_PORT:-5006}:5006"
+      - "${ACTUAL_BUDGET_PORT:-5096}:5006"
     environment:
       ACTUAL_UPLOAD_FILE_SYNC_SIZE_LIMIT_MB: ${ACTUAL_UPLOAD_FILE_SYNC_SIZE_LIMIT_MB:-20}
       ACTUAL_UPLOAD_SYNC_ENCRYPTED_FILE_SYNC_SIZE_LIMIT_MB: ${ACTUAL_UPLOAD_SYNC_ENCRYPTED_FILE_SYNC_SIZE_LIMIT_MB:-50}

@@ -4,7 +4,7 @@ services:
     container_name: grafana
     restart: unless-stopped
     ports:
-      - "${GRAFANA_PORT:-3000}:3000"
+      - "${GRAFANA_PORT:-3091}:3000"
     environment:
       - TZ=${TZ:-Asia/Jakarta}
     volumes:
