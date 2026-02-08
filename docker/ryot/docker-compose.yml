@@ -4,7 +4,7 @@ services:
     container_name: ryot
     restart: unless-stopped
     ports:
-      - ${RYOT_PORT:-8091}:8000
+      - "${BIND_IP}:${RYOT_PORT:-8091}:8000"
     environment:
       - TZ=${TZ:-Asia/Jakarta}
       - FRONTEND_URL=${RYOT_FRONTEND_URL:-http://localhost:8000}

@@ -4,7 +4,7 @@ services:
     container_name: serpbear
     restart: unless-stopped
     ports:
-      - "${SERPBEAR_PORT:-3093}:3000"
+      - "${BIND_IP}:${SERPBEAR_PORT:-3093}:3000"
     environment:
       USER: ${SERPBEAR_USER:-admin}
       PASSWORD: ${SERPBEAR_PASSWORD:-password}

@@ -4,7 +4,7 @@ services:
     container_name: mariadb
     restart: unless-stopped
     ports:
-      - "${MARIADB_PORT:-3306}:3306"
+      - "${BIND_IP}:${MARIADB_PORT:-3306}:3306"
     environment:
       MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD:-password}
       MARIADB_USER: ${MARIADB_USER:-root}

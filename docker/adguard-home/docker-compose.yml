@@ -9,11 +9,11 @@ services:
       - adguard_home_work:/opt/adguardhome/work
       - adguard_home_conf:/opt/adguardhome/conf
     ports:
-      - "53:53/tcp"
-      - "53:53/udp"
-      - "${ADGUARD_HOME_PORT:-8096}:80/tcp"
+      - "${BIND_IP}:53:53/tcp"
+      - "${BIND_IP}:53:53/udp"
+      - "${BIND_IP}:${ADGUARD_HOME_PORT:-8096}:80/tcp"
       # Initial Setup Port
-      - "${ADGUARD_HOME_SETUP_PORT:-3095}:3000/tcp"
+      - "${BIND_IP}:${ADGUARD_HOME_SETUP_PORT:-3095}:3000/tcp"
     networks:
       - homelab
     deploy:

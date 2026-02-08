@@ -3,7 +3,7 @@ services:
     image: serjs/go-socks5-proxy
     container_name: socks5
     ports:
-      - ${SOCKS5_PORT:-1080}:1080
+      - "${BIND_IP}:${SOCKS5_PORT:-1080}:1080"
     restart: unless-stopped
     environment:
       - PROXY_USER=${SOCKS5_USER:-your_username}

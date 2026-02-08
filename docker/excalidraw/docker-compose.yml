@@ -3,7 +3,7 @@ services:
     image: excalidraw/excalidraw:latest
     container_name: excalidraw
     ports:
-      - ${EXCALIDRAW_PORT:-5090}:80
+      - "${BIND_IP}:${EXCALIDRAW_PORT:-5090}:80"
     restart: unless-stopped
     deploy:
       resources:

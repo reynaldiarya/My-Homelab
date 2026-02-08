@@ -4,7 +4,7 @@ services:
     container_name: smokeping
     hostname: smokeping
     ports:
-      - "${SMOKEPING_PORT:-8097}:80"
+      - "${BIND_IP}:${SMOKEPING_PORT:-8097}:80"
     environment:
       - PUID=${SMOKEPING_PUID:-1000}
       - PGID=${SMOKEPING_PGID:-1000}

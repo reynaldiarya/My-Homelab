@@ -4,7 +4,7 @@ services:
     container_name: bugsink
     restart: unless-stopped
     ports:
-      - "${BUGSINK_PORT:-8090}:8000"
+      - "${BIND_IP}:${BUGSINK_PORT:-8090}:8000"
     environment:
       SECRET_KEY: ${BUGSINK_SECRET_KEY:-wRacwzoolisZAYHaD47GZ8g7hyFmGxRdb5zy4ytOKFK1YrVGww0lgRLpuxGjxAi0}
       CREATE_SUPERUSER: ${BUGSINK_CREATE_SUPERUSER:-admin:password}

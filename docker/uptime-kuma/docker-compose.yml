@@ -4,7 +4,7 @@ services:
     container_name: uptime-kuma
     restart: unless-stopped
     ports:
-      - "${UPTIME_KUMA_PORT:-3096}:3001"
+      - "${BIND_IP}:${UPTIME_KUMA_PORT:-3096}:3001"
     environment:
       - TZ=${TZ:-Asia/Jakarta}
     volumes:

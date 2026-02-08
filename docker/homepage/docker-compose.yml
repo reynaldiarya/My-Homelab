@@ -31,7 +31,7 @@ services:
       HOMEPAGE_VAR_WALLOS_PORT: ${WALLOS_PORT:-8290}
       HOMEPAGE_VAR_WEALTHFOLIO_PORT: ${WEALTHFOLIO_PORT:-8094}
     ports:
-      - ${HOMEPAGE_PORT:-3090}:3000
+      - "${BIND_IP}:${HOMEPAGE_PORT:-3090}:3000"
     volumes:
       - homepage:/app/config
       - /var/run/docker.sock:/var/run/docker.sock:ro
