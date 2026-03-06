@@ -7,8 +7,14 @@ services:
       - "${BIND_IP}:${WEALTHFOLIO_PORT:-8094}:8088"
     environment:
       WF_LISTEN_ADDR: 0.0.0.0:8088
-      WF_DB_PATH: /data/wealthfolio.db
-      WF_SECRET_KEY: cAWpMFYyG08cdfSp0slkvzIuUzWZUOhEqrO8ooHDdvM=
+      WF_DB_PATH: ./db/app.db
+      WF_SECRET_KEY: ${WEALTHFOLIO_SECRET_KEY:-hEw6fK6MoYh91T24WehvU/W9QGGtsNwPj4DEq26Mios=}
+      WF_CORS_ALLOW_ORIGINS: ${WEALTHFOLIO_CORS_ALLOW_ORIGINS:-https://wealthfolio.example.com}
+      WF_REQUEST_TIMEOUT_MS: ${WEALTHFOLIO_REQUEST_TIMEOUT_MS:-30000}
+      WF_STATIC_DIR: dist
+      WF_AUTH_PASSWORD_HASH: ${WEALTHFOLIO_AUTH_PASSWORD_HASH:-}
+      WF_AUTH_TOKEN_TTL_MINUTES: ${WEALTHFOLIO_AUTH_TOKEN_TTL_MINUTES:-60}
+      WF_AUTH_REQUIRED: ${WEALTHFOLIO_AUTH_REQUIRED:-false}
     volumes:
       - wealthfolio_data:/data
     networks:
