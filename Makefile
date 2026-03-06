@@ -11,6 +11,7 @@ DOCKER_COMPOSE = docker compose --env-file .env
 .PHONY: start-actual-budget stop-actual-budget update-actual-budget logs-actual-budget
 .PHONY: start-adguard-home stop-adguard-home update-adguard-home logs-adguard-home
 .PHONY: start-beszel stop-beszel update-beszel logs-beszel
+.PHONY: start-bento-pdf stop-bento-pdf update-bento-pdf logs-bento-pdf
 .PHONY: start-bugsink stop-bugsink update-bugsink logs-bugsink
 .PHONY: start-changedetection stop-changedetection update-changedetection logs-changedetection
 .PHONY: start-excalidraw stop-excalidraw update-excalidraw logs-excalidraw
@@ -58,8 +59,9 @@ help:
 	@echo "  make logs-<service>   - View service logs"
 	@echo ""
 	@echo "Available services (A-Z):"
-	@echo "  actual-budget, adguard-home, beszel, bugsink, changedetection,"
-	@echo "  excalidraw, flaresolverr, grafana, homepage, it-tools, listmonk,"
+	@echo "  actual-budget, adguard-home, bento-pdf, beszel, bugsink,"
+	@echo "  changedetection, excalidraw, flaresolverr, grafana, homepage,"
+	@echo "  it-tools, listmonk,"
 	@echo "  mariadb, mongodb, n8n, ollama, open-webui,"
 	@echo "  openspeedtest, portainer, postgres, redis, ryot,"
 	@echo "  serpbear, smokeping, socks5, stirling-pdf, uptime-kuma, wallos,"
@@ -84,6 +86,7 @@ start-all: network
 	$(DOCKER_COMPOSE) -f docker/actual-budget/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/adguard-home/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/beszel/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/bento-pdf/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/bugsink/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/changedetection/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/excalidraw/docker-compose.yml up -d
@@ -114,6 +117,7 @@ stop-all:
 	$(DOCKER_COMPOSE) -f docker/actual-budget/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/adguard-home/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/beszel/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/bento-pdf/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/bugsink/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/changedetection/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/excalidraw/docker-compose.yml down
@@ -147,6 +151,8 @@ update-all: network
 	$(DOCKER_COMPOSE) -f docker/adguard-home/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/beszel/docker-compose.yml pull
 	$(DOCKER_COMPOSE) -f docker/beszel/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/bento-pdf/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/bento-pdf/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/bugsink/docker-compose.yml pull
 	$(DOCKER_COMPOSE) -f docker/bugsink/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/changedetection/docker-compose.yml pull
@@ -245,6 +251,22 @@ update-beszel: network
 
 logs-beszel:
 	$(DOCKER_COMPOSE) -f docker/beszel/docker-compose.yml logs -f
+
+# ================================
+# Bento PDF
+# ================================
+start-bento-pdf: network
+	$(DOCKER_COMPOSE) -f docker/bento-pdf/docker-compose.yml up -d
+
+stop-bento-pdf:
+	$(DOCKER_COMPOSE) -f docker/bento-pdf/docker-compose.yml down
+
+update-bento-pdf: network
+	$(DOCKER_COMPOSE) -f docker/bento-pdf/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/bento-pdf/docker-compose.yml up -d
+
+logs-bento-pdf:
+	$(DOCKER_COMPOSE) -f docker/bento-pdf/docker-compose.yml logs -f
 
 # ================================
 # Bugsink

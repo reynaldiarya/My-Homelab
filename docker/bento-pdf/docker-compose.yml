@@ -1,0 +1,18 @@
+services:
+  bento-pdf:
+    image: bentopdf/bentopdf:latest
+    container_name: bento-pdf
+    restart: unless-stopped
+    ports:
+      - "${BIND_IP}:${BENTO_PDF_PORT:-8098}:8080"
+    networks:
+      - homelab
+    deploy:
+      resources:
+        limits:
+          cpus: "${BENTO_PDF_CPU_LIMIT:-0.5}"
+          memory: ${BENTO_PDF_MEMORY_LIMIT:-256M}
+
+networks:
+  homelab:
+    external: true

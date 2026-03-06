@@ -68,6 +68,7 @@ A curated collection of Docker Compose configurations for my personal homelab. T
 | [Bugsink](./docker/bugsink/)                 | 8090 | Error tracking (Sentry alt) |
 | [Excalidraw](./docker/excalidraw/)           | 5090 | Virtual whiteboard          |
 | [ChangeDetection](./docker/changedetection/) | 5091 | Website change monitoring   |
+| [Bento PDF](./docker/bento-pdf/)             | 8098 | Client-side PDF toolkit     |
 | [Stirling PDF](./docker/stirling-pdf/)       | 8092 | PDF toolkit                 |
 | [FlareSolverr](./docker/flaresolverr/)       | 8191 | Cloudflare bypass proxy     |
 | [IT Tools](./docker/it-tools/)               | 8095 | Developer utilities         |
@@ -146,6 +147,7 @@ docker compose -f docker/mariadb/docker-compose.yml up -d
 My-Homelab/
 ├── docker/
 │   ├── actual-budget/
+│   ├── bento-pdf/
 │   ├── changedetection/
 │   ├── mariadb/
 │   ├── mongodb/
@@ -188,7 +190,7 @@ My-Homelab/
 | `make update-<service>` | Update a specific service |
 | `make logs-<service>`   | View service logs         |
 
-**Available services:** `mariadb`, `postgres`, `redis`, `mongodb`, `portainer`, `beszel`, `n8n`, `ollama`, `open-webui`, `actual-budget`, `serpbear`, `changedetection`, `wallos`, `wealthfolio`, `stirling-pdf`, `listmonk`, `adguard-home`, `grafana`, `openspeedtest`, `smokeping`, `uptime-kuma`, `flaresolverr`, `it-tools`, `ryot`, `socks5`, `bugsink`, `excalidraw`, `homepage`
+**Available services:** `mariadb`, `postgres`, `redis`, `mongodb`, `portainer`, `beszel`, `bento-pdf`, `n8n`, `ollama`, `open-webui`, `actual-budget`, `serpbear`, `changedetection`, `wallos`, `wealthfolio`, `stirling-pdf`, `listmonk`, `adguard-home`, `grafana`, `openspeedtest`, `smokeping`, `uptime-kuma`, `flaresolverr`, `it-tools`, `ryot`, `socks5`, `bugsink`, `excalidraw`, `homepage`
 
 ### Examples
 
@@ -235,6 +237,7 @@ MARIADB_MEMORY_LIMIT=2G
 | ChangeDetection    | 0.5 | 512M   |
 | Sockpuppet Browser | 1   | 1G     |
 | Wallos             | 0.5 | 256M   |
+| Bento PDF          | 0.5 | 256M   |
 | Stirling PDF       | 1   | 512M   |
 | Listmonk           | 1   | 1G     |
 | AdGuard Home       | 0.5 | 256M   |
