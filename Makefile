@@ -144,62 +144,17 @@ stop-all:
 	@echo "✅ All services stopped!"
 
 update-all: network
-	@echo "Updating all services..."
-	$(DOCKER_COMPOSE) -f docker/actual-budget/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/actual-budget/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/adguard-home/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/adguard-home/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/beszel/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/beszel/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/bento-pdf/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/bento-pdf/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/bugsink/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/bugsink/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/changedetection/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/changedetection/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/excalidraw/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/excalidraw/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/flaresolverr/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/flaresolverr/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/grafana/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/grafana/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/homepage/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/homepage/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/it-tools/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/it-tools/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/listmonk/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/listmonk/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/mariadb/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/mariadb/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/mongodb/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/mongodb/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/n8n/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/n8n/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/openspeedtest/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/openspeedtest/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/portainer/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/portainer/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/postgres/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/postgres/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/redis/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/redis/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/ryot/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/ryot/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/serpbear/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/serpbear/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/smokeping/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/smokeping/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/socks5/docker-compose.yaml pull
-	$(DOCKER_COMPOSE) -f docker/socks5/docker-compose.yaml up -d
-	$(DOCKER_COMPOSE) -f docker/stirling-pdf/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/stirling-pdf/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/uptime-kuma/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/uptime-kuma/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/wallos/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/wallos/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/wealthfolio/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/wealthfolio/docker-compose.yml up -d
-	@echo "✅ All services updated!"
+	@echo "Updating running services only..."
+	@for compose_file in docker/*/docker-compose.yml docker/*/docker-compose.yaml; do \
+		if [ -f "$$compose_file" ]; then \
+			if docker compose --env-file .env -f "$$compose_file" ps -q 2>/dev/null | grep -q .; then \
+				echo "Updating $$compose_file..."; \
+				docker compose --env-file .env -f "$$compose_file" pull; \
+				docker compose --env-file .env -f "$$compose_file" up -d; \
+			fi; \
+		fi; \
+	done
+	@echo "✅ Running services updated!"
 
 logs-all:
 	@echo "Use 'make logs-<service>' for individual service logs"
