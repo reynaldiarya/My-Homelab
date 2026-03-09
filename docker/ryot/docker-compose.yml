@@ -1,6 +1,6 @@
 services:
   ryot:
-    image: ignisda/ryot:v10
+    image: ignisda/ryot:latest
     container_name: ryot
     restart: unless-stopped
     ports:

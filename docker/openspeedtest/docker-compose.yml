@@ -1,6 +1,6 @@
 services:
   openspeedtest:
-    image: openspeedtest/latest
+    image: openspeedtest/latest:latest
     container_name: openspeedtest
     restart: unless-stopped
     ports:
