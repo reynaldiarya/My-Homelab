@@ -44,7 +44,7 @@ My Homelab provides a robust, centralized environment for running 29 self-hosted
 1. Clone the repository to your server
 
 ```bash
-git clone https://github.com/USERNAME/My-Homelab.git
+git clone https://github.com/reynaldiarya/My-Homelab.git
 cd My-Homelab
 ```
 
