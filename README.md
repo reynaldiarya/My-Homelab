@@ -1,282 +1,190 @@
-# 🏠 My Homelab
+# My Homelab
 
-A curated collection of Docker Compose configurations for my personal homelab. This repository contains various self-hosted services that are organized and ready to deploy.
+A comprehensive, automated, and resource-optimized Docker-based infrastructure for personal hosting and self-management.
 
-## ✨ Features
+<p align="center">
+  <img src="https://img.shields.io/badge/version-1.0.0-blue.svg" />
+  <img src="https://img.shields.io/badge/Docker-Ready-2496ED.svg" />
+  <img src="https://img.shields.io/badge/Make-Automated-4479A1.svg" />
+  <a href="LICENSE">
+    <img alt="License" src="https://img.shields.io/badge/license-MIT-yellow.svg" target="_blank" />
+  </a>
+</p>
 
-- 🧰 **Plug & Play** — Minimal setup, just clone and run
-- 📁 **Organized** — Each service in its own folder
-- 🔧 **Customizable** — Easy to modify according to your needs
-- 🔐 **Secure** — Uses environment variables for credentials
-- 📊 **Resource Control** — Dynamic CPU & memory limits per service
-- 🛠️ **Makefile** — Easy commands to manage all services
+## Description
 
-## 📦 Services
+My Homelab provides a robust, centralized environment for running 29 self-hosted applications and services. Built entirely on Docker and orchestrated through a unified Makefile, this project simplifies the deployment, management, and monitoring of diverse applications ranging from personal finance and productivity to networking and artificial intelligence. It solves the complexity of managing multiple independent services by providing a standardized configuration approach, strict resource management, and isolated networking, making it ideal for self-hosters and developers running personal cloud infrastructure.
 
-### Databases
+## Features
 
-| Service                          | Port  | Description                            |
-| -------------------------------- | ----- | -------------------------------------- |
-| [MariaDB](./docker/mariadb/)     | 3306  | Relational database (MySQL compatible) |
-| [PostgreSQL](./docker/postgres/) | 5432  | Advanced relational database           |
-| [Redis](./docker/redis/)         | 6379  | In-memory cache & message broker       |
-| [MongoDB](./docker/mongodb/)     | 27017 | NoSQL document database                |
+- **Centralized Orchestration** - Manage all 29 services through a single, intuitive Makefile command interface
+- **Resource Optimization** - Pre-configured CPU and memory limitations for every container to ensure host stability
+- **Unified Configuration** - Manage all environment variables, ports, and credentials from a single `.env` file
+- **Network Isolation** - Dedicated internal Docker network ensuring secure and seamless inter-container communication
+- **Security First** - Built-in network binding controls to easily restrict service access to local interfaces
+- **Scalable Architecture** - Modular folder structure making it simple to add, remove, or modify individual services
 
-### Management & Monitoring
+## Tech Stack
 
-| Service                              | Port | Description                   |
-| ------------------------------------ | ---- | ----------------------------- |
-| [Portainer](./docker/portainer/)     | 9490 | Docker management UI          |
-| [Homepage](./docker/homepage/)       | 3090 | Application dashboard         |
-| [Beszel](./docker/beszel/)           | 8093 | Lightweight server monitoring |
-| [Grafana](./docker/grafana/)         | 3091 | Metrics visualization         |
-| [Uptime Kuma](./docker/uptime-kuma/) | 3096 | Uptime monitoring             |
-| [SmokePing](./docker/smokeping/)     | 8097 | Network latency monitor       |
+- **Containerization**: Docker, Docker Compose
+- **Automation**: GNU Make
+- **Databases**: PostgreSQL, MariaDB, MongoDB, Redis
+- **Reverse Proxy / Dashboard**: Homepage
 
-### Automation
+## Installation
 
-| Service              | Port | Description                  |
-| -------------------- | ---- | ---------------------------- |
-| [N8N](./docker/n8n/) | 5690 | Workflow automation platform |
+### Prerequisites
 
-### Finance
+- Docker Engine (v24+)
+- Docker Compose (v2+)
+- GNU Make
 
-| Service                                  | Port | Description              |
-| ---------------------------------------- | ---- | ------------------------ |
-| [Actual Budget](./docker/actual-budget/) | 5096 | Personal finance manager |
-| [Wallos](./docker/wallos/)               | 8290 | Subscription tracker     |
-| [Wealthfolio](./docker/wealthfolio/)     | 8094 | Investment tracker       |
+### Steps
 
-### AI & Machine Learning
-
-| Service                            | Port  | Description                    |
-| ---------------------------------- | ----- | ------------------------------ |
-| [Ollama](./docker/ollama/)         | 11434 | Local LLM server (GPU support) |
-| [Open WebUI](./docker/open-webui/) | 3092  | Web UI for Ollama              |
-
-### Media & Entertainment
-
-| Service                | Port | Description            |
-| ---------------------- | ---- | ---------------------- |
-| [Ryot](./docker/ryot/) | 8091 | Media tracking manager |
-
-### Tools & Utilities
-
-| Service                                      | Port | Description                 |
-| -------------------------------------------- | ---- | --------------------------- |
-| [SerpBear](./docker/serpbear/)               | 3093 | SEO rank tracking           |
-| [Bugsink](./docker/bugsink/)                 | 8090 | Error tracking (Sentry alt) |
-| [Excalidraw](./docker/excalidraw/)           | 5090 | Virtual whiteboard          |
-| [ChangeDetection](./docker/changedetection/) | 5091 | Website change monitoring   |
-| [Bento PDF](./docker/bento-pdf/)             | 8098 | Client-side PDF toolkit     |
-| [Stirling PDF](./docker/stirling-pdf/)       | 8092 | PDF toolkit                 |
-| [FlareSolverr](./docker/flaresolverr/)       | 8191 | Cloudflare bypass proxy     |
-| [IT Tools](./docker/it-tools/)               | 8095 | Developer utilities         |
-
-### Marketing
-
-| Service                        | Port | Description                       |
-| ------------------------------ | ---- | --------------------------------- |
-| [Listmonk](./docker/listmonk/) | 9090 | Newsletter & mailing list manager |
-
-### Networking
-
-| Service                                  | Port | Description           |
-| ---------------------------------------- | ---- | --------------------- |
-| [AdGuard Home](./docker/adguard-home/)   | 8096 | DNS ad blocker        |
-| [OpenSpeedTest](./docker/openspeedtest/) | 3094 | Network speed testing |
-| [Socks5](./docker/socks5/)               | 1080 | SOCKS5 proxy server   |
-
-## 🚀 Quick Start
-
-### 1. Install Docker & Docker Compose
-
-Make sure Docker is installed on your system:
-👉 [Download Docker](https://www.docker.com/get-docker)
-
-Verify installation:
+1. Clone the repository to your server
 
 ```bash
-docker -v
-docker compose version
-```
-
-### 2. Clone Repository
-
-```bash
-git clone https://github.com/reynaldiarya/My-Homelab.git
+git clone https://github.com/USERNAME/My-Homelab.git
 cd My-Homelab
 ```
 
-### 3. Setup Environment Variables
+2. Copy the environment configuration template
 
 ```bash
 cp .env.example .env
-# Edit .env with your secure passwords
 ```
 
-### 4. Run Services
-
-Using Makefile (recommended):
+3. Configure your environment variables (see Configuration section)
+4. Initialize the internal Docker network
 
 ```bash
-# Show all available commands
+make network
+```
+
+5. Start the complete infrastructure
+
+```bash
+make start-all
+```
+
+## Configuration
+
+The entire infrastructure is configured via the central `.env` file. 
+
+### Security and Networking
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `TZ` | System timezone for all containers | `Asia/Jakarta` |
+| `BIND_IP` | Network binding interface (`127.0.0.1` for local, `0.0.0.0` for public) | `0.0.0.0` |
+
+### Resource Limits
+
+Every service has dedicated resource limits to prevent any single application from consuming all host resources. Examples:
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `OLLAMA_CPU_LIMIT` | CPU cores allocated to Ollama | `4` |
+| `OLLAMA_MEMORY_LIMIT` | RAM allocated to Ollama | `8G` |
+| `PORTAINER_CPU_LIMIT` | CPU cores allocated to Portainer | `0.5` |
+| `PORTAINER_MEMORY_LIMIT` | RAM allocated to Portainer | `256M` |
+
+## Usage
+
+Management is handled entirely through the included Makefile. 
+
+### General Commands
+
+```bash
+# View all available commands
 make help
 
-# Start all services
+# Create the required Docker network
+make network
+
+# Start, stop, or update the entire stack
 make start-all
-
-# Start individual service
-make start-mariadb
-make start-portainer
-```
-
-Or manually:
-
-```bash
-# Create network first
-docker network create homelab
-
-# Run a service
-docker compose -f docker/mariadb/docker-compose.yml up -d
-```
-
-## 📁 Folder Structure
-
-```
-My-Homelab/
-├── docker/
-│   ├── actual-budget/
-│   ├── bento-pdf/
-│   ├── changedetection/
-│   ├── mariadb/
-│   ├── mongodb/
-│   ├── n8n/
-│   ├── ollama/
-│   ├── open-webui/
-│   ├── portainer/
-│   ├── postgres/
-│   ├── redis/
-│   ├── serpbear/
-│   ├── stirling-pdf/
-│   ├── wallos/
-│   ├── listmonk/
-│   ├── adguard-home/
-│   ├── grafana/
-│   ├── openspeedtest/
-│   ├── smokeping/
-│   ├── uptime-kuma/
-│   ├── flaresolverr/
-│   ├── it-tools/
-│   ├── ryot/
-│   └── wealthfolio/
-├── .env.example
-├── .gitignore
-├── Makefile
-└── README.md
-```
-
-## 🛠️ Makefile Commands
-
-| Command                 | Description               |
-| ----------------------- | ------------------------- |
-| `make help`             | Show all commands         |
-| `make network`          | Create homelab network    |
-| `make start-all`        | Start all services        |
-| `make stop-all`         | Stop all services         |
-| `make update-all`       | Update all services       |
-| `make start-<service>`  | Start a specific service  |
-| `make stop-<service>`   | Stop a specific service   |
-| `make update-<service>` | Update a specific service |
-| `make logs-<service>`   | View service logs         |
-
-**Available services:** `mariadb`, `postgres`, `redis`, `mongodb`, `portainer`, `beszel`, `bento-pdf`, `n8n`, `ollama`, `open-webui`, `actual-budget`, `serpbear`, `changedetection`, `wallos`, `wealthfolio`, `stirling-pdf`, `listmonk`, `adguard-home`, `grafana`, `openspeedtest`, `smokeping`, `uptime-kuma`, `flaresolverr`, `it-tools`, `ryot`, `socks5`, `bugsink`, `excalidraw`, `homepage`
-
-### Examples
-
-```bash
-# Start MariaDB
-make start-mariadb
-
-# View Portainer logs
-make logs-portainer
-
-# Update all services to latest version
+make stop-all
 make update-all
-
-# Stop N8N
-make stop-n8n
 ```
 
-## ⚙️ Resource Limits
+### Individual Service Management
 
-Each service supports dynamic resource limits via environment variables:
-
-```env
-# Example in .env
-MARIADB_CPU_LIMIT=2
-MARIADB_MEMORY_LIMIT=2G
-```
-
-### Default Resource Limits
-
-| Service            | CPU | Memory |
-| ------------------ | --- | ------ |
-| MariaDB            | 1   | 1G     |
-| PostgreSQL         | 1   | 1G     |
-| Redis              | 0.5 | 512M   |
-| MongoDB            | 1   | 1G     |
-| Portainer          | 0.5 | 256M   |
-| Beszel             | 0.5 | 256M   |
-| Bugsink            | 0.5 | 256M   |
-| Excalidraw         | 0.5 | 512M   |
-| Homepage           | 0.5 | 256M   |
-| N8N                | 1   | 1G     |
-| Actual Budget      | 0.5 | 256M   |
-| SerpBear           | 0.5 | 512M   |
-| ChangeDetection    | 0.5 | 512M   |
-| Sockpuppet Browser | 1   | 1G     |
-| Wallos             | 0.5 | 256M   |
-| Bento PDF          | 0.5 | 256M   |
-| Stirling PDF       | 1   | 512M   |
-| Listmonk           | 1   | 1G     |
-| AdGuard Home       | 0.5 | 256M   |
-| Grafana            | 1   | 512M   |
-| OpenSpeedTest      | 0.5 | 256M   |
-| SmokePing          | 0.5 | 256M   |
-| Uptime Kuma        | 0.5 | 256M   |
-| FlareSolverr       | 1   | 1G     |
-| IT Tools           | 0.5 | 256M   |
-| Ryot               | 0.5 | 512M   |
-| Socks5             | 0.5 | 512M   |
-| Ollama             | 4   | 8G     |
-| Open WebUI         | 1   | 1G     |
-| Wealthfolio        | 0.5 | 512M   |
-
-## 🔐 Security
-
-- Never commit `.env` file to the repository
-- Use strong passwords for all services
-- Consider using Docker secrets for production
-- All sensitive data is stored in `.env` file which is gitignored
-
-## 📝 Notes
-
-- All services use the `homelab` network for inter-container communication
-- Data is persistent using named volumes managed by Docker
-- Default ports can be changed via environment variables
-- Global timezone is configured via `TZ` variable in `.env`
-
-## �‍💻 Development
-
-### Formatting
-
-To format all `docker-compose.yml` files:
+You can manage any of the 29 services individually. Replace `<service>` with the service name (e.g., `mariadb`, `portainer`, `n8n`).
 
 ```bash
-npx prettier --write "docker/**/*.yml"
+# Start a specific service
+make start-<service>
+
+# Stop a specific service
+make stop-<service>
+
+# Pull latest images and update a specific service
+make update-<service>
+
+# View real-time logs for a specific service
+make logs-<service>
 ```
 
-## �📄 License
+## Project Structure
 
-MIT License - Free to use and modify
+```text
+/
+├── .env.example              # Central configuration template
+├── Makefile                  # Core automation and management script
+└── docker/                   # Individual service definitions
+    ├── actual-budget/        # Personal finance manager
+    ├── adguard-home/         # Network-wide ad blocking
+    ├── bento-pdf/            # PDF manipulation
+    ├── beszel/               # System monitoring hub
+    ├── bugsink/              # Error tracking
+    ├── changedetection/      # Website change monitoring
+    ├── excalidraw/           # Collaborative whiteboard
+    ├── flaresolverr/         # Cloudflare challenge solver
+    ├── grafana/              # Data visualization
+    ├── homepage/             # Application dashboard
+    ├── it-tools/             # Developer utility suite
+    ├── listmonk/             # Newsletter and mailing list manager
+    ├── mariadb/              # Relational database
+    ├── mongodb/              # NoSQL database
+    ├── n8n/                  # Workflow automation
+    ├── ollama/               # Local large language models
+    ├── open-webui/           # Interface for Ollama
+    ├── openspeedtest/        # Network speed testing
+    ├── portainer/            # Container management interface
+    ├── postgres/             # Relational database
+    ├── redis/                # In-memory data store
+    ├── ryot/                 # Media tracking
+    ├── serpbear/             # Search engine rank tracking
+    ├── smokeping/            # Network latency monitoring
+    ├── socks5/               # Proxy server
+    ├── stirling-pdf/         # Advanced PDF manipulation
+    ├── uptime-kuma/          # Uptime monitoring
+    ├── wallos/               # Subscription tracker
+    └── wealthfolio/          # Investment tracking
+```
+
+## Scripts / Commands
+
+The `Makefile` exposes the following primary service targets:
+
+`actual-budget`, `adguard-home`, `bento-pdf`, `beszel`, `bugsink`, `changedetection`, `excalidraw`, `flaresolverr`, `grafana`, `homepage`, `it-tools`, `listmonk`, `mariadb`, `mongodb`, `n8n`, `ollama`, `open-webui`, `openspeedtest`, `portainer`, `postgres`, `redis`, `ryot`, `serpbear`, `smokeping`, `socks5`, `stirling-pdf`, `uptime-kuma`, `wallos`, `wealthfolio`
+
+## Contributing
+
+Contributions to improve the infrastructure setup or add new services are welcome.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/new-service`)
+3. Ensure you add corresponding Makefile targets and `.env.example` entries
+4. Commit your changes (`git commit -m 'Add new service'`)
+5. Push to the branch (`git push origin feature/new-service`)
+6. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for detailed terms and conditions.
+
+## Author
+
+Reynaldi Arya
