@@ -37,6 +37,7 @@ DOCKER_COMPOSE = docker compose --env-file .env
 .PHONY: start-uptime-kuma stop-uptime-kuma update-uptime-kuma logs-uptime-kuma
 .PHONY: start-wallos stop-wallos update-wallos logs-wallos
 .PHONY: start-wealthfolio stop-wealthfolio update-wealthfolio logs-wealthfolio
+.PHONY: start-wordpress stop-wordpress update-wordpress logs-wordpress
 
 # Default target
 help:
@@ -65,7 +66,7 @@ help:
 	@echo "  mariadb, mongodb, n8n, ollama, open-webui,"
 	@echo "  openspeedtest, portainer, postgres, redis, ryot,"
 	@echo "  serpbear, smokeping, socks5, stirling-pdf, uptime-kuma, wallos,"
-	@echo "  wealthfolio"
+	@echo "  wealthfolio, wordpress"
 	@echo ""
 	@echo "Examples:"
 	@echo "  make start-mariadb"
@@ -110,6 +111,7 @@ start-all: network
 	$(DOCKER_COMPOSE) -f docker/uptime-kuma/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/wallos/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/wealthfolio/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/wordpress/docker-compose.yml up -d
 	@echo "✅ All services started!"
 
 stop-all:
@@ -141,6 +143,7 @@ stop-all:
 	$(DOCKER_COMPOSE) -f docker/uptime-kuma/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/wallos/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/wealthfolio/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/wordpress/docker-compose.yml down
 	@echo "✅ All services stopped!"
 
 update-all: network
@@ -634,3 +637,19 @@ update-wealthfolio: network
 
 logs-wealthfolio:
 	$(DOCKER_COMPOSE) -f docker/wealthfolio/docker-compose.yml logs -f
+
+# ================================
+# WordPress
+# ================================
+start-wordpress: network
+	$(DOCKER_COMPOSE) -f docker/wordpress/docker-compose.yml up -d
+
+stop-wordpress:
+	$(DOCKER_COMPOSE) -f docker/wordpress/docker-compose.yml down
+
+update-wordpress: network
+	$(DOCKER_COMPOSE) -f docker/wordpress/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/wordpress/docker-compose.yml up -d
+
+logs-wordpress:
+	$(DOCKER_COMPOSE) -f docker/wordpress/docker-compose.yml logs -f
