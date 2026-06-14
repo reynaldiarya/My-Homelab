@@ -13,11 +13,11 @@ A comprehensive, automated, and resource-optimized Docker-based infrastructure f
 
 ## Description
 
-My Homelab provides a robust, centralized environment for running 30 self-hosted applications and services. Built entirely on Docker and orchestrated through a unified Makefile, this project simplifies the deployment, management, and monitoring of diverse applications ranging from personal finance and productivity to networking and artificial intelligence. It solves the complexity of managing multiple independent services by providing a standardized configuration approach, strict resource management, and isolated networking, making it ideal for self-hosters and developers running personal cloud infrastructure.
+My Homelab provides a robust, centralized environment for running 31 self-hosted applications and services. Built entirely on Docker and orchestrated through a unified Makefile, this project simplifies the deployment, management, and monitoring of diverse applications ranging from personal finance and productivity to networking and artificial intelligence. It solves the complexity of managing multiple independent services by providing a standardized configuration approach, strict resource management, and isolated networking, making it ideal for self-hosters and developers running personal cloud infrastructure.
 
 ## Features
 
-- **Centralized Orchestration** - Manage all 30 services through a single, intuitive Makefile command interface
+- **Centralized Orchestration** - Manage all 31 services through a single, intuitive Makefile command interface
 - **Resource Optimization** - Pre-configured CPU and memory limitations for every container to ensure host stability
 - **Unified Configuration** - Manage all environment variables, ports, and credentials from a single `.env` file
 - **Network Isolation** - Dedicated internal Docker network ensuring secure and seamless inter-container communication
@@ -110,7 +110,7 @@ make update-all
 
 ### Individual Service Management
 
-You can manage any of the 30 services individually. Replace `<service>` with the service name (e.g., `mariadb`, `portainer`, `n8n`).
+You can manage any of the 31 services individually. Replace `<service>` with the service name (e.g., `mariadb`, `portainer`, `n8n`).
 
 ```bash
 # Start a specific service
@@ -137,6 +137,7 @@ make logs-<service>
     ├── adguard-home/         # Network-wide ad blocking
     ├── bento-pdf/            # PDF manipulation
     ├── beszel/               # System monitoring hub
+    ├── blesta/               # Billing and client management
     ├── bugsink/              # Error tracking
     ├── changedetection/      # Website change monitoring
     ├── excalidraw/           # Collaborative whiteboard
@@ -169,7 +170,7 @@ make logs-<service>
 
 The `Makefile` exposes the following primary service targets:
 
-`actual-budget`, `adguard-home`, `bento-pdf`, `beszel`, `bugsink`, `changedetection`, `excalidraw`, `flaresolverr`, `grafana`, `homepage`, `it-tools`, `listmonk`, `mariadb`, `mongodb`, `n8n`, `ollama`, `open-webui`, `openspeedtest`, `portainer`, `postgres`, `redis`, `ryot`, `serpbear`, `smokeping`, `socks5`, `stirling-pdf`, `uptime-kuma`, `wallos`, `wealthfolio`, `wordpress`
+`actual-budget`, `adguard-home`, `bento-pdf`, `beszel`, `blesta`, `bugsink`, `changedetection`, `excalidraw`, `flaresolverr`, `grafana`, `homepage`, `it-tools`, `listmonk`, `mariadb`, `mongodb`, `n8n`, `ollama`, `open-webui`, `openspeedtest`, `portainer`, `postgres`, `redis`, `ryot`, `serpbear`, `smokeping`, `socks5`, `stirling-pdf`, `uptime-kuma`, `wallos`, `wealthfolio`, `wordpress`
 
 ## Contributing
 

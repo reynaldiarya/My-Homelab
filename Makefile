@@ -12,6 +12,7 @@ DOCKER_COMPOSE = docker compose --env-file .env
 .PHONY: start-adguard-home stop-adguard-home update-adguard-home logs-adguard-home
 .PHONY: start-beszel stop-beszel update-beszel logs-beszel
 .PHONY: start-bento-pdf stop-bento-pdf update-bento-pdf logs-bento-pdf
+.PHONY: start-blesta stop-blesta update-blesta logs-blesta
 .PHONY: start-bugsink stop-bugsink update-bugsink logs-bugsink
 .PHONY: start-changedetection stop-changedetection update-changedetection logs-changedetection
 .PHONY: start-excalidraw stop-excalidraw update-excalidraw logs-excalidraw
@@ -60,7 +61,7 @@ help:
 	@echo "  make logs-<service>   - View service logs"
 	@echo ""
 	@echo "Available services (A-Z):"
-	@echo "  actual-budget, adguard-home, bento-pdf, beszel, bugsink,"
+	@echo "  actual-budget, adguard-home, bento-pdf, beszel, blesta, bugsink,"
 	@echo "  changedetection, excalidraw, flaresolverr, grafana, homepage,"
 	@echo "  it-tools, listmonk,"
 	@echo "  mariadb, mongodb, n8n, ollama, open-webui,"
@@ -88,6 +89,7 @@ start-all: network
 	$(DOCKER_COMPOSE) -f docker/adguard-home/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/beszel/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/bento-pdf/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/blesta/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/bugsink/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/changedetection/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/excalidraw/docker-compose.yml up -d
@@ -120,6 +122,7 @@ stop-all:
 	$(DOCKER_COMPOSE) -f docker/adguard-home/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/beszel/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/bento-pdf/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/blesta/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/bugsink/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/changedetection/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/excalidraw/docker-compose.yml down
@@ -225,6 +228,22 @@ update-bento-pdf: network
 
 logs-bento-pdf:
 	$(DOCKER_COMPOSE) -f docker/bento-pdf/docker-compose.yml logs -f
+
+# ================================
+# Blesta
+# ================================
+start-blesta: network
+	$(DOCKER_COMPOSE) -f docker/blesta/docker-compose.yml up -d
+
+stop-blesta:
+	$(DOCKER_COMPOSE) -f docker/blesta/docker-compose.yml down
+
+update-blesta: network
+	$(DOCKER_COMPOSE) -f docker/blesta/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/blesta/docker-compose.yml up -d
+
+logs-blesta:
+	$(DOCKER_COMPOSE) -f docker/blesta/docker-compose.yml logs -f
 
 # ================================
 # Bugsink

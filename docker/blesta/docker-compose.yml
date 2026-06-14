@@ -1,0 +1,34 @@
+services:
+  blesta:
+    image: ppmathis/blesta:latest
+    container_name: blesta
+    restart: unless-stopped
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    ports:
+      - "${BIND_IP}:${BLESTA_PORT:-8081}:8080/tcp"
+    environment:
+      BLESTA_ADDRESS: ${BLESTA_ADDRESS:-127.0.0.1}
+      BLESTA_HOST: ${BLESTA_HOST:-localhost}
+    volumes:
+      - blesta_data:/opt/blesta/data
+    tmpfs:
+      - /run:uid=65532,gid=65532,mode=0755,exec,nodev,nosuid
+      - /tmp:uid=65532,gid=65532,mode=2777,noexec,nodev,nosuid
+    networks:
+      - homelab
+    deploy:
+      resources:
+        limits:
+          cpus: "${BLESTA_CPU_LIMIT:-1}"
+          memory: ${BLESTA_MEMORY_LIMIT:-1G}
+
+networks:
+  homelab:
+    external: true
+
+volumes:
+  blesta_data:
