@@ -24,6 +24,8 @@ DOCKER_COMPOSE = docker compose --env-file .env
 .PHONY: start-mariadb stop-mariadb update-mariadb logs-mariadb
 .PHONY: start-mongodb stop-mongodb update-mongodb logs-mongodb
 .PHONY: start-n8n stop-n8n update-n8n logs-n8n
+.PHONY: start-nextcloud stop-nextcloud update-nextcloud logs-nextcloud
+.PHONY: start-onlyoffice stop-onlyoffice update-onlyoffice logs-onlyoffice
 .PHONY: start-ollama stop-ollama update-ollama logs-ollama
 .PHONY: start-open-webui stop-open-webui update-open-webui logs-open-webui
 .PHONY: start-openspeedtest stop-openspeedtest update-openspeedtest logs-openspeedtest
@@ -64,7 +66,7 @@ help:
 	@echo "  actual-budget, adguard-home, bento-pdf, beszel, blesta, bugsink,"
 	@echo "  changedetection, excalidraw, flaresolverr, grafana, homepage,"
 	@echo "  it-tools, listmonk,"
-	@echo "  mariadb, mongodb, n8n, ollama, open-webui,"
+	@echo "  mariadb, mongodb, n8n, nextcloud, ollama, onlyoffice, open-webui,"
 	@echo "  openspeedtest, portainer, postgres, redis, ryot,"
 	@echo "  serpbear, smokeping, socks5, stirling-pdf, uptime-kuma, wallos,"
 	@echo "  wealthfolio, wordpress"
@@ -101,6 +103,8 @@ start-all: network
 	$(DOCKER_COMPOSE) -f docker/mariadb/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/mongodb/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/n8n/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/nextcloud/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/onlyoffice/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/openspeedtest/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/portainer/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/postgres/docker-compose.yml up -d
@@ -134,6 +138,8 @@ stop-all:
 	$(DOCKER_COMPOSE) -f docker/mariadb/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/mongodb/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/n8n/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/nextcloud/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/onlyoffice/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/openspeedtest/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/portainer/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/postgres/docker-compose.yml down
@@ -434,6 +440,22 @@ logs-n8n:
 	$(DOCKER_COMPOSE) -f docker/n8n/docker-compose.yml logs -f
 
 # ================================
+# Nextcloud
+# ================================
+start-nextcloud: network
+	$(DOCKER_COMPOSE) -f docker/nextcloud/docker-compose.yml up -d
+
+stop-nextcloud:
+	$(DOCKER_COMPOSE) -f docker/nextcloud/docker-compose.yml down
+
+update-nextcloud: network
+	$(DOCKER_COMPOSE) -f docker/nextcloud/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/nextcloud/docker-compose.yml up -d
+
+logs-nextcloud:
+	$(DOCKER_COMPOSE) -f docker/nextcloud/docker-compose.yml logs -f
+
+# ================================
 # Ollama
 # ================================
 start-ollama: network
@@ -448,6 +470,22 @@ update-ollama: network
 
 logs-ollama:
 	$(DOCKER_COMPOSE) -f docker/ollama/docker-compose.yml logs -f
+
+# ================================
+# OnlyOffice
+# ================================
+start-onlyoffice: network
+	$(DOCKER_COMPOSE) -f docker/onlyoffice/docker-compose.yml up -d
+
+stop-onlyoffice:
+	$(DOCKER_COMPOSE) -f docker/onlyoffice/docker-compose.yml down
+
+update-onlyoffice: network
+	$(DOCKER_COMPOSE) -f docker/onlyoffice/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/onlyoffice/docker-compose.yml up -d
+
+logs-onlyoffice:
+	$(DOCKER_COMPOSE) -f docker/onlyoffice/docker-compose.yml logs -f
 
 # ================================
 # Open WebUI

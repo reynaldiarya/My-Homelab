@@ -83,6 +83,17 @@
         href: http://localhost:{{HOMEPAGE_VAR_OPEN_WEBUI_PORT}}
         description: AI Chat Interface
 
+# Office Group
+- Office:
+    - Nextcloud:
+        icon: sh-nextcloud.png
+        href: http://localhost:{{HOMEPAGE_VAR_NEXTCLOUD_PORT}}
+        description: Cloud Collaboration
+    - OnlyOffice:
+        icon: sh-onlyoffice.png
+        href: http://localhost:{{HOMEPAGE_VAR_ONLYOFFICE_PORT}}
+        description: Online Office Suite
+
 # Media Group
 - Media:
     - Ryot:

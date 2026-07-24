@@ -35,6 +35,10 @@ layout:
     tab: Tools
     style: row
     columns: 3
+  Office:
+    tab: Tools
+    style: row
+    columns: 2
   AI:
     tab: AI
     style: row

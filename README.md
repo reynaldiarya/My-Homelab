@@ -149,7 +149,9 @@ make logs-<service>
     ├── mariadb/              # Relational database
     ├── mongodb/              # NoSQL database
     ├── n8n/                  # Workflow automation
+    ├── nextcloud/            # Cloud collaboration and storage
     ├── ollama/               # Local large language models
+    ├── onlyoffice/           # OnlyOffice document server
     ├── open-webui/           # Interface for Ollama
     ├── openspeedtest/        # Network speed testing
     ├── portainer/            # Container management interface
@@ -170,7 +172,7 @@ make logs-<service>
 
 The `Makefile` exposes the following primary service targets:
 
-`actual-budget`, `adguard-home`, `bento-pdf`, `beszel`, `blesta`, `bugsink`, `changedetection`, `excalidraw`, `flaresolverr`, `grafana`, `homepage`, `it-tools`, `listmonk`, `mariadb`, `mongodb`, `n8n`, `ollama`, `open-webui`, `openspeedtest`, `portainer`, `postgres`, `redis`, `ryot`, `serpbear`, `smokeping`, `socks5`, `stirling-pdf`, `uptime-kuma`, `wallos`, `wealthfolio`, `wordpress`
+`actual-budget`, `adguard-home`, `bento-pdf`, `beszel`, `blesta`, `bugsink`, `changedetection`, `excalidraw`, `flaresolverr`, `grafana`, `homepage`, `it-tools`, `listmonk`, `mariadb`, `mongodb`, `n8n`, `nextcloud`, `ollama`, `onlyoffice`, `open-webui`, `openspeedtest`, `portainer`, `postgres`, `redis`, `ryot`, `serpbear`, `smokeping`, `socks5`, `stirling-pdf`, `uptime-kuma`, `wallos`, `wealthfolio`, `wordpress`
 
 ## Contributing
 

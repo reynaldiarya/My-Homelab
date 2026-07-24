@@ -1,0 +1,29 @@
+services:
+  nextcloud:
+    image: nextcloud:latest
+    container_name: nextcloud
+    restart: unless-stopped
+    ports:
+      - "${BIND_IP}:${NEXTCLOUD_PORT:-8083}:80"
+    environment:
+      - TZ=${TZ:-Asia/Jakarta}
+      - MYSQL_DATABASE=${NEXTCLOUD_DB_NAME:-nextcloud}
+      - MYSQL_USER=${NEXTCLOUD_DB_USER:-root}
+      - MYSQL_PASSWORD=${MARIADB_ROOT_PASSWORD:-password}
+      - MYSQL_HOST=${NEXTCLOUD_DB_HOST:-mariadb}
+    volumes:
+      - nextcloud_data:/var/www/html
+    networks:
+      - homelab
+    deploy:
+      resources:
+        limits:
+          cpus: "${NEXTCLOUD_CPU_LIMIT:-1}"
+          memory: ${NEXTCLOUD_MEMORY_LIMIT:-1G}
+
+networks:
+  homelab:
+    external: true
+
+volumes:
+  nextcloud_data:

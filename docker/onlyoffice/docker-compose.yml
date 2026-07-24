@@ -1,0 +1,30 @@
+services:
+  onlyoffice:
+    image: onlyoffice/documentserver:latest
+    container_name: onlyoffice
+    restart: unless-stopped
+    ports:
+      - "${BIND_IP}:${ONLYOFFICE_PORT:-8084}:80"
+    environment:
+      - TZ=${TZ:-Asia/Jakarta}
+      - JWT_ENABLED=${ONLYOFFICE_JWT_ENABLED:-true}
+      - JWT_SECRET=${ONLYOFFICE_JWT_SECRET:-your_secure_jwt_secret}
+      - JWT_HEADER=${ONLYOFFICE_JWT_HEADER:-Authorization}
+    volumes:
+      - onlyoffice_data:/var/www/onlyoffice/Data
+      - onlyoffice_log:/var/log/onlyoffice
+    networks:
+      - homelab
+    deploy:
+      resources:
+        limits:
+          cpus: "${ONLYOFFICE_CPU_LIMIT:-1}"
+          memory: ${ONLYOFFICE_MEMORY_LIMIT:-2G}
+
+networks:
+  homelab:
+    external: true
+
+volumes:
+  onlyoffice_data:
+  onlyoffice_log:
