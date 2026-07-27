@@ -19,6 +19,7 @@ DOCKER_COMPOSE = docker compose --env-file .env
 .PHONY: start-flaresolverr stop-flaresolverr update-flaresolverr logs-flaresolverr
 .PHONY: start-grafana stop-grafana update-grafana logs-grafana
 .PHONY: start-homepage stop-homepage update-homepage logs-homepage
+.PHONY: start-influxdb stop-influxdb update-influxdb logs-influxdb
 .PHONY: start-it-tools stop-it-tools update-it-tools logs-it-tools
 .PHONY: start-listmonk stop-listmonk update-listmonk logs-listmonk
 .PHONY: start-mariadb stop-mariadb update-mariadb logs-mariadb
@@ -65,7 +66,7 @@ help:
 	@echo "Available services (A-Z):"
 	@echo "  actual-budget, adguard-home, bento-pdf, beszel, blesta, bugsink,"
 	@echo "  changedetection, excalidraw, flaresolverr, grafana, homepage,"
-	@echo "  it-tools, listmonk,"
+	@echo "  influxdb, it-tools, listmonk,"
 	@echo "  mariadb, mongodb, n8n, nextcloud, ollama, onlyoffice, open-webui,"
 	@echo "  openspeedtest, portainer, postgres, redis, ryot,"
 	@echo "  serpbear, smokeping, socks5, stirling-pdf, uptime-kuma, wallos,"
@@ -98,6 +99,7 @@ start-all: network
 	$(DOCKER_COMPOSE) -f docker/flaresolverr/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/grafana/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/homepage/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/influxdb/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/it-tools/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/listmonk/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/mariadb/docker-compose.yml up -d
@@ -133,6 +135,7 @@ stop-all:
 	$(DOCKER_COMPOSE) -f docker/flaresolverr/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/grafana/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/homepage/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/influxdb/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/it-tools/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/listmonk/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/mariadb/docker-compose.yml down
@@ -358,6 +361,22 @@ update-homepage: network
 
 logs-homepage:
 	$(DOCKER_COMPOSE) -f docker/homepage/docker-compose.yml logs -f
+
+# ================================
+# InfluxDB
+# ================================
+start-influxdb: network
+	$(DOCKER_COMPOSE) -f docker/influxdb/docker-compose.yml up -d
+
+stop-influxdb:
+	$(DOCKER_COMPOSE) -f docker/influxdb/docker-compose.yml down
+
+update-influxdb: network
+	$(DOCKER_COMPOSE) -f docker/influxdb/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/influxdb/docker-compose.yml up -d
+
+logs-influxdb:
+	$(DOCKER_COMPOSE) -f docker/influxdb/docker-compose.yml logs -f
 
 # ================================
 # IT Tools
