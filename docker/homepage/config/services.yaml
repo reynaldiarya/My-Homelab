@@ -28,6 +28,10 @@
 
 # Finance Group
 - Finance:
+    - Blesta:
+        icon: sh-blesta.png
+        href: http://localhost:{{HOMEPAGE_VAR_BLESTA_PORT}}
+        description: Client Management & Billing
     - Actual Budget:
         icon: sh-actual-budget.png
         href: http://localhost:{{HOMEPAGE_VAR_ACTUAL_BUDGET_PORT}}
@@ -43,6 +47,10 @@
 
 # Tools Group
 - Tools:
+    - Bento PDF:
+        icon: sh-bento.png
+        href: http://localhost:{{HOMEPAGE_VAR_BENTO_PDF_PORT}}
+        description: PDF Utilities
     - Bugsink:
         icon: sh-bugsink.png
         href: http://localhost:{{HOMEPAGE_VAR_BUGSINK_PORT}}
@@ -124,6 +132,10 @@
 
 # Databases (Info only)
 - Databases:
+    - InfluxDB:
+        icon: sh-influxdb.png
+        href: http://localhost:{{HOMEPAGE_VAR_INFLUXDB_PORT}}
+        description: Time Series Database
     - MariaDB:
         icon: sh-mariadb.png
         description: SQL Database
@@ -142,3 +154,7 @@
         icon: sh-openspeedtest.png
         href: http://localhost:{{HOMEPAGE_VAR_OPENSPEEDTEST_PORT}}
         description: Speed Test
+    - WordPress:
+        icon: sh-wordpress.png
+        href: http://localhost:{{HOMEPAGE_VAR_WORDPRESS_PORT}}
+        description: Content Management System
