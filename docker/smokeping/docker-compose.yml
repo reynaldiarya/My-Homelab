@@ -12,7 +12,7 @@ services:
     volumes:
       - smokeping_config:/config
       - smokeping_data:/data
-      - ./SmokePing-Targets:/config/Targets
+      - ./config/Targets:/config/Targets
     restart: unless-stopped
     networks:
       - homelab
