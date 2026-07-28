@@ -1,0 +1,199 @@
+*** Targets ***
+
+probe = FPing
+
+menu = Top
+title = Network Latency Grapher
+remark = Welcome to the SmokePing website. \
+         Here you will learn all about the latency of our network.
+
++ AnycastNetworks
+menu = Anycast Networks
+title = Global Anycast Networks (CDN & Cloud)
+
+++ Akamai
+menu = Akamai (AS20940)
+title = Akamai Technologies Anycast (AS20940)
+host = www.akamai.com
+
+++ Amazon
+menu = Amazon (AS16509)
+title = Amazon.com Core (AS16509)
+host = 99.83.149.1
+
+++ BunnyNet
+menu = Bunny.net (AS200325)
+title = Bunny.net CDN (AS200325)
+host = kiki.bunny.net
+
+++ CDN77
+menu = CDN77 (AS60068)
+title = CDN77 (AS60068)
+host = www.cdn77.com
+
+++ CacheFly
+menu = CacheFly (AS30081)
+title = CacheFly CDN (AS30081)
+host = www.cachefly.com
+
+++ CiscoOpenDNS
+menu = OpenDNS (AS36692)
+title = Cisco OpenDNS (AS36692)
+host = 208.67.222.222
+
+++ Cloudflare
+menu = Cloudflare (AS13335)
+title = Cloudflare (AS13335)
+host = 1.1.1.1
+
+++ Fastly
+menu = Fastly (AS54113)
+title = Fastly CDN (AS54113)
+host = www.fastly.com
+
+++ GoogleDNS
+menu = Google DNS (AS15169)
+title = Google DNS (AS15169)
+host = 8.8.8.8
+
+++ Meta
+menu = Meta/FB (AS32934)
+title = Meta / Facebook (AS32934)
+host = www.facebook.com
+
+++ Microsoft
+menu = Microsoft (AS8068)
+title = Microsoft Edge / Azure (AS8068)
+host = www.office.com
+
+++ Quad9
+menu = Quad9 (AS19281)
+title = Quad9 DNS (AS19281)
+host = 9.9.9.9
+
++ ISPIndonesia
+menu = ISP Indonesia
+title = Monitoring Provider Internet Indonesia
+
+++ Biznet
+menu = Biznet (AS17451)
+title = Biznet Networks (AS17451)
+host = 202.169.33.220
+
+++ FirstMedia
+menu = FirstMedia (AS9905)
+title = Linknet / FirstMedia (AS9905)
+host = 202.137.3.121
+
+++ Lintasarta
+menu = Lintasarta (AS4800)
+title = Lintasarta (AS4800)
+host = 202.152.4.72
+
+++ Moratel
+menu = Moratel (AS23947)
+title = Mora Tel Indonesia / Oxygen.id (AS23947)
+host = 202.43.178.244
+
+++ MyRepublic
+menu = MyRepublic (AS63859)
+title = MyRepublic Indonesia (AS63859)
+host = 66.96.224.1
+
+++ NTTIndo
+menu = NTT Indonesia (AS10217)
+title = NTT Indonesia (AS10217)
+host = 202.171.27.9
+
+++ Telkom
+menu = Telkom (AS7713)
+title = Telekomunikasi Indonesia / IndiHome (AS7713)
+host = 36.68.56.1
+
+++ Telkomsel
+menu = Telkomsel (AS23693)
+title = Telekomunikasi Selular / Telkomsel (AS23693)
+host = 114.125.96.29
+
+++ Telin
+menu = Telin (AS17974)
+title = Telin / Telkom International (AS17974)
+host = 110.139.0.1
+
++ GameServers
+menu = Game Servers
+title = Latency Game Online (SG/ID Server)
+
+++ Valorant
+menu = Valorant (Riot)
+title = Valorant Singapore Server
+host = dynamodb.ap-southeast-1.amazonaws.com 
+
+++ MobileLegends
+menu = Mobile Legends
+title = Mobile Legends (Moonton)
+host = moba.mobilelegends.com
+
+++ FCMobile
+menu = FC Mobile (EA)
+title = EA Sports FC Mobile (FIFA)
+host = dynamodb.ap-southeast-1.amazonaws.com 
+
++ DNS
+menu = DNS Latency
+title = DNS Response Time (Ping)
+
+++ GoogleDNS1
+menu = Google DNS 1
+title = Google DNS 8.8.8.8
+host = 8.8.8.8
+
+++ GoogleDNS2
+menu = Google DNS 2
+title = Google DNS 8.8.4.4
+host = 8.8.4.4
+
+++ CloudflareDNS1
+menu = Cloudflare DNS 1
+title = Cloudflare DNS 1.1.1.1
+host = 1.1.1.1
+
+++ CloudflareDNS2
+menu = Cloudflare DNS 2
+title = Cloudflare DNS 1.0.0.1
+host = 1.0.0.1
+
+++ Quad9
+menu = Quad9
+title = Quad9 DNS 9.9.9.9
+host = 9.9.9.9
+
++ DNSProbes
+menu = DNS Resolution
+title = DNS Query Speed (Lookup Time)
+probe = DNS
+
+++ GoogleDNS1
+menu = Google DNS 1
+title = Google DNS 8.8.8.8
+host = 8.8.8.8
+
+++ GoogleDNS2
+menu = Google DNS 2
+title = Google DNS 8.8.4.4
+host = 8.8.4.4
+
+++ CloudflareDNS1
+menu = Cloudflare DNS 1
+title = Cloudflare DNS 1.1.1.1
+host = 1.1.1.1
+
+++ CloudflareDNS2
+menu = Cloudflare DNS 2
+title = Cloudflare DNS 1.0.0.1
+host = 1.0.0.1
+
+++ Quad9
+menu = Quad9
+title = Quad9 DNS 9.9.9.9
+host = 9.9.9.9
