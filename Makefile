@@ -25,6 +25,7 @@ DOCKER_COMPOSE = docker compose --env-file .env
 .PHONY: start-mariadb stop-mariadb update-mariadb logs-mariadb
 .PHONY: start-mongodb stop-mongodb update-mongodb logs-mongodb
 .PHONY: start-n8n stop-n8n update-n8n logs-n8n
+.PHONY: start-netdata stop-netdata update-netdata logs-netdata
 .PHONY: start-nextcloud stop-nextcloud update-nextcloud logs-nextcloud
 .PHONY: start-onlyoffice stop-onlyoffice update-onlyoffice logs-onlyoffice
 .PHONY: start-ollama stop-ollama update-ollama logs-ollama
@@ -67,7 +68,7 @@ help:
 	@echo "  actual-budget, adguard-home, bento-pdf, beszel, blesta, bugsink,"
 	@echo "  changedetection, excalidraw, flaresolverr, grafana, homepage,"
 	@echo "  influxdb, it-tools, listmonk,"
-	@echo "  mariadb, mongodb, n8n, nextcloud, ollama, onlyoffice, open-webui,"
+	@echo "  mariadb, mongodb, n8n, netdata, nextcloud, ollama, onlyoffice, open-webui,"
 	@echo "  openspeedtest, portainer, postgres, redis, ryot,"
 	@echo "  serpbear, smokeping, socks5, stirling-pdf, uptime-kuma, wallos,"
 	@echo "  wealthfolio, wordpress"
@@ -105,6 +106,7 @@ start-all: network
 	$(DOCKER_COMPOSE) -f docker/mariadb/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/mongodb/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/n8n/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/netdata/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/nextcloud/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/onlyoffice/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/openspeedtest/docker-compose.yml up -d
@@ -141,6 +143,7 @@ stop-all:
 	$(DOCKER_COMPOSE) -f docker/mariadb/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/mongodb/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/n8n/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/netdata/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/nextcloud/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/onlyoffice/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/openspeedtest/docker-compose.yml down
@@ -457,6 +460,22 @@ update-n8n: network
 
 logs-n8n:
 	$(DOCKER_COMPOSE) -f docker/n8n/docker-compose.yml logs -f
+
+# ================================
+# Netdata
+# ================================
+start-netdata: network
+	$(DOCKER_COMPOSE) -f docker/netdata/docker-compose.yml up -d
+
+stop-netdata:
+	$(DOCKER_COMPOSE) -f docker/netdata/docker-compose.yml down
+
+update-netdata: network
+	$(DOCKER_COMPOSE) -f docker/netdata/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/netdata/docker-compose.yml up -d
+
+logs-netdata:
+	$(DOCKER_COMPOSE) -f docker/netdata/docker-compose.yml logs -f
 
 # ================================
 # Nextcloud

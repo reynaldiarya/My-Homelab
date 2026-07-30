@@ -8,6 +8,10 @@
         icon: sh-grafana.png
         href: http://localhost:{{HOMEPAGE_VAR_GRAFANA_PORT}}
         description: Metrics Dashboard
+    - Netdata:
+        icon: sh-netdata.png
+        href: http://localhost:{{HOMEPAGE_VAR_NETDATA_PORT}}
+        description: Real-time Performance Monitoring
 
 - Network:
     - AdGuard Home:
