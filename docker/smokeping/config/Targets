@@ -7,23 +7,38 @@ title = Network Latency Grapher
 remark = Welcome to the SmokePing website. \
          Here you will learn all about the latency of our network.
 
-+ AnycastNetworks
-menu = Anycast Networks
-title = Global Anycast Networks (CDN & Cloud)
++ CDN
+menu = CDN & Anycast
+title = Content Delivery Networks
+
+++ Cloudflare
+menu = Cloudflare (AS13335)
+title = Cloudflare (AS13335)
+host = one.one.one.one
 
 ++ Akamai
 menu = Akamai (AS20940)
-title = Akamai Technologies Anycast (AS20940)
+title = Akamai (AS20940)
 host = www.akamai.com
 
-++ Amazon
-menu = Amazon (AS16509)
-title = Amazon.com Core (AS16509)
+++ Fastly
+menu = Fastly (AS54113)
+title = Fastly (AS54113)
+host = global.fastly.net
+
+++ Anycast
+menu = Amazon Anycast (AS16509)
+title = Amazon Anycast (AS16509)
 host = 99.83.149.1
+
+++ GoogleCDN
+menu = Google Cloud CDN (AS15169)
+title = Google Cloud CDN (AS15169)
+host = www.gstatic.com
 
 ++ BunnyNet
 menu = Bunny.net (AS200325)
-title = Bunny.net CDN (AS200325)
+title = Bunny.net (AS200325)
 host = kiki.bunny.net
 
 ++ CDN77
@@ -33,47 +48,72 @@ host = www.cdn77.com
 
 ++ CacheFly
 menu = CacheFly (AS30081)
-title = CacheFly CDN (AS30081)
+title = CacheFly (AS30081)
 host = www.cachefly.com
 
-++ CiscoOpenDNS
-menu = OpenDNS (AS36692)
-title = Cisco OpenDNS (AS36692)
-host = 208.67.222.222
++ CloudProviders
+menu = Cloud Providers
+title = Major Cloud Provider Infrastructure
 
-++ Cloudflare
-menu = Cloudflare (AS13335)
-title = Cloudflare (AS13335)
-host = 1.1.1.1
+++ AWSsingapore
+menu = AWS Singapore
+title = Amazon Web Services ap-southeast-1 (Singapore)
+probe = TCPPing
+port = 443
+host = ec2.ap-southeast-1.amazonaws.com
 
-++ Fastly
-menu = Fastly (AS54113)
-title = Fastly CDN (AS54113)
-host = www.fastly.com
+++ AWSjakarta
+menu = AWS Jakarta
+title = Amazon Web Services ap-southeast-3 (Jakarta)
+probe = TCPPing
+port = 443
+host = ec2.ap-southeast-3.amazonaws.com
 
-++ GoogleDNS
-menu = Google DNS (AS15169)
-title = Google DNS (AS15169)
-host = 8.8.8.8
+++ GCPsingapore
+menu = GCP Singapore
+title = Google Cloud asia-southeast1 (Singapore)
+host = asia-southeast1-5tkroniexa-as.a.run.app
 
-++ Meta
-menu = Meta/FB (AS32934)
-title = Meta / Facebook (AS32934)
-host = www.facebook.com
+++ GCPjakarta
+menu = GCP Jakarta
+title = Google Cloud asia-southeast2 (Jakarta)
+host = asia-southeast2-5tkroniexa-et.a.run.app
 
-++ Microsoft
-menu = Microsoft (AS8068)
-title = Microsoft Edge / Azure (AS8068)
-host = www.office.com
+++ AzureSG
+menu = Azure Singapore
+title = Microsoft Azure Southeast Asia (Singapore)
+probe = TCPPing
+port = 443
+host = s8southeastasia.blob.core.windows.net
 
-++ Quad9
-menu = Quad9 (AS19281)
-title = Quad9 DNS (AS19281)
-host = 9.9.9.9
+++ DigitalOceanSG
+menu = DigitalOcean SG
+title = DigitalOcean Singapore (SGP1)
+host = sgp1.digitaloceanspaces.com
+
+++ VultrSG
+menu = Vultr Singapore
+title = Vultr Singapore
+host = sgp-ping.vultr.com
+
+++ LinodeSG
+menu = Linode Singapore
+title = Akamai/Linode Singapore (ap-south)
+host = speedtest.singapore.linode.com
+
+++ OVHsingapore
+menu = OVH Singapore
+title = OVH Cloud Singapore
+host = sgp.proof.ovh.net
+
+++ OracleCloudSG
+menu = Oracle Cloud SG
+title = Oracle Cloud Singapore
+host = objectstorage.ap-singapore-1.oraclecloud.com
 
 + ISPIndonesia
-menu = ISP Indonesia
-title = Monitoring Provider Internet Indonesia
+menu = Indonesian ISPs
+title = Indonesian Internet Provider Monitoring
 
 ++ Biznet
 menu = Biznet (AS17451)
@@ -120,80 +160,267 @@ menu = Telin (AS17974)
 title = Telin / Telkom International (AS17974)
 host = 110.139.0.1
 
+++ GlobalXtreme
+menu = GlobalXtreme (AS45701)
+title = GlobalXtreme (AS45701)
+host = 103.52.37.1
+
+++ Iconnet
+menu = Iconnet / PLN (AS9341)
+title = Iconnet PLN Group (AS9341)
+host = 27.124.80.1
+
++ IXP
+menu = Indonesia IXP
+title = Indonesian Internet Exchange Points
+
+++ IIXJakarta
+menu = IIX Jakarta (AS7597)
+title = IIX APJII Jakarta - Route Server (AS7597)
+host = 203.119.53.1
+
+++ OpenIXP
+menu = OpenIXP / NiCE
+title = OpenIXP - National Inter Connection Exchange
+host = 43.252.146.1
+
+++ MCIX
+menu = MC-IX / MIX (AS149918)
+title = Matrix Internet Exchange (AS149918)
+host = 119.110.116.1
+
 + GameServers
 menu = Game Servers
-title = Latency Game Online (SG/ID Server)
+title = Game Server Latency (SEA / Asia Region)
 
-++ Valorant
-menu = Valorant (Riot)
-title = Valorant Singapore Server
-host = dynamodb.ap-southeast-1.amazonaws.com 
+++ ValorantSG
+menu = Valorant SG
+title = Valorant Asia Server (Singapore)
+host = 43.229.65.0
 
-++ MobileLegends
-menu = Mobile Legends
-title = Mobile Legends (Moonton)
-host = moba.mobilelegends.com
+++ MLOBBY
+menu = MLBB Server
+title = Mobile Legends: Bang Bang (Moonton SG)
+host = 161.202.213.236
 
-++ FCMobile
-menu = FC Mobile (EA)
-title = EA Sports FC Mobile (FIFA)
-host = dynamodb.ap-southeast-1.amazonaws.com 
+++ WutheringWaves
+menu = Wuthering Waves
+title = Wuthering Waves (Kuro Games)
+host = 129.226.1.157
+
+++ EAApac
+menu = EA / FC Online
+title = EA Sports APAC Server
+probe = TCPPing
+port = 443
+host = ec2.ap-southeast-1.amazonaws.com
+
++ SocialMedia
+menu = Social & Platforms
+title = Social Media & Major Internet Platforms
+
+++ Facebook
+menu = Meta / Facebook
+title = Facebook / Meta Platforms
+host = www.facebook.com
+
+++ Instagram
+menu = Instagram
+title = Instagram (Meta Platforms)
+host = www.instagram.com
+
+++ WhatsApp
+menu = WhatsApp
+title = WhatsApp Web (Meta)
+host = web.whatsapp.com
+
+++ TikTok
+menu = TikTok
+title = TikTok (ByteDance)
+host = www.tiktok.com
+
+++ Twitter
+menu = X / Twitter
+title = X (formerly Twitter)
+host = www.x.com
+
+++ Netflix
+menu = Netflix
+title = Netflix Streaming
+host = www.netflix.com
+
+++ Spotify
+menu = Spotify
+title = Spotify Music Streaming
+host = www.spotify.com
+
+++ Discord
+menu = Discord
+title = Discord Voice & Chat
+host = discord.com
+
+++ Github
+menu = GitHub
+title = GitHub (Microsoft)
+host = github.com
 
 + DNS
 menu = DNS Latency
-title = DNS Response Time (Ping)
+title = DNS Server Reachability (ICMP Ping)
 
-++ GoogleDNS1
-menu = Google DNS 1
-title = Google DNS 8.8.8.8
+++ GoogleDNS
+menu = Google DNS
+title = Google Public DNS 8.8.8.8
 host = 8.8.8.8
 
-++ GoogleDNS2
-menu = Google DNS 2
-title = Google DNS 8.8.4.4
-host = 8.8.4.4
-
-++ CloudflareDNS1
-menu = Cloudflare DNS 1
+++ CloudflareDNS
+menu = Cloudflare DNS
 title = Cloudflare DNS 1.1.1.1
 host = 1.1.1.1
 
-++ CloudflareDNS2
-menu = Cloudflare DNS 2
-title = Cloudflare DNS 1.0.0.1
-host = 1.0.0.1
-
 ++ Quad9
-menu = Quad9
+menu = Quad9 DNS
 title = Quad9 DNS 9.9.9.9
 host = 9.9.9.9
+
+++ OpenDNS
+menu = OpenDNS
+title = Cisco OpenDNS 208.67.222.222
+host = 208.67.222.222
+
+++ AdGuardDNS
+menu = AdGuard DNS
+title = AdGuard Public DNS 94.140.14.14
+host = 94.140.14.14
+
+++ NextDNS
+menu = NextDNS
+title = NextDNS Anycast 45.90.28.0
+host = 45.90.28.0
+
+++ ControlD
+menu = Control D
+title = Control D DNS 76.76.2.0
+host = 76.76.2.0
+
+++ CleanBrowsing
+menu = CleanBrowsing
+title = CleanBrowsing DNS 185.228.168.168
+host = 185.228.168.168
 
 + DNSProbes
 menu = DNS Resolution
-title = DNS Query Speed (Lookup Time)
+title = DNS Query Speed (Actual Lookup Time)
 probe = DNS
 
-++ GoogleDNS1
-menu = Google DNS 1
-title = Google DNS 8.8.8.8
+++ GoogleDNS
+menu = Google DNS
+title = Google DNS Lookup Speed (8.8.8.8)
 host = 8.8.8.8
+lookup = www.google.com
 
-++ GoogleDNS2
-menu = Google DNS 2
-title = Google DNS 8.8.4.4
-host = 8.8.4.4
-
-++ CloudflareDNS1
-menu = Cloudflare DNS 1
-title = Cloudflare DNS 1.1.1.1
+++ CloudflareDNS
+menu = Cloudflare DNS
+title = Cloudflare DNS Lookup Speed (1.1.1.1)
 host = 1.1.1.1
-
-++ CloudflareDNS2
-menu = Cloudflare DNS 2
-title = Cloudflare DNS 1.0.0.1
-host = 1.0.0.1
+lookup = www.google.com
 
 ++ Quad9
-menu = Quad9
-title = Quad9 DNS 9.9.9.9
+menu = Quad9 DNS
+title = Quad9 DNS Lookup Speed (9.9.9.9)
 host = 9.9.9.9
+lookup = www.google.com
+
+++ OpenDNS
+menu = OpenDNS
+title = OpenDNS Lookup Speed (208.67.222.222)
+host = 208.67.222.222
+lookup = www.google.com
+
+++ AdGuardDNS
+menu = AdGuard DNS
+title = AdGuard DNS Lookup Speed (94.140.14.14)
+host = 94.140.14.14
+lookup = www.google.com
+
+++ NextDNS
+menu = NextDNS
+title = NextDNS Lookup Speed (45.90.28.0)
+host = 45.90.28.0
+lookup = www.google.com
+
+++ ControlD
+menu = Control D
+title = Control D Lookup Speed (76.76.2.0)
+host = 76.76.2.0
+lookup = www.google.com
+
+++ CleanBrowsing
+menu = CleanBrowsing
+title = CleanBrowsing Lookup Speed (185.228.168.168)
+host = 185.228.168.168
+lookup = www.google.com
+
++ RegionalLatency
+menu = Regional APAC
+title = Asia-Pacific Regional Latency (OVH Nodes)
+
+++ EquinixSydney
+menu = AU Equinix Sydney (AS15830)
+title = Equinix Asia Pacific Sydney (AS15830)
+host = 202.167.227.165
+
+++ ChinaMobile
+menu = CN China Mobile (AS58453)
+title = China Mobile International (AS58453)
+host = 223.118.2.177
+
+++ HurricaneElectricHK
+menu = HK Hurricane Electric (AS6939)
+title = Hurricane Electric Hong Kong (AS6939)
+host = 216.218.221.6
+
+++ NTTDocomo
+menu = JP NTT DOCOMO (AS9605)
+title = NTT DOCOMO Japan (AS9605)
+host = 49.102.160.2
+
+++ MalaysiaTelecom
+menu = MY Telecom Malaysia (AS4788)
+title = Telekom Malaysia (AS4788)
+host = 60.48.183.254
+
+++ NepalTelecom
+menu = NP Nepal Telecom (AS23752)
+title = Nepal Telecommunications (AS23752)
+host = 49.244.0.1
+
+++ SkyCablePH
+menu = PH SKYBroadband (AS23944)
+title = SKYBroadband / SKYCable Philippines (AS23944)
+host = 114.108.211.1
+
+++ PakistanTelecom
+menu = PK Pakistan Internet Exchange (AS17557)
+title = Pakistan Internet Exchange(AS17557)
+host = 202.125.128.1
+
+++ Singtel
+menu = SG SG.GS (AS24482)
+title = SG.GS (AS24482)
+host = 103.14.246.1
+
+++ InternetThailand
+menu = TH Internet Thailand (AS4618)
+title = Internet Thailand (AS4618)
+host = 203.154.249.2
+
+++ KBTelecom
+menu = TW KB Telecom (AS9416)
+title = KB Telecom Taiwan (AS9416)
+host = 219.71.130.1
+
+++ Viettel
+menu = VN Viettel (AS7552)
+title = Viettel Telecom Vietnam (AS7552)
+host = 203.113.131.1
