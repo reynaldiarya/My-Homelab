@@ -39,6 +39,7 @@ DOCKER_COMPOSE = docker compose --env-file .env
 .PHONY: start-smokeping stop-smokeping update-smokeping logs-smokeping
 .PHONY: start-socks5 stop-socks5 update-socks5 logs-socks5
 .PHONY: start-stirling-pdf stop-stirling-pdf update-stirling-pdf logs-stirling-pdf
+.PHONY: start-traefik stop-traefik update-traefik logs-traefik
 .PHONY: start-uptime-kuma stop-uptime-kuma update-uptime-kuma logs-uptime-kuma
 .PHONY: start-wallos stop-wallos update-wallos logs-wallos
 .PHONY: start-wealthfolio stop-wealthfolio update-wealthfolio logs-wealthfolio
@@ -70,7 +71,7 @@ help:
 	@echo "  influxdb, it-tools, listmonk,"
 	@echo "  mariadb, mongodb, n8n, netdata, nextcloud, ollama, onlyoffice, open-webui,"
 	@echo "  openspeedtest, portainer, postgres, redis, ryot,"
-	@echo "  serpbear, smokeping, socks5, stirling-pdf, uptime-kuma, wallos,"
+	@echo "  serpbear, smokeping, socks5, stirling-pdf, traefik, uptime-kuma, wallos,"
 	@echo "  wealthfolio, wordpress"
 	@echo ""
 	@echo "Examples:"
@@ -89,6 +90,7 @@ network:
 # ================================
 start-all: network
 	@echo "Starting all services..."
+	$(DOCKER_COMPOSE) -f docker/traefik/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/actual-budget/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/adguard-home/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/beszel/docker-compose.yml up -d
@@ -688,6 +690,28 @@ update-stirling-pdf: network
 
 logs-stirling-pdf:
 	$(DOCKER_COMPOSE) -f docker/stirling-pdf/docker-compose.yml logs -f
+
+
+# ================================
+# Traefik
+# ================================
+start-traefik: network
+	$(DOCKER_COMPOSE) -f docker/traefik/docker-compose.yml up -d
+
+stop-traefik:
+	$(DOCKER_COMPOSE) -f docker/traefik/docker-compose.yml down
+
+update-traefik: network
+	$(DOCKER_COMPOSE) -f docker/traefik/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/traefik/docker-compose.yml up -d
+
+logs-traefik:
+	$(DOCKER_COMPOSE) -f docker/traefik/docker-compose.yml logs -f
+
+traefik-cert-dump:
+	@docker exec traefik cat /etc/traefik/certs/acme.json | python3 -c "import json,sys; data=json.load(sys.stdin); [print(c['domain']['main'], '->', c['certificate'][:60]+'...') for r in data.values() for c in r.get('Certificates',[]) if c]"
+	@echo "(Use 'docker exec traefik cat /etc/traefik/certs/acme.json' for full output)"
+
 
 # ================================
 # Uptime Kuma
