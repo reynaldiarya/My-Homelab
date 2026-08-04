@@ -3,11 +3,10 @@ services:
     image: stirlingtools/stirling-pdf:latest
     container_name: stirling-pdf
     restart: unless-stopped
-    ports:
-      - "${BIND_IP}:${STIRLING_PDF_PORT:-8092}:8080"
     environment:
-      SECURITY_ENABLELOGIN: "${STIRLING_PDF_SECURITY_ENABLELOGIN:-true}"
-      LANGS: "${STIRLING_PDF_LANGS:-en_US}"
+      - TZ=${TZ:-Asia/Jakarta}
+      - SECURITY_ENABLELOGIN=${STIRLING_PDF_SECURITY_ENABLELOGIN:-true}
+      - LANGS=${STIRLING_PDF_LANGS:-en_US}
     volumes:
       - stirling_pdf_tessdata:/usr/share/tessdata
       - stirling_pdf_configs:/configs
@@ -15,6 +14,14 @@ services:
       - stirling_pdf_pipeline:/pipeline
     networks:
       - homelab
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.stirling-pdf.rule=Host(`pdf.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
+      - "traefik.http.routers.stirling-pdf.entrypoints=websecure"
+      - "traefik.http.routers.stirling-pdf.tls=true"
+      - "traefik.http.routers.stirling-pdf.tls.certresolver=cloudflare"
+      - "traefik.http.routers.stirling-pdf.middlewares=secure-headers@docker"
+      - "traefik.http.services.stirling-pdf.loadbalancer.server.port=8080"
     deploy:
       resources:
         limits:

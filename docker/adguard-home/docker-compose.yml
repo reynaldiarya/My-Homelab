@@ -4,18 +4,24 @@ services:
     container_name: adguard-home
     restart: unless-stopped
     environment:
-      - TZ=${TZ:-Asia/Jakarta}
+      TZ: ${TZ:-Asia/Jakarta}
     volumes:
       - adguard_home_work:/opt/adguardhome/work
       - adguard_home_conf:/opt/adguardhome/conf
     ports:
-      - "${BIND_IP}:53:53/tcp"
-      - "${BIND_IP}:53:53/udp"
-      - "${BIND_IP}:${ADGUARD_HOME_PORT:-8096}:80/tcp"
-      # Initial Setup Port
-      - "${BIND_IP}:${ADGUARD_HOME_SETUP_PORT:-3095}:3000/tcp"
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "127.0.0.1:${ADGUARD_HOME_SETUP_PORT:-3095}:3000/tcp"
     networks:
       - homelab
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.adguard-home.rule=Host(`adguard.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
+      - "traefik.http.routers.adguard-home.entrypoints=websecure"
+      - "traefik.http.routers.adguard-home.tls=true"
+      - "traefik.http.routers.adguard-home.tls.certresolver=cloudflare"
+      - "traefik.http.routers.adguard-home.middlewares=secure-headers@docker,internal-only@file"
+      - "traefik.http.services.adguard-home.loadbalancer.server.port=80"
     deploy:
       resources:
         limits:

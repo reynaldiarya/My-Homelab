@@ -3,14 +3,30 @@ services:
     image: grafana/grafana-enterprise:latest
     container_name: grafana
     restart: unless-stopped
-    ports:
-      - "${BIND_IP}:${GRAFANA_PORT:-3091}:3000"
     environment:
-      - TZ=${TZ:-Asia/Jakarta}
+      TZ: ${TZ:-Asia/Jakarta}
+      GF_SERVER_ROOT_URL: "https://grafana.${TRAEFIK_DOMAIN:-yourdomain.com}"
+      GF_SERVER_DOMAIN: "grafana.${TRAEFIK_DOMAIN:-yourdomain.com}"
+      GF_SERVER_PROTOCOL: http
+      GF_SERVER_ENABLE_GZIP: "true"
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER:-admin}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:-admin}
+      GF_SECURITY_DISABLE_GRAVATAR: "true"
+      GF_SECURITY_COOKIE_SECURE: "true"
+      GF_SECURITY_COOKIE_SAMESITE: strict
+      GF_USERS_ALLOW_SIGN_UP: "false"
     volumes:
       - grafana_data:/var/lib/grafana
     networks:
       - homelab
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.grafana.rule=Host(`grafana.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
+      - "traefik.http.routers.grafana.entrypoints=websecure"
+      - "traefik.http.routers.grafana.tls=true"
+      - "traefik.http.routers.grafana.tls.certresolver=cloudflare"
+      - "traefik.http.routers.grafana.middlewares=secure-headers@docker"
+      - "traefik.http.services.grafana.loadbalancer.server.port=3000"
     deploy:
       resources:
         limits:

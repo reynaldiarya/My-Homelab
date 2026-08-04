@@ -8,11 +8,9 @@ services:
       - no-new-privileges:true
     cap_drop:
       - ALL
-    ports:
-      - "${BIND_IP}:${BLESTA_PORT:-8081}:8080/tcp"
     environment:
-      BLESTA_ADDRESS: ${BLESTA_ADDRESS:-127.0.0.1}
-      BLESTA_HOST: ${BLESTA_HOST:-localhost}
+      BLESTA_ADDRESS: 0.0.0.0
+      BLESTA_HOST: blesta.${TRAEFIK_DOMAIN:-yourdomain.com}
     volumes:
       - blesta_data:/opt/blesta/data
     tmpfs:
@@ -20,6 +18,14 @@ services:
       - /tmp:uid=65532,gid=65532,mode=2777,noexec,nodev,nosuid
     networks:
       - homelab
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.blesta.rule=Host(`blesta.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
+      - "traefik.http.routers.blesta.entrypoints=websecure"
+      - "traefik.http.routers.blesta.tls=true"
+      - "traefik.http.routers.blesta.tls.certresolver=cloudflare"
+      - "traefik.http.routers.blesta.middlewares=secure-headers@docker"
+      - "traefik.http.services.blesta.loadbalancer.server.port=8080"
     deploy:
       resources:
         limits:

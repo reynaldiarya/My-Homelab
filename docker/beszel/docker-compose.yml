@@ -3,13 +3,19 @@ services:
     image: henrygd/beszel:latest
     container_name: beszel
     restart: unless-stopped
-    networks:
-      - homelab
-    ports:
-      - "${BIND_IP}:${BESZEL_PORT:-8093}:8090"
     volumes:
       - beszel_data:/beszel_data
       - beszel_socket:/beszel_socket
+    networks:
+      - homelab
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.beszel.rule=Host(`beszel.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
+      - "traefik.http.routers.beszel.entrypoints=websecure"
+      - "traefik.http.routers.beszel.tls=true"
+      - "traefik.http.routers.beszel.tls.certresolver=cloudflare"
+      - "traefik.http.routers.beszel.middlewares=secure-headers@docker"
+      - "traefik.http.services.beszel.loadbalancer.server.port=8090"
     deploy:
       resources:
         limits:

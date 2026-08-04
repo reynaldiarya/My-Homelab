@@ -2,22 +2,26 @@ services:
   changedetection:
     image: ghcr.io/dgtlmoon/changedetection.io:latest
     container_name: changedetection
-    hostname: changedetection
     restart: unless-stopped
-    ports:
-      - "${BIND_IP}:${CHANGEDETECTION_PORT:-5091}:5000"
     environment:
-      - PLAYWRIGHT_DRIVER_URL=${CHANGEDETECTION_PLAYWRIGHT_URL:-ws://browser-sockpuppet-chrome:3000}
-      - BASE_URL=${CHANGEDETECTION_BASE_URL:-http://localhost:5000}
-      - TZ=${TZ:-Asia/Jakarta}
-      - FETCH_WORKERS=${CHANGEDETECTION_FETCH_WORKERS:-10}
+      TZ: ${TZ:-Asia/Jakarta}
+      PLAYWRIGHT_DRIVER_URL: ${CHANGEDETECTION_PLAYWRIGHT_URL:-ws://browser-sockpuppet-chrome:3000}
+      BASE_URL: "https://changedetection.${TRAEFIK_DOMAIN:-yourdomain.com}"
+      FETCH_WORKERS: ${CHANGEDETECTION_FETCH_WORKERS:-10}
     volumes:
       - changedetection_data:/datastore
-    depends_on:
-      browser-sockpuppet-chrome:
-        condition: service_started
     networks:
       - homelab
+    depends_on:
+      - browser-sockpuppet-chrome
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.changedetection.rule=Host(`changedetection.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
+      - "traefik.http.routers.changedetection.entrypoints=websecure"
+      - "traefik.http.routers.changedetection.tls=true"
+      - "traefik.http.routers.changedetection.tls.certresolver=cloudflare"
+      - "traefik.http.routers.changedetection.middlewares=secure-headers@docker"
+      - "traefik.http.services.changedetection.loadbalancer.server.port=5000"
     deploy:
       resources:
         limits:
@@ -27,17 +31,14 @@ services:
   browser-sockpuppet-chrome:
     image: dgtlmoon/sockpuppetbrowser:latest
     container_name: browser-sockpuppet-chrome
-    hostname: browser-sockpuppet-chrome
     restart: unless-stopped
-    ports:
-      - "${BIND_IP}:${SOCKPUPPET_PORT:-3097}:3000"
     cap_add:
       - SYS_ADMIN
     environment:
-      - SCREEN_WIDTH=${SOCKPUPPET_SCREEN_WIDTH:-1920}
-      - SCREEN_HEIGHT=${SOCKPUPPET_SCREEN_HEIGHT:-1024}
-      - SCREEN_DEPTH=${SOCKPUPPET_SCREEN_DEPTH:-16}
-      - MAX_CONCURRENT_CHROME_PROCESSES=${SOCKPUPPET_MAX_CONCURRENT_CHROME_PROCESSES:-10}
+      SCREEN_WIDTH: ${SOCKPUPPET_SCREEN_WIDTH:-1920}
+      SCREEN_HEIGHT: ${SOCKPUPPET_SCREEN_HEIGHT:-1024}
+      SCREEN_DEPTH: ${SOCKPUPPET_SCREEN_DEPTH:-16}
+      MAX_CONCURRENT_CHROME_PROCESSES: ${SOCKPUPPET_MAX_CONCURRENT_CHROME_PROCESSES:-10}
     networks:
       - homelab
     deploy:

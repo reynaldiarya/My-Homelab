@@ -3,12 +3,11 @@ services:
     image: actualbudget/actual-server:latest
     container_name: actual-budget
     restart: unless-stopped
-    ports:
-      - "${BIND_IP}:${ACTUAL_BUDGET_PORT:-5096}:5006"
     environment:
-      ACTUAL_UPLOAD_FILE_SYNC_SIZE_LIMIT_MB: ${ACTUAL_UPLOAD_FILE_SYNC_SIZE_LIMIT_MB:-20}
-      ACTUAL_UPLOAD_SYNC_ENCRYPTED_FILE_SYNC_SIZE_LIMIT_MB: ${ACTUAL_UPLOAD_SYNC_ENCRYPTED_FILE_SYNC_SIZE_LIMIT_MB:-50}
-      ACTUAL_UPLOAD_FILE_SIZE_LIMIT_MB: ${ACTUAL_UPLOAD_FILE_SIZE_LIMIT_MB:-20}
+      - TZ=${TZ:-Asia/Jakarta}
+      - ACTUAL_UPLOAD_FILE_SYNC_SIZE_LIMIT_MB=${ACTUAL_UPLOAD_FILE_SYNC_SIZE_LIMIT_MB:-20}
+      - ACTUAL_UPLOAD_SYNC_ENCRYPTED_FILE_SYNC_SIZE_LIMIT_MB=${ACTUAL_UPLOAD_SYNC_ENCRYPTED_FILE_SYNC_SIZE_LIMIT_MB:-50}
+      - ACTUAL_UPLOAD_FILE_SIZE_LIMIT_MB=${ACTUAL_UPLOAD_FILE_SIZE_LIMIT_MB:-20}
     volumes:
       - actual_budget_data:/data
     healthcheck:
@@ -19,6 +18,14 @@ services:
       start_period: 20s
     networks:
       - homelab
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.actual-budget.rule=Host(`budget.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
+      - "traefik.http.routers.actual-budget.entrypoints=websecure"
+      - "traefik.http.routers.actual-budget.tls=true"
+      - "traefik.http.routers.actual-budget.tls.certresolver=cloudflare"
+      - "traefik.http.routers.actual-budget.middlewares=secure-headers@docker"
+      - "traefik.http.services.actual-budget.loadbalancer.server.port=5006"
     deploy:
       resources:
         limits:

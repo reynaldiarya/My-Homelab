@@ -2,20 +2,25 @@ services:
   smokeping:
     image: lscr.io/linuxserver/smokeping:latest
     container_name: smokeping
-    hostname: smokeping
-    ports:
-      - "${BIND_IP}:${SMOKEPING_PORT:-8097}:80"
+    restart: unless-stopped
     environment:
+      - TZ=${TZ:-Asia/Jakarta}
       - PUID=${SMOKEPING_PUID:-1000}
       - PGID=${SMOKEPING_PGID:-1000}
-      - TZ=${TZ:-Asia/Jakarta}
     volumes:
       - smokeping_config:/config
       - smokeping_data:/data
       - ./config/Targets:/config/Targets
-    restart: unless-stopped
     networks:
       - homelab
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.smokeping.rule=Host(`smokeping.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
+      - "traefik.http.routers.smokeping.entrypoints=websecure"
+      - "traefik.http.routers.smokeping.tls=true"
+      - "traefik.http.routers.smokeping.tls.certresolver=cloudflare"
+      - "traefik.http.routers.smokeping.middlewares=secure-headers@docker,internal-only@file"
+      - "traefik.http.services.smokeping.loadbalancer.server.port=80"
     deploy:
       resources:
         limits:

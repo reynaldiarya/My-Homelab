@@ -3,9 +3,8 @@ services:
     image: mariadb:10.11
     container_name: mariadb
     restart: unless-stopped
-    ports:
-      - "${BIND_IP}:${MARIADB_PORT:-3306}:3306"
     environment:
+      TZ: ${TZ:-Asia/Jakarta}
       MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD:-password}
       MARIADB_USER: ${MARIADB_USER:-root}
       MARIADB_PASSWORD: ${MARIADB_PASSWORD:-password}
@@ -13,6 +12,14 @@ services:
       - mariadb_data:/var/lib/mysql
     networks:
       - homelab
+    ports:
+      - "${BIND_IP}:${POSTGRES_PORT:-5432}:5432"
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
     deploy:
       resources:
         limits:

@@ -3,18 +3,25 @@ services:
     image: towfiqi/serpbear:latest
     container_name: serpbear
     restart: unless-stopped
-    ports:
-      - "${BIND_IP}:${SERPBEAR_PORT:-3093}:3000"
     environment:
-      USER: ${SERPBEAR_USER:-admin}
-      PASSWORD: ${SERPBEAR_PASSWORD:-password}
-      SECRET: ${SERPBEAR_SECRET:-changeme}
-      APIKEY: ${SERPBEAR_APIKEY:-changeme}
-      NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-http://localhost:3000}
+      - TZ=${TZ:-Asia/Jakarta}
+      - USER=${SERPBEAR_USER:-admin}
+      - PASSWORD=${SERPBEAR_PASSWORD:-password}
+      - SECRET=${SERPBEAR_SECRET:-secret}
+      - APIKEY=${SERPBEAR_APIKEY:-apikey}
+      - NEXT_PUBLIC_APP_URL=https://serpbear.${TRAEFIK_DOMAIN:-yourdomain.com}
     volumes:
       - serpbear_data:/app/data
     networks:
       - homelab
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.serpbear.rule=Host(`serpbear.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
+      - "traefik.http.routers.serpbear.entrypoints=websecure"
+      - "traefik.http.routers.serpbear.tls=true"
+      - "traefik.http.routers.serpbear.tls.certresolver=cloudflare"
+      - "traefik.http.routers.serpbear.middlewares=secure-headers@docker"
+      - "traefik.http.services.serpbear.loadbalancer.server.port=3000"
     deploy:
       resources:
         limits:

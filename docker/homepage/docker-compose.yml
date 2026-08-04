@@ -3,47 +3,55 @@ services:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
     environment:
-      HOMEPAGE_ALLOWED_HOSTS: ${HOMEPAGE_ALLOWED_HOSTS:-localhost}
+      HOMEPAGE_ALLOWED_HOSTS: home.${TRAEFIK_DOMAIN:-yourdomain.com}
       PUID: ${HOMEPAGE_PUID:-1000}
       PGID: ${HOMEPAGE_PGID:-1000}
       HOMEPAGE_VAR_LOGO_ICON: ${HOMEPAGE_VAR_LOGO_ICON}
       HOMEPAGE_VAR_BACKGROUND_IMAGE: ${HOMEPAGE_VAR_BACKGROUND_IMAGE}
-      HOMEPAGE_VAR_ACTUAL_BUDGET_PORT: ${ACTUAL_BUDGET_PORT:-5096}
-      HOMEPAGE_VAR_ADGUARD_HOME_PORT: ${ADGUARD_HOME_PORT:-8096}
-      HOMEPAGE_VAR_BENTO_PDF_PORT: ${BENTO_PDF_PORT:-8098}
-      HOMEPAGE_VAR_BESZEL_PORT: ${BESZEL_PORT:-8093}
-      HOMEPAGE_VAR_BLESTA_PORT: ${BLESTA_PORT:-8081}
-      HOMEPAGE_VAR_BUGSINK_PORT: ${BUGSINK_PORT:-8090}
-      HOMEPAGE_VAR_CHANGEDETECTION_PORT: ${CHANGEDETECTION_PORT:-5091}
-      HOMEPAGE_VAR_EXCALIDRAW_PORT: ${EXCALIDRAW_PORT:-5090}
-      HOMEPAGE_VAR_FLARESOLVERR_PORT: ${FLARESOLVERR_PORT:-8191}
-      HOMEPAGE_VAR_GRAFANA_PORT: ${GRAFANA_PORT:-3091}
-      HOMEPAGE_VAR_INFLUXDB_PORT: ${INFLUXDB_PORT:-8086}
-      HOMEPAGE_VAR_IT_TOOLS_PORT: ${IT_TOOLS_PORT:-8095}
-      HOMEPAGE_VAR_LISTMONK_PORT: ${LISTMONK_PORT:-9090}
-      HOMEPAGE_VAR_N8N_PORT: ${N8N_PORT:-5690}
-      HOMEPAGE_VAR_NEXTCLOUD_PORT: ${NEXTCLOUD_PORT:-8083}
-      HOMEPAGE_VAR_OLLAMA_PORT: ${OLLAMA_PORT:-11434}
-      HOMEPAGE_VAR_ONLYOFFICE_PORT: ${ONLYOFFICE_PORT:-8084}
-      HOMEPAGE_VAR_OPEN_WEBUI_PORT: ${OPEN_WEBUI_PORT:-3092}
-      HOMEPAGE_VAR_OPENSPEEDTEST_PORT: ${OPENSPEEDTEST_PORT:-3094}
-      HOMEPAGE_VAR_PORTAINER_PORT: ${PORTAINER_PORT:-9490}
-      HOMEPAGE_VAR_RYOT_PORT: ${RYOT_PORT:-8091}
-      HOMEPAGE_VAR_SERPBEAR_PORT: ${SERPBEAR_PORT:-3093}
-      HOMEPAGE_VAR_SMOKEPING_PORT: ${SMOKEPING_PORT:-8097}
-      HOMEPAGE_VAR_STIRLING_PDF_PORT: ${STIRLING_PDF_PORT:-8092}
-      HOMEPAGE_VAR_UPTIME_KUMA_PORT: ${UPTIME_KUMA_PORT:-3096}
-      HOMEPAGE_VAR_WALLOS_PORT: ${WALLOS_PORT:-8290}
-      HOMEPAGE_VAR_WEALTHFOLIO_PORT: ${WEALTHFOLIO_PORT:-8094}
-      HOMEPAGE_VAR_WORDPRESS_PORT: ${WORDPRESS_PORT:-8080}
-    ports:
-      - "${BIND_IP}:${HOMEPAGE_PORT:-3090}:3000"
+      # Service URLs (via Traefik - all HTTPS now)
+      HOMEPAGE_VAR_ACTUAL_BUDGET_URL: https://budget.${TRAEFIK_DOMAIN:-yourdomain.com}
+      HOMEPAGE_VAR_ADGUARD_HOME_URL: https://adguard.${TRAEFIK_DOMAIN:-yourdomain.com}
+      HOMEPAGE_VAR_BENTO_PDF_URL: https://bento-pdf.${TRAEFIK_DOMAIN:-yourdomain.com}
+      HOMEPAGE_VAR_BESZEL_URL: https://beszel.${TRAEFIK_DOMAIN:-yourdomain.com}
+      HOMEPAGE_VAR_BLESTA_URL: https://blesta.${TRAEFIK_DOMAIN:-yourdomain.com}
+      HOMEPAGE_VAR_BUGSINK_URL: https://bugsink.${TRAEFIK_DOMAIN:-yourdomain.com}
+      HOMEPAGE_VAR_CHANGEDETECTION_URL: https://changedetection.${TRAEFIK_DOMAIN:-yourdomain.com}
+      HOMEPAGE_VAR_EXCALIDRAW_URL: https://excalidraw.${TRAEFIK_DOMAIN:-yourdomain.com}
+      HOMEPAGE_VAR_GRAFANA_URL: https://grafana.${TRAEFIK_DOMAIN:-yourdomain.com}
+      HOMEPAGE_VAR_INFLUXDB_URL: https://influxdb.${TRAEFIK_DOMAIN:-yourdomain.com}
+      HOMEPAGE_VAR_IT_TOOLS_URL: https://it-tools.${TRAEFIK_DOMAIN:-yourdomain.com}
+      HOMEPAGE_VAR_LISTMONK_URL: https://listmonk.${TRAEFIK_DOMAIN:-yourdomain.com}
+      HOMEPAGE_VAR_N8N_URL: https://n8n.${TRAEFIK_DOMAIN:-yourdomain.com}
+      HOMEPAGE_VAR_NETDATA_URL: https://netdata.${TRAEFIK_DOMAIN:-yourdomain.com}
+      HOMEPAGE_VAR_NEXTCLOUD_URL: https://nextcloud.${TRAEFIK_DOMAIN:-yourdomain.com}
+      HOMEPAGE_VAR_OLLAMA_URL: https://ollama.${TRAEFIK_DOMAIN:-yourdomain.com}
+      HOMEPAGE_VAR_ONLYOFFICE_URL: https://onlyoffice.${TRAEFIK_DOMAIN:-yourdomain.com}
+      HOMEPAGE_VAR_OPEN_WEBUI_URL: https://openwebui.${TRAEFIK_DOMAIN:-yourdomain.com}
+      HOMEPAGE_VAR_OPENSPEEDTEST_URL: https://speedtest.${TRAEFIK_DOMAIN:-yourdomain.com}
+      HOMEPAGE_VAR_PORTAINER_URL: https://portainer.${TRAEFIK_DOMAIN:-yourdomain.com}
+      HOMEPAGE_VAR_RYOT_URL: https://ryot.${TRAEFIK_DOMAIN:-yourdomain.com}
+      HOMEPAGE_VAR_SERPBEAR_URL: https://serpbear.${TRAEFIK_DOMAIN:-yourdomain.com}
+      HOMEPAGE_VAR_SMOKEPING_URL: https://smokeping.${TRAEFIK_DOMAIN:-yourdomain.com}
+      HOMEPAGE_VAR_STIRLING_PDF_URL: https://pdf.${TRAEFIK_DOMAIN:-yourdomain.com}
+      HOMEPAGE_VAR_UPTIME_KUMA_URL: https://status.${TRAEFIK_DOMAIN:-yourdomain.com}
+      HOMEPAGE_VAR_WALLOS_URL: https://wallos.${TRAEFIK_DOMAIN:-yourdomain.com}
+      HOMEPAGE_VAR_WEALTHFOLIO_URL: https://wealthfolio.${TRAEFIK_DOMAIN:-yourdomain.com}
+      HOMEPAGE_VAR_WORDPRESS_URL: https://wordpress.${TRAEFIK_DOMAIN:-yourdomain.com}
+      HOMEPAGE_VAR_TRAEFIK_URL: https://traefik.${TRAEFIK_DOMAIN:-yourdomain.com}
     volumes:
       - homepage:/app/config
       - /var/run/docker.sock:/var/run/docker.sock:ro
     restart: unless-stopped
     networks:
       - homelab
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.homepage.rule=Host(`home.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
+      - "traefik.http.routers.homepage.entrypoints=websecure"
+      - "traefik.http.routers.homepage.tls=true"
+      - "traefik.http.routers.homepage.tls.certresolver=cloudflare"
+      - "traefik.http.routers.homepage.middlewares=secure-headers@docker"
+      - "traefik.http.services.homepage.loadbalancer.server.port=3000"
     deploy:
       resources:
         limits:

@@ -1,12 +1,18 @@
 services:
   it-tools:
-    image: corentinth/it-tools:latest
+    image: ghcr.io/corentinth/it-tools:latest
     container_name: it-tools
-    ports:
-      - "${BIND_IP}:${IT_TOOLS_PORT:-8095}:80"
     restart: unless-stopped
     networks:
       - homelab
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.it-tools.rule=Host(`it-tools.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
+      - "traefik.http.routers.it-tools.entrypoints=websecure"
+      - "traefik.http.routers.it-tools.tls=true"
+      - "traefik.http.routers.it-tools.tls.certresolver=cloudflare"
+      - "traefik.http.routers.it-tools.middlewares=secure-headers@docker"
+      - "traefik.http.services.it-tools.loadbalancer.server.port=80"
     deploy:
       resources:
         limits:
@@ -16,4 +22,3 @@ services:
 networks:
   homelab:
     external: true
-

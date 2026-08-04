@@ -3,15 +3,22 @@ services:
     image: mongo:8
     container_name: mongodb
     restart: unless-stopped
-    ports:
-      - "${BIND_IP}:${MONGODB_PORT:-27017}:27017"
     environment:
+      TZ: ${TZ:-Asia/Jakarta}
       MONGO_INITDB_ROOT_USERNAME: ${MONGODB_ROOT_USERNAME:-root}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_ROOT_PASSWORD:-password}
     volumes:
       - mongodb_data:/data/db
     networks:
       - homelab
+    ports:
+      - "${BIND_IP}:${MONGODB_PORT:-27017}:27017"
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
     deploy:
       resources:
         limits:

@@ -3,26 +3,22 @@ services:
     image: bugsink/bugsink:latest
     container_name: bugsink
     restart: unless-stopped
-    ports:
-      - "${BIND_IP}:${BUGSINK_PORT:-8090}:8000"
     environment:
-      SECRET_KEY: ${BUGSINK_SECRET_KEY:-wRacwzoolisZAYHaD47GZ8g7hyFmGxRdb5zy4ytOKFK1YrVGww0lgRLpuxGjxAi0}
-      CREATE_SUPERUSER: ${BUGSINK_CREATE_SUPERUSER:-admin:password}
-      PORT: ${BUGSINK_PORT:-8000}
-      DATABASE_URL: ${BUGSINK_DATABASE_URL:-postgresql://bugsinkuser:your_super_secret_password@db:5432/bugsink}
-      BEHIND_HTTPS_PROXY: ${BUGSINK_BEHIND_HTTPS_PROXY:-false}
-      BASE_URL: ${BUGSINK_BASE_URL:-http://localhost:8000}
-    healthcheck:
-      test:
-        [
-          "CMD-SHELL",
-          'python -c ''import requests; requests.get("http://localhost:8000/").raise_for_status()''',
-        ]
-      interval: 5s
-      timeout: 20s
-      retries: 10
+      - SECRET_KEY=${BUGSINK_SECRET_KEY}
+      - CREATE_SUPERUSER=${BUGSINK_CREATE_SUPERUSER}
+      - DATABASE_URL=${BUGSINK_DATABASE_URL}
+      - BEHIND_HTTPS_PROXY=true
+      - BASE_URL=https://bugsink.${TRAEFIK_DOMAIN:-yourdomain.com}
     networks:
       - homelab
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.bugsink.rule=Host(`bugsink.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
+      - "traefik.http.routers.bugsink.entrypoints=websecure"
+      - "traefik.http.routers.bugsink.tls=true"
+      - "traefik.http.routers.bugsink.tls.certresolver=cloudflare"
+      - "traefik.http.routers.bugsink.middlewares=secure-headers@docker"
+      - "traefik.http.services.bugsink.loadbalancer.server.port=8000"
     deploy:
       resources:
         limits:

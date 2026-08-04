@@ -1,12 +1,10 @@
 services:
   ollama:
-    image: ollama/ollama #If you have a amd gpu use ollama/ollama:rocm
+    image: ollama/ollama:latest #If you have a amd gpu use ollama/ollama:rocm
     container_name: ollama
+    restart: unless-stopped
     volumes:
       - ollama_data:/root/.ollama
-    ports:
-      - "${BIND_IP}:${OLLAMA_PORT:-11434}:11434"
-    restart: unless-stopped
     networks:
       - homelab
     ## AMD GPU Support (ROCm) ##
@@ -15,6 +13,14 @@ services:
     #   - /dev/dri:/dev/dri
     # environment:
     #   - HSA_OVERRIDE_GFX_VERSION=${OLLAMA_HSA_OVERRIDE_GFX_VERSION:-10.3.0}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.ollama.rule=Host(`ollama.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
+      - "traefik.http.routers.ollama.entrypoints=websecure"
+      - "traefik.http.routers.ollama.tls=true"
+      - "traefik.http.routers.ollama.tls.certresolver=cloudflare"
+      - "traefik.http.routers.ollama.middlewares=secure-headers@docker,internal-only@file"
+      - "traefik.http.services.ollama.loadbalancer.server.port=11434"
     deploy:
       resources:
         ## NVIDIA GPU Support ##
