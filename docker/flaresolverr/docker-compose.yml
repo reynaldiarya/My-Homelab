@@ -13,11 +13,17 @@ services:
     volumes:
       - flaresolverr_data:/config
     restart: unless-stopped
+    networks:
+      - homelab
     deploy:
       resources:
         limits:
           cpus: "${FLARESOLVERR_CPU_LIMIT:-1}"
           memory: ${FLARESOLVERR_MEMORY_LIMIT:-1G}
+
+networks:
+  homelab:
+    external: true
 
 volumes:
   flaresolverr_data:

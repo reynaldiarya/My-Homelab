@@ -5,8 +5,15 @@ services:
     ports:
       - "${BIND_IP}:${IT_TOOLS_PORT:-8095}:80"
     restart: unless-stopped
+    networks:
+      - homelab
     deploy:
       resources:
         limits:
           cpus: "${IT_TOOLS_CPU_LIMIT:-0.5}"
           memory: ${IT_TOOLS_MEMORY_LIMIT:-256M}
+
+networks:
+  homelab:
+    external: true
+

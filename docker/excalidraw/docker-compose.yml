@@ -5,8 +5,15 @@ services:
     ports:
       - "${BIND_IP}:${EXCALIDRAW_PORT:-5090}:80"
     restart: unless-stopped
+    networks:
+      - homelab
     deploy:
       resources:
         limits:
           cpus: "${EXCALIDRAW_CPU_LIMIT:-0.5}"
           memory: ${EXCALIDRAW_MEMORY_LIMIT:-512M}
+
+networks:
+  homelab:
+    external: true
+
