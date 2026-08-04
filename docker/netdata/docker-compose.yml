@@ -35,7 +35,6 @@ services:
       - "traefik.http.routers.netdata.rule=Host(`netdata.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
       - "traefik.http.routers.netdata.entrypoints=websecure"
       - "traefik.http.routers.netdata.tls=true"
-      - "traefik.http.routers.netdata.tls.certresolver=cloudflare"
       - "traefik.http.routers.netdata.middlewares=secure-headers@docker,internal-only@file"
       - "traefik.http.services.netdata.loadbalancer.server.port=19999"
     deploy:

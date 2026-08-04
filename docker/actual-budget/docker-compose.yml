@@ -23,7 +23,6 @@ services:
       - "traefik.http.routers.actual-budget.rule=Host(`budget.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
       - "traefik.http.routers.actual-budget.entrypoints=websecure"
       - "traefik.http.routers.actual-budget.tls=true"
-      - "traefik.http.routers.actual-budget.tls.certresolver=cloudflare"
       - "traefik.http.routers.actual-budget.middlewares=secure-headers@docker"
       - "traefik.http.services.actual-budget.loadbalancer.server.port=5006"
     deploy:

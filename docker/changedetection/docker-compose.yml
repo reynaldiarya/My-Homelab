@@ -19,7 +19,6 @@ services:
       - "traefik.http.routers.changedetection.rule=Host(`changedetection.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
       - "traefik.http.routers.changedetection.entrypoints=websecure"
       - "traefik.http.routers.changedetection.tls=true"
-      - "traefik.http.routers.changedetection.tls.certresolver=cloudflare"
       - "traefik.http.routers.changedetection.middlewares=secure-headers@docker"
       - "traefik.http.services.changedetection.loadbalancer.server.port=5000"
     deploy:

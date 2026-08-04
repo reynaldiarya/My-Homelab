@@ -18,7 +18,6 @@ services:
       - "traefik.http.routers.flaresolverr.rule=Host(`flaresolverr.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
       - "traefik.http.routers.flaresolverr.entrypoints=websecure"
       - "traefik.http.routers.flaresolverr.tls=true"
-      - "traefik.http.routers.flaresolverr.tls.certresolver=cloudflare"
       - "traefik.http.routers.flaresolverr.middlewares=secure-headers@docker,internal-only@file"
       - "traefik.http.services.flaresolverr.loadbalancer.server.port=8191"
     deploy:

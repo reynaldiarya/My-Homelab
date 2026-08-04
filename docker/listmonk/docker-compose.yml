@@ -30,7 +30,6 @@ services:
       - "traefik.http.routers.listmonk.rule=Host(`listmonk.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
       - "traefik.http.routers.listmonk.entrypoints=websecure"
       - "traefik.http.routers.listmonk.tls=true"
-      - "traefik.http.routers.listmonk.tls.certresolver=cloudflare"
       - "traefik.http.routers.listmonk.middlewares=secure-headers@docker"
       - "traefik.http.services.listmonk.loadbalancer.server.port=9000"
     deploy:

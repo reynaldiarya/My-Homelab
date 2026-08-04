@@ -19,7 +19,6 @@ services:
       - "traefik.http.routers.adguard-home.rule=Host(`adguard.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
       - "traefik.http.routers.adguard-home.entrypoints=websecure"
       - "traefik.http.routers.adguard-home.tls=true"
-      - "traefik.http.routers.adguard-home.tls.certresolver=cloudflare"
       - "traefik.http.routers.adguard-home.middlewares=secure-headers@docker,internal-only@file"
       - "traefik.http.services.adguard-home.loadbalancer.server.port=80"
     deploy:

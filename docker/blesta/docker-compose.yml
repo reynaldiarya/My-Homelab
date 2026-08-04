@@ -23,7 +23,6 @@ services:
       - "traefik.http.routers.blesta.rule=Host(`blesta.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
       - "traefik.http.routers.blesta.entrypoints=websecure"
       - "traefik.http.routers.blesta.tls=true"
-      - "traefik.http.routers.blesta.tls.certresolver=cloudflare"
       - "traefik.http.routers.blesta.middlewares=secure-headers@docker"
       - "traefik.http.services.blesta.loadbalancer.server.port=8080"
     deploy:

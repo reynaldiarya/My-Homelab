@@ -19,7 +19,6 @@ services:
       - "traefik.http.routers.serpbear.rule=Host(`serpbear.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
       - "traefik.http.routers.serpbear.entrypoints=websecure"
       - "traefik.http.routers.serpbear.tls=true"
-      - "traefik.http.routers.serpbear.tls.certresolver=cloudflare"
       - "traefik.http.routers.serpbear.middlewares=secure-headers@docker"
       - "traefik.http.services.serpbear.loadbalancer.server.port=3000"
     deploy:

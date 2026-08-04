@@ -10,7 +10,6 @@ services:
       - "traefik.http.routers.openspeedtest.rule=Host(`speedtest.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
       - "traefik.http.routers.openspeedtest.entrypoints=websecure"
       - "traefik.http.routers.openspeedtest.tls=true"
-      - "traefik.http.routers.openspeedtest.tls.certresolver=cloudflare"
       - "traefik.http.routers.openspeedtest.middlewares=secure-headers@docker"
       - "traefik.http.services.openspeedtest.loadbalancer.server.port=3000"
     deploy:

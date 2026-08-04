@@ -21,7 +21,6 @@ services:
       - "traefik.http.routers.influxdb.rule=Host(`influxdb.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
       - "traefik.http.routers.influxdb.entrypoints=websecure"
       - "traefik.http.routers.influxdb.tls=true"
-      - "traefik.http.routers.influxdb.tls.certresolver=cloudflare"
       - "traefik.http.routers.influxdb.middlewares=secure-headers@docker,internal-only@file"
       - "traefik.http.services.influxdb.loadbalancer.server.port=8086"
     deploy:

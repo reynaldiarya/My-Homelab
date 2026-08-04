@@ -12,7 +12,6 @@ services:
       - "traefik.http.routers.bento-pdf.rule=Host(`bento-pdf.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
       - "traefik.http.routers.bento-pdf.entrypoints=websecure"
       - "traefik.http.routers.bento-pdf.tls=true"
-      - "traefik.http.routers.bento-pdf.tls.certresolver=cloudflare"
       - "traefik.http.routers.bento-pdf.middlewares=secure-headers@docker"
       - "traefik.http.services.bento-pdf.loadbalancer.server.port=8080"
     deploy:

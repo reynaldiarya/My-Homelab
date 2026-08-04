@@ -10,12 +10,11 @@ services:
       - "443:443"
     environment:
       TZ: ${TZ:-Asia/Jakarta}
-      CF_DNS_API_TOKEN: ${TRAEFIK_CF_DNS_API_TOKEN}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./config/traefik.yml:/etc/traefik/traefik.yml:ro
       - ./config/dynamic:/etc/traefik/dynamic:ro
-      - traefik_certs:/etc/traefik/certs
+      - ./certs:/etc/traefik/certs:ro
     networks:
       - homelab
     labels:
@@ -23,9 +22,6 @@ services:
       - "traefik.http.routers.traefik-dashboard.rule=Host(`traefik.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
       - "traefik.http.routers.traefik-dashboard.entrypoints=websecure"
       - "traefik.http.routers.traefik-dashboard.tls=true"
-      - "traefik.http.routers.traefik-dashboard.tls.certresolver=cloudflare"
-      - "traefik.http.routers.traefik-dashboard.tls.domains[0].main=${TRAEFIK_DOMAIN:-yourdomain.com}"
-      - "traefik.http.routers.traefik-dashboard.tls.domains[0].sans=*.${TRAEFIK_DOMAIN:-yourdomain.com}"
       - "traefik.http.routers.traefik-dashboard.service=api@internal"
       - "traefik.http.routers.traefik-dashboard.middlewares=traefik-auth@docker,secure-headers@docker"
       - "traefik.http.middlewares.traefik-auth.basicauth.users=${TRAEFIK_DASHBOARD_AUTH}"
@@ -39,8 +35,6 @@ services:
       - "traefik.http.middlewares.secure-headers.headers.referrerPolicy=strict-origin-when-cross-origin"
       - "traefik.http.middlewares.secure-headers.headers.permissionsPolicy=camera=(), microphone=(), geolocation=()"
       - "traefik.http.middlewares.secure-headers.headers.customRequestHeaders.X-Forwarded-Proto=https"
-      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
-      - "traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true"
     deploy:
       resources:
         limits:
@@ -50,6 +44,3 @@ services:
 networks:
   homelab:
     external: true
-
-volumes:
-  traefik_certs:

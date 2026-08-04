@@ -13,7 +13,6 @@ services:
       - "traefik.http.routers.beszel.rule=Host(`beszel.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
       - "traefik.http.routers.beszel.entrypoints=websecure"
       - "traefik.http.routers.beszel.tls=true"
-      - "traefik.http.routers.beszel.tls.certresolver=cloudflare"
       - "traefik.http.routers.beszel.middlewares=secure-headers@docker"
       - "traefik.http.services.beszel.loadbalancer.server.port=8090"
     deploy:

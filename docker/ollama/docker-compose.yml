@@ -18,7 +18,6 @@ services:
       - "traefik.http.routers.ollama.rule=Host(`ollama.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
       - "traefik.http.routers.ollama.entrypoints=websecure"
       - "traefik.http.routers.ollama.tls=true"
-      - "traefik.http.routers.ollama.tls.certresolver=cloudflare"
       - "traefik.http.routers.ollama.middlewares=secure-headers@docker,internal-only@file"
       - "traefik.http.services.ollama.loadbalancer.server.port=11434"
     deploy:

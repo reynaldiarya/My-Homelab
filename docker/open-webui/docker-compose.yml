@@ -18,7 +18,6 @@ services:
       - "traefik.http.routers.open-webui.rule=Host(`openwebui.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
       - "traefik.http.routers.open-webui.entrypoints=websecure"
       - "traefik.http.routers.open-webui.tls=true"
-      - "traefik.http.routers.open-webui.tls.certresolver=cloudflare"
       - "traefik.http.routers.open-webui.middlewares=secure-headers@docker"
       - "traefik.http.services.open-webui.loadbalancer.server.port=8080"
     deploy:

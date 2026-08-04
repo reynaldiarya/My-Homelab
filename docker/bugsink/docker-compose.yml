@@ -16,7 +16,6 @@ services:
       - "traefik.http.routers.bugsink.rule=Host(`bugsink.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
       - "traefik.http.routers.bugsink.entrypoints=websecure"
       - "traefik.http.routers.bugsink.tls=true"
-      - "traefik.http.routers.bugsink.tls.certresolver=cloudflare"
       - "traefik.http.routers.bugsink.middlewares=secure-headers@docker"
       - "traefik.http.services.bugsink.loadbalancer.server.port=8000"
     deploy:

@@ -18,7 +18,6 @@ services:
       - "traefik.http.routers.ryot.rule=Host(`ryot.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
       - "traefik.http.routers.ryot.entrypoints=websecure"
       - "traefik.http.routers.ryot.tls=true"
-      - "traefik.http.routers.ryot.tls.certresolver=cloudflare"
       - "traefik.http.routers.ryot.middlewares=secure-headers@docker"
       - "traefik.http.services.ryot.loadbalancer.server.port=8000"
     deploy:
