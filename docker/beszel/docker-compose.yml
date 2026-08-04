@@ -3,6 +3,7 @@ services:
     image: henrygd/beszel:latest
     container_name: beszel
     restart: unless-stopped
+    network_mode: host
     ports:
       - "${BIND_IP}:${BESZEL_PORT:-8093}:8090"
     volumes:
