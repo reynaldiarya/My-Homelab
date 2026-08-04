@@ -108,7 +108,9 @@ start-all: network
 	$(DOCKER_COMPOSE) -f docker/n8n/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/netdata/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/nextcloud/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/ollama/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/onlyoffice/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/open-webui/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/openspeedtest/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/portainer/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/postgres/docker-compose.yml up -d
@@ -145,7 +147,9 @@ stop-all:
 	$(DOCKER_COMPOSE) -f docker/n8n/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/netdata/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/nextcloud/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/ollama/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/onlyoffice/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/open-webui/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/openspeedtest/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/portainer/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/postgres/docker-compose.yml down
