@@ -7,6 +7,7 @@ services:
       - TZ=${TZ:-Asia/Jakarta}
       - PUID=${SMOKEPING_PUID:-1000}
       - PGID=${SMOKEPING_PGID:-1000}
+      - MASTER_URL=${SMOKEPING_MASTER_URL:-}
     volumes:
       - smokeping_config:/config
       - smokeping_data:/data

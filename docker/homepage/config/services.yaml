@@ -2,29 +2,29 @@
 - System:
     - Beszel:
         icon: sh-beszel.png
-        href: http://localhost:{{HOMEPAGE_VAR_BESZEL_PORT}}
+        href: "{{HOMEPAGE_VAR_BESZEL_URL}}"
         description: Lightweight Monitoring
     - Grafana:
         icon: sh-grafana.png
-        href: http://localhost:{{HOMEPAGE_VAR_GRAFANA_PORT}}
+        href: "{{HOMEPAGE_VAR_GRAFANA_URL}}"
         description: Metrics Dashboard
     - Netdata:
         icon: sh-netdata.png
-        href: http://localhost:{{HOMEPAGE_VAR_NETDATA_PORT}}
+        href: "{{HOMEPAGE_VAR_NETDATA_URL}}"
         description: Real-time Performance Monitoring
 
 - Network:
     - AdGuard Home:
         icon: sh-adguard-home.png
-        href: http://localhost:{{HOMEPAGE_VAR_ADGUARD_HOME_PORT}}
+        href: "{{HOMEPAGE_VAR_ADGUARD_HOME_URL}}"
         description: DNS Blocker
     - Uptime Kuma:
         icon: sh-uptime-kuma.png
-        href: http://localhost:{{HOMEPAGE_VAR_UPTIME_KUMA_PORT}}
+        href: "{{HOMEPAGE_VAR_UPTIME_KUMA_URL}}"
         description: Uptime Monitor
     - Smokeping:
         icon: sh-smokeping.png
-        href: http://localhost:{{HOMEPAGE_VAR_SMOKEPING_PORT}}
+        href: "{{HOMEPAGE_VAR_SMOKEPING_URL}}"
         description: Latency Monitor
     - Socks5:
         icon: mdi-security-network
@@ -34,111 +34,115 @@
 - Finance:
     - Blesta:
         icon: sh-blesta.png
-        href: http://localhost:{{HOMEPAGE_VAR_BLESTA_PORT}}
+        href: "{{HOMEPAGE_VAR_BLESTA_URL}}"
         description: Client Management & Billing
     - Actual Budget:
         icon: sh-actual-budget.png
-        href: http://localhost:{{HOMEPAGE_VAR_ACTUAL_BUDGET_PORT}}
+        href: "{{HOMEPAGE_VAR_ACTUAL_BUDGET_URL}}"
         description: Budgeting App
     - Wallos:
         icon: sh-wallos.png
-        href: http://localhost:{{HOMEPAGE_VAR_WALLOS_PORT}}
+        href: "{{HOMEPAGE_VAR_WALLOS_URL}}"
         description: Subscription Tracker
     - Wealthfolio:
         icon: sh-wealthfolio.png
-        href: http://localhost:{{HOMEPAGE_VAR_WEALTHFOLIO_PORT}}
+        href: "{{HOMEPAGE_VAR_WEALTHFOLIO_URL}}"
         description: Investment Tracker
 
 # Tools Group
 - Tools:
     - Bento PDF:
         icon: sh-bento.png
-        href: http://localhost:{{HOMEPAGE_VAR_BENTO_PDF_PORT}}
+        href: "{{HOMEPAGE_VAR_BENTO_PDF_URL}}"
         description: PDF Utilities
     - Bugsink:
         icon: sh-bugsink.png
-        href: http://localhost:{{HOMEPAGE_VAR_BUGSINK_PORT}}
+        href: "{{HOMEPAGE_VAR_BUGSINK_URL}}"
         description: Error Tracking
     - Excalidraw:
         icon: sh-excalidraw.png
-        href: http://localhost:{{HOMEPAGE_VAR_EXCALIDRAW_PORT}}
+        href: "{{HOMEPAGE_VAR_EXCALIDRAW_URL}}"
         description: Whiteboard
     - IT Tools:
         icon: sh-it-tools.png
-        href: http://localhost:{{HOMEPAGE_VAR_IT_TOOLS_PORT}}
+        href: "{{HOMEPAGE_VAR_IT_TOOLS_URL}}"
         description: Developer Tools
     - Stirling PDF:
         icon: sh-stirling-pdf.png
-        href: http://localhost:{{HOMEPAGE_VAR_STIRLING_PDF_PORT}}
+        href: "{{HOMEPAGE_VAR_STIRLING_PDF_URL}}"
         description: PDF Tools
     - ChangeDetection:
         icon: sh-changedetection.png
-        href: http://localhost:{{HOMEPAGE_VAR_CHANGEDETECTION_PORT}}
+        href: "{{HOMEPAGE_VAR_CHANGEDETECTION_URL}}"
         description: Web Monitor
     - FlareSolverr:
         icon: sh-flaresolverr.png
-        href: http://localhost:{{HOMEPAGE_VAR_FLARESOLVERR_PORT}}
+        href: "{{HOMEPAGE_VAR_FLARESOLVERR_URL}}"
         description: Captcha Solver
     - SerpBear:
         icon: sh-serpbear.png
-        href: http://localhost:{{HOMEPAGE_VAR_SERPBEAR_PORT}}
+        href: "{{HOMEPAGE_VAR_SERPBEAR_URL}}"
         description: SEO Tracker
 
 # AI Group
 - AI:
     - Ollama:
         icon: sh-ollama.png
-        href: http://localhost:{{HOMEPAGE_VAR_OLLAMA_PORT}}
+        href: "{{HOMEPAGE_VAR_OLLAMA_URL}}"
         description: LLM Server
     - Open WebUI:
         icon: sh-open-webui.png
-        href: http://localhost:{{HOMEPAGE_VAR_OPEN_WEBUI_PORT}}
+        href: "{{HOMEPAGE_VAR_OPEN_WEBUI_URL}}"
         description: AI Chat Interface
 
 # Office Group
 - Office:
     - Nextcloud:
         icon: sh-nextcloud.png
-        href: http://localhost:{{HOMEPAGE_VAR_NEXTCLOUD_PORT}}
+        href: "{{HOMEPAGE_VAR_NEXTCLOUD_URL}}"
         description: Cloud Collaboration
     - OnlyOffice:
         icon: sh-onlyoffice.png
-        href: http://localhost:{{HOMEPAGE_VAR_ONLYOFFICE_PORT}}
+        href: "{{HOMEPAGE_VAR_ONLYOFFICE_URL}}"
         description: Online Office Suite
 
 # Media Group
 - Media:
     - Ryot:
         icon: sh-ryot.png
-        href: http://localhost:{{HOMEPAGE_VAR_RYOT_PORT}}
+        href: "{{HOMEPAGE_VAR_RYOT_URL}}"
         description: Media Tracker
 
 # Automation
 - Automation:
     - N8N:
         icon: sh-n8n.png
-        href: http://localhost:{{HOMEPAGE_VAR_N8N_PORT}}
+        href: "{{HOMEPAGE_VAR_N8N_URL}}"
         description: Workflow Automation
 
 # Management
 - Management:
     - Portainer:
         icon: sh-portainer.png
-        href: https://localhost:{{HOMEPAGE_VAR_PORTAINER_PORT}}
+        href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
         description: Docker Management
+    - Traefik:
+        icon: sh-traefik.png
+        href: "{{HOMEPAGE_VAR_TRAEFIK_URL}}"
+        description: Reverse Proxy Dashboard
 
 # Marketing
 - Marketing:
     - Listmonk:
         icon: sh-listmonk.png
-        href: http://localhost:{{HOMEPAGE_VAR_LISTMONK_PORT}}
+        href: "{{HOMEPAGE_VAR_LISTMONK_URL}}"
         description: Newsletter Manager
 
 # Databases (Info only)
 - Databases:
     - InfluxDB:
         icon: sh-influxdb.png
-        href: http://localhost:{{HOMEPAGE_VAR_INFLUXDB_PORT}}
+        href: "{{HOMEPAGE_VAR_INFLUXDB_URL}}"
         description: Time Series Database
     - MariaDB:
         icon: sh-mariadb.png
@@ -156,9 +160,9 @@
 - Misc:
     - OpenSpeedTest:
         icon: sh-openspeedtest.png
-        href: http://localhost:{{HOMEPAGE_VAR_OPENSPEEDTEST_PORT}}
+        href: "{{HOMEPAGE_VAR_OPENSPEEDTEST_URL}}"
         description: Speed Test
     - WordPress:
         icon: sh-wordpress.png
-        href: http://localhost:{{HOMEPAGE_VAR_WORDPRESS_PORT}}
+        href: "{{HOMEPAGE_VAR_WORDPRESS_URL}}"
         description: Content Management System

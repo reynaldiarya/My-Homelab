@@ -17,6 +17,7 @@ services:
       HOMEPAGE_VAR_BUGSINK_URL: https://bugsink.${TRAEFIK_DOMAIN:-yourdomain.com}
       HOMEPAGE_VAR_CHANGEDETECTION_URL: https://changedetection.${TRAEFIK_DOMAIN:-yourdomain.com}
       HOMEPAGE_VAR_EXCALIDRAW_URL: https://excalidraw.${TRAEFIK_DOMAIN:-yourdomain.com}
+      HOMEPAGE_VAR_FLARESOLVERR_URL: https://flaresolverr.${TRAEFIK_DOMAIN:-yourdomain.com}
       HOMEPAGE_VAR_GRAFANA_URL: https://grafana.${TRAEFIK_DOMAIN:-yourdomain.com}
       HOMEPAGE_VAR_INFLUXDB_URL: https://influxdb.${TRAEFIK_DOMAIN:-yourdomain.com}
       HOMEPAGE_VAR_IT_TOOLS_URL: https://it-tools.${TRAEFIK_DOMAIN:-yourdomain.com}
