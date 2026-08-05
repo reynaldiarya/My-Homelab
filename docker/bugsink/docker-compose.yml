@@ -17,7 +17,13 @@ services:
       - "traefik.http.routers.bugsink.entrypoints=websecure"
       - "traefik.http.routers.bugsink.tls=true"
       - "traefik.http.routers.bugsink.middlewares=secure-headers@docker"
-      - "traefik.http.services.bugsink.loadbalancer.server.port=8000"
+      - "traefik.http.routers.bugsink.service=bugsink-svc"
+      - "traefik.http.routers.bugsink-local.rule=Host(`bugsink.${LOCAL_DOMAIN:-local}`)"
+      - "traefik.http.routers.bugsink-local.entrypoints=websecure"
+      - "traefik.http.routers.bugsink-local.tls=true"
+      - "traefik.http.routers.bugsink-local.middlewares=secure-headers@docker"
+      - "traefik.http.routers.bugsink-local.service=bugsink-svc"
+      - "traefik.http.services.bugsink-svc.loadbalancer.server.port=8000"
     deploy:
       resources:
         limits:

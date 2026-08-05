@@ -19,7 +19,13 @@ services:
       - "traefik.http.routers.ryot.entrypoints=websecure"
       - "traefik.http.routers.ryot.tls=true"
       - "traefik.http.routers.ryot.middlewares=secure-headers@docker"
-      - "traefik.http.services.ryot.loadbalancer.server.port=8000"
+      - "traefik.http.routers.ryot.service=ryot-svc"
+      - "traefik.http.routers.ryot-local.rule=Host(`ryot.${LOCAL_DOMAIN:-local}`)"
+      - "traefik.http.routers.ryot-local.entrypoints=websecure"
+      - "traefik.http.routers.ryot-local.tls=true"
+      - "traefik.http.routers.ryot-local.middlewares=secure-headers@docker"
+      - "traefik.http.routers.ryot-local.service=ryot-svc"
+      - "traefik.http.services.ryot-svc.loadbalancer.server.port=8000"
     deploy:
       resources:
         limits:

@@ -20,7 +20,13 @@ services:
       - "traefik.http.routers.adguard-home.entrypoints=websecure"
       - "traefik.http.routers.adguard-home.tls=true"
       - "traefik.http.routers.adguard-home.middlewares=secure-headers@docker,internal-only@file"
-      - "traefik.http.services.adguard-home.loadbalancer.server.port=80"
+      - "traefik.http.routers.adguard-home.service=adguard-home-svc"
+      - "traefik.http.routers.adguard-home-local.rule=Host(`adguard.${LOCAL_DOMAIN:-local}`)"
+      - "traefik.http.routers.adguard-home-local.entrypoints=websecure"
+      - "traefik.http.routers.adguard-home-local.tls=true"
+      - "traefik.http.routers.adguard-home-local.middlewares=secure-headers@docker"
+      - "traefik.http.routers.adguard-home-local.service=adguard-home-svc"
+      - "traefik.http.services.adguard-home-svc.loadbalancer.server.port=80"
     deploy:
       resources:
         limits:

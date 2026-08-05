@@ -28,7 +28,13 @@ services:
       - "traefik.http.routers.nextcloud.entrypoints=websecure"
       - "traefik.http.routers.nextcloud.tls=true"
       - "traefik.http.routers.nextcloud.middlewares=nextcloud-headers@file"
-      - "traefik.http.services.nextcloud.loadbalancer.server.port=80"
+      - "traefik.http.routers.nextcloud.service=nextcloud-svc"
+      - "traefik.http.routers.nextcloud-local.rule=Host(`nextcloud.${LOCAL_DOMAIN:-local}`)"
+      - "traefik.http.routers.nextcloud-local.entrypoints=websecure"
+      - "traefik.http.routers.nextcloud-local.tls=true"
+      - "traefik.http.routers.nextcloud-local.middlewares=nextcloud-headers@file"
+      - "traefik.http.routers.nextcloud-local.service=nextcloud-svc"
+      - "traefik.http.services.nextcloud-svc.loadbalancer.server.port=80"
     deploy:
       resources:
         limits:

@@ -19,7 +19,13 @@ services:
       - "traefik.http.routers.open-webui.entrypoints=websecure"
       - "traefik.http.routers.open-webui.tls=true"
       - "traefik.http.routers.open-webui.middlewares=secure-headers@docker"
-      - "traefik.http.services.open-webui.loadbalancer.server.port=8080"
+      - "traefik.http.routers.open-webui.service=open-webui-svc"
+      - "traefik.http.routers.open-webui-local.rule=Host(`openwebui.${LOCAL_DOMAIN:-local}`)"
+      - "traefik.http.routers.open-webui-local.entrypoints=websecure"
+      - "traefik.http.routers.open-webui-local.tls=true"
+      - "traefik.http.routers.open-webui-local.middlewares=secure-headers@docker"
+      - "traefik.http.routers.open-webui-local.service=open-webui-svc"
+      - "traefik.http.services.open-webui-svc.loadbalancer.server.port=8080"
     deploy:
       resources:
         limits:

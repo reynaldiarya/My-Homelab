@@ -22,7 +22,13 @@ services:
       - "traefik.http.routers.influxdb.entrypoints=websecure"
       - "traefik.http.routers.influxdb.tls=true"
       - "traefik.http.routers.influxdb.middlewares=secure-headers@docker,internal-only@file"
-      - "traefik.http.services.influxdb.loadbalancer.server.port=8086"
+      - "traefik.http.routers.influxdb.service=influxdb-svc"
+      - "traefik.http.routers.influxdb-local.rule=Host(`influxdb.${LOCAL_DOMAIN:-local}`)"
+      - "traefik.http.routers.influxdb-local.entrypoints=websecure"
+      - "traefik.http.routers.influxdb-local.tls=true"
+      - "traefik.http.routers.influxdb-local.middlewares=secure-headers@docker"
+      - "traefik.http.routers.influxdb-local.service=influxdb-svc"
+      - "traefik.http.services.influxdb-svc.loadbalancer.server.port=8086"
     deploy:
       resources:
         limits:

@@ -24,7 +24,13 @@ services:
       - "traefik.http.routers.actual-budget.entrypoints=websecure"
       - "traefik.http.routers.actual-budget.tls=true"
       - "traefik.http.routers.actual-budget.middlewares=secure-headers@docker"
-      - "traefik.http.services.actual-budget.loadbalancer.server.port=5006"
+      - "traefik.http.routers.actual-budget.service=actual-budget-svc"
+      - "traefik.http.routers.actual-budget-local.rule=Host(`budget.${LOCAL_DOMAIN:-local}`)"
+      - "traefik.http.routers.actual-budget-local.entrypoints=websecure"
+      - "traefik.http.routers.actual-budget-local.tls=true"
+      - "traefik.http.routers.actual-budget-local.middlewares=secure-headers@docker"
+      - "traefik.http.routers.actual-budget-local.service=actual-budget-svc"
+      - "traefik.http.services.actual-budget-svc.loadbalancer.server.port=5006"
     deploy:
       resources:
         limits:

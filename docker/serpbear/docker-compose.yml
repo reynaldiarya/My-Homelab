@@ -20,7 +20,13 @@ services:
       - "traefik.http.routers.serpbear.entrypoints=websecure"
       - "traefik.http.routers.serpbear.tls=true"
       - "traefik.http.routers.serpbear.middlewares=secure-headers@docker"
-      - "traefik.http.services.serpbear.loadbalancer.server.port=3000"
+      - "traefik.http.routers.serpbear.service=serpbear-svc"
+      - "traefik.http.routers.serpbear-local.rule=Host(`serpbear.${LOCAL_DOMAIN:-local}`)"
+      - "traefik.http.routers.serpbear-local.entrypoints=websecure"
+      - "traefik.http.routers.serpbear-local.tls=true"
+      - "traefik.http.routers.serpbear-local.middlewares=secure-headers@docker"
+      - "traefik.http.routers.serpbear-local.service=serpbear-svc"
+      - "traefik.http.services.serpbear-svc.loadbalancer.server.port=3000"
     deploy:
       resources:
         limits:

@@ -20,7 +20,13 @@ services:
       - "traefik.http.routers.stirling-pdf.entrypoints=websecure"
       - "traefik.http.routers.stirling-pdf.tls=true"
       - "traefik.http.routers.stirling-pdf.middlewares=secure-headers@docker"
-      - "traefik.http.services.stirling-pdf.loadbalancer.server.port=8080"
+      - "traefik.http.routers.stirling-pdf.service=stirling-pdf-svc"
+      - "traefik.http.routers.stirling-pdf-local.rule=Host(`pdf.${LOCAL_DOMAIN:-local}`)"
+      - "traefik.http.routers.stirling-pdf-local.entrypoints=websecure"
+      - "traefik.http.routers.stirling-pdf-local.tls=true"
+      - "traefik.http.routers.stirling-pdf-local.middlewares=secure-headers@docker"
+      - "traefik.http.routers.stirling-pdf-local.service=stirling-pdf-svc"
+      - "traefik.http.services.stirling-pdf-svc.loadbalancer.server.port=8080"
     deploy:
       resources:
         limits:

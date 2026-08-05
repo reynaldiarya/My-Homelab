@@ -24,7 +24,13 @@ services:
       - "traefik.http.routers.blesta.entrypoints=websecure"
       - "traefik.http.routers.blesta.tls=true"
       - "traefik.http.routers.blesta.middlewares=secure-headers@docker"
-      - "traefik.http.services.blesta.loadbalancer.server.port=8080"
+      - "traefik.http.routers.blesta.service=blesta-svc"
+      - "traefik.http.routers.blesta-local.rule=Host(`blesta.${LOCAL_DOMAIN:-local}`)"
+      - "traefik.http.routers.blesta-local.entrypoints=websecure"
+      - "traefik.http.routers.blesta-local.tls=true"
+      - "traefik.http.routers.blesta-local.middlewares=secure-headers@docker"
+      - "traefik.http.routers.blesta-local.service=blesta-svc"
+      - "traefik.http.services.blesta-svc.loadbalancer.server.port=8080"
     deploy:
       resources:
         limits:

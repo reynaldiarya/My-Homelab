@@ -13,7 +13,13 @@ services:
       - "traefik.http.routers.bento-pdf.entrypoints=websecure"
       - "traefik.http.routers.bento-pdf.tls=true"
       - "traefik.http.routers.bento-pdf.middlewares=secure-headers@docker"
-      - "traefik.http.services.bento-pdf.loadbalancer.server.port=8080"
+      - "traefik.http.routers.bento-pdf.service=bento-pdf-svc"
+      - "traefik.http.routers.bento-pdf-local.rule=Host(`bento-pdf.${LOCAL_DOMAIN:-local}`)"
+      - "traefik.http.routers.bento-pdf-local.entrypoints=websecure"
+      - "traefik.http.routers.bento-pdf-local.tls=true"
+      - "traefik.http.routers.bento-pdf-local.middlewares=secure-headers@docker"
+      - "traefik.http.routers.bento-pdf-local.service=bento-pdf-svc"
+      - "traefik.http.services.bento-pdf-svc.loadbalancer.server.port=8080"
     deploy:
       resources:
         limits:

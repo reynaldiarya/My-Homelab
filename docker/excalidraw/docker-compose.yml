@@ -11,7 +11,13 @@ services:
       - "traefik.http.routers.excalidraw.entrypoints=websecure"
       - "traefik.http.routers.excalidraw.tls=true"
       - "traefik.http.routers.excalidraw.middlewares=secure-headers@docker"
-      - "traefik.http.services.excalidraw.loadbalancer.server.port=80"
+      - "traefik.http.routers.excalidraw.service=excalidraw-svc"
+      - "traefik.http.routers.excalidraw-local.rule=Host(`excalidraw.${LOCAL_DOMAIN:-local}`)"
+      - "traefik.http.routers.excalidraw-local.entrypoints=websecure"
+      - "traefik.http.routers.excalidraw-local.tls=true"
+      - "traefik.http.routers.excalidraw-local.middlewares=secure-headers@docker"
+      - "traefik.http.routers.excalidraw-local.service=excalidraw-svc"
+      - "traefik.http.services.excalidraw-svc.loadbalancer.server.port=80"
     deploy:
       resources:
         limits:

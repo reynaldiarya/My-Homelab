@@ -14,7 +14,13 @@ services:
       - "traefik.http.routers.beszel.entrypoints=websecure"
       - "traefik.http.routers.beszel.tls=true"
       - "traefik.http.routers.beszel.middlewares=secure-headers@docker"
-      - "traefik.http.services.beszel.loadbalancer.server.port=8090"
+      - "traefik.http.routers.beszel.service=beszel-svc"
+      - "traefik.http.routers.beszel-local.rule=Host(`beszel.${LOCAL_DOMAIN:-local}`)"
+      - "traefik.http.routers.beszel-local.entrypoints=websecure"
+      - "traefik.http.routers.beszel-local.tls=true"
+      - "traefik.http.routers.beszel-local.middlewares=secure-headers@docker"
+      - "traefik.http.routers.beszel-local.service=beszel-svc"
+      - "traefik.http.services.beszel-svc.loadbalancer.server.port=8090"
     deploy:
       resources:
         limits:

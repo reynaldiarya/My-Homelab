@@ -25,7 +25,13 @@ services:
       - "traefik.http.routers.grafana.entrypoints=websecure"
       - "traefik.http.routers.grafana.tls=true"
       - "traefik.http.routers.grafana.middlewares=secure-headers@docker"
-      - "traefik.http.services.grafana.loadbalancer.server.port=3000"
+      - "traefik.http.routers.grafana.service=grafana-svc"
+      - "traefik.http.routers.grafana-local.rule=Host(`grafana.${LOCAL_DOMAIN:-local}`)"
+      - "traefik.http.routers.grafana-local.entrypoints=websecure"
+      - "traefik.http.routers.grafana-local.tls=true"
+      - "traefik.http.routers.grafana-local.middlewares=secure-headers@docker"
+      - "traefik.http.routers.grafana-local.service=grafana-svc"
+      - "traefik.http.services.grafana-svc.loadbalancer.server.port=3000"
     deploy:
       resources:
         limits:

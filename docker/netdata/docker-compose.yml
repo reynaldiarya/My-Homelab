@@ -36,7 +36,13 @@ services:
       - "traefik.http.routers.netdata.entrypoints=websecure"
       - "traefik.http.routers.netdata.tls=true"
       - "traefik.http.routers.netdata.middlewares=secure-headers@docker,internal-only@file"
-      - "traefik.http.services.netdata.loadbalancer.server.port=19999"
+      - "traefik.http.routers.netdata.service=netdata-svc"
+      - "traefik.http.routers.netdata-local.rule=Host(`netdata.${LOCAL_DOMAIN:-local}`)"
+      - "traefik.http.routers.netdata-local.entrypoints=websecure"
+      - "traefik.http.routers.netdata-local.tls=true"
+      - "traefik.http.routers.netdata-local.middlewares=secure-headers@docker"
+      - "traefik.http.routers.netdata-local.service=netdata-svc"
+      - "traefik.http.services.netdata-svc.loadbalancer.server.port=19999"
     deploy:
       resources:
         limits:

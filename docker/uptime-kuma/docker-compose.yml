@@ -13,7 +13,13 @@ services:
       - "traefik.http.routers.uptime-kuma.entrypoints=websecure"
       - "traefik.http.routers.uptime-kuma.tls=true"
       - "traefik.http.routers.uptime-kuma.middlewares=secure-headers@docker"
-      - "traefik.http.services.uptime-kuma.loadbalancer.server.port=3001"
+      - "traefik.http.routers.uptime-kuma.service=uptime-kuma-svc"
+      - "traefik.http.routers.uptime-kuma-local.rule=Host(`status.${LOCAL_DOMAIN:-local}`)"
+      - "traefik.http.routers.uptime-kuma-local.entrypoints=websecure"
+      - "traefik.http.routers.uptime-kuma-local.tls=true"
+      - "traefik.http.routers.uptime-kuma-local.middlewares=secure-headers@docker"
+      - "traefik.http.routers.uptime-kuma-local.service=uptime-kuma-svc"
+      - "traefik.http.services.uptime-kuma-svc.loadbalancer.server.port=3001"
     deploy:
       resources:
         limits:

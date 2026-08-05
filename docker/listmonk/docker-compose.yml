@@ -31,7 +31,13 @@ services:
       - "traefik.http.routers.listmonk.entrypoints=websecure"
       - "traefik.http.routers.listmonk.tls=true"
       - "traefik.http.routers.listmonk.middlewares=secure-headers@docker"
-      - "traefik.http.services.listmonk.loadbalancer.server.port=9000"
+      - "traefik.http.routers.listmonk.service=listmonk-svc"
+      - "traefik.http.routers.listmonk-local.rule=Host(`listmonk.${LOCAL_DOMAIN:-local}`)"
+      - "traefik.http.routers.listmonk-local.entrypoints=websecure"
+      - "traefik.http.routers.listmonk-local.tls=true"
+      - "traefik.http.routers.listmonk-local.middlewares=secure-headers@docker"
+      - "traefik.http.routers.listmonk-local.service=listmonk-svc"
+      - "traefik.http.services.listmonk-svc.loadbalancer.server.port=9000"
     deploy:
       resources:
         limits:

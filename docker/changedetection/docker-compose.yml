@@ -20,7 +20,13 @@ services:
       - "traefik.http.routers.changedetection.entrypoints=websecure"
       - "traefik.http.routers.changedetection.tls=true"
       - "traefik.http.routers.changedetection.middlewares=secure-headers@docker"
-      - "traefik.http.services.changedetection.loadbalancer.server.port=5000"
+      - "traefik.http.routers.changedetection.service=changedetection-svc"
+      - "traefik.http.routers.changedetection-local.rule=Host(`changedetection.${LOCAL_DOMAIN:-local}`)"
+      - "traefik.http.routers.changedetection-local.entrypoints=websecure"
+      - "traefik.http.routers.changedetection-local.tls=true"
+      - "traefik.http.routers.changedetection-local.middlewares=secure-headers@docker"
+      - "traefik.http.routers.changedetection-local.service=changedetection-svc"
+      - "traefik.http.services.changedetection-svc.loadbalancer.server.port=5000"
     deploy:
       resources:
         limits:
