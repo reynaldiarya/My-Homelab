@@ -3,7 +3,7 @@ services:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
     environment:
-      HOMEPAGE_ALLOWED_HOSTS: home.${TRAEFIK_DOMAIN:-yourdomain.com}
+      HOMEPAGE_ALLOWED_HOSTS: ${HOMEPAGE_ALLOWED_HOSTS:-home.${TRAEFIK_DOMAIN:-yourdomain.com},home.${LOCAL_DOMAIN:-local}}
       PUID: ${HOMEPAGE_PUID:-1000}
       PGID: ${HOMEPAGE_PGID:-1000}
       HOMEPAGE_VAR_LOGO_ICON: ${HOMEPAGE_VAR_LOGO_ICON}
