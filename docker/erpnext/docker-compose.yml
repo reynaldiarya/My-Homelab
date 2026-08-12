@@ -9,7 +9,7 @@ services:
       resources:
         limits:
           cpus: "${ERPNEXT_CPU_LIMIT:-1}"
-          memory: ${ERPNEXT_MEMORY_LIMIT:-1G}
+          memory: ${ERPNEXT_MEMORY_LIMIT:-2G}
       restart_policy:
         condition: on-failure
     volumes:
@@ -112,7 +112,7 @@ services:
       resources:
         limits:
           cpus: "${ERPNEXT_CPU_LIMIT:-1}"
-          memory: ${ERPNEXT_MEMORY_LIMIT:-1G}
+          memory: ${ERPNEXT_MEMORY_LIMIT:-2G}
       restart_policy:
         condition: on-failure
     command:
@@ -152,8 +152,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "${ERPNEXT_WORKER_CPU_LIMIT:-0.5}"
-          memory: ${ERPNEXT_WORKER_MEMORY_LIMIT:-512M}
+          cpus: "${ERPNEXT_WORKER_CPU_LIMIT:-1}"
+          memory: ${ERPNEXT_WORKER_MEMORY_LIMIT:-1G}
       restart_policy:
         condition: on-failure
     command:
@@ -180,8 +180,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "${ERPNEXT_WORKER_CPU_LIMIT:-0.5}"
-          memory: ${ERPNEXT_WORKER_MEMORY_LIMIT:-512M}
+          cpus: "${ERPNEXT_WORKER_CPU_LIMIT:-1}"
+          memory: ${ERPNEXT_WORKER_MEMORY_LIMIT:-1G}
       restart_policy:
         condition: on-failure
     command:
@@ -208,8 +208,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "${ERPNEXT_WORKER_CPU_LIMIT:-0.5}"
-          memory: ${ERPNEXT_WORKER_MEMORY_LIMIT:-512M}
+          cpus: "${ERPNEXT_WORKER_CPU_LIMIT:-1}"
+          memory: ${ERPNEXT_WORKER_MEMORY_LIMIT:-1G}
       restart_policy:
         condition: on-failure
     command:
@@ -231,8 +231,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "${ERPNEXT_WORKER_CPU_LIMIT:-0.5}"
-          memory: ${ERPNEXT_WORKER_MEMORY_LIMIT:-512M}
+          cpus: "${ERPNEXT_WORKER_CPU_LIMIT:-1}"
+          memory: ${ERPNEXT_WORKER_MEMORY_LIMIT:-1G}
       restart_policy:
         condition: on-failure
     command:
