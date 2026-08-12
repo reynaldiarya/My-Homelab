@@ -47,8 +47,8 @@ services:
     environment:
       DB_HOST: ${ERPNEXT_DB_HOST:-mariadb}
       DB_PORT: "${MARIADB_PORT:-3306}"
-      REDIS_CACHE: ${ERPNEXT_REDIS_CACHE:-redis://:${REDIS_PASSWORD:-password}@${ERPNEXT_REDIS_HOST:-redis}:6379/0}
-      REDIS_QUEUE: ${ERPNEXT_REDIS_QUEUE:-redis://:${REDIS_PASSWORD:-password}@${ERPNEXT_REDIS_HOST:-redis}:6379/1}
+      REDIS_CACHE: ${ERPNEXT_REDIS_CACHE:-redis://:${REDIS_PASSWORD:-password}@${ERPNEXT_REDIS_HOST:-redis}:6379}
+      REDIS_QUEUE: ${ERPNEXT_REDIS_QUEUE:-redis://:${REDIS_PASSWORD:-password}@${ERPNEXT_REDIS_HOST:-redis}:6379}
       SOCKETIO_PORT: "${ERPNEXT_SOCKETIO_PORT:-9000}"
     volumes:
       - erpnext_sites:/home/frappe/frappe-bench/sites
@@ -165,8 +165,8 @@ services:
       - erpnext_sites:/home/frappe/frappe-bench/sites
       - erpnext_logs:/home/frappe/frappe-bench/logs
     environment:
-      FRAPPE_REDIS_CACHE: ${ERPNEXT_REDIS_CACHE:-redis://:${REDIS_PASSWORD:-password}@${ERPNEXT_REDIS_HOST:-redis}:6379/0}
-      FRAPPE_REDIS_QUEUE: ${ERPNEXT_REDIS_QUEUE:-redis://:${REDIS_PASSWORD:-password}@${ERPNEXT_REDIS_HOST:-redis}:6379/1}
+      FRAPPE_REDIS_CACHE: ${ERPNEXT_REDIS_CACHE:-redis://:${REDIS_PASSWORD:-password}@${ERPNEXT_REDIS_HOST:-redis}:6379}
+      FRAPPE_REDIS_QUEUE: ${ERPNEXT_REDIS_QUEUE:-redis://:${REDIS_PASSWORD:-password}@${ERPNEXT_REDIS_HOST:-redis}:6379}
     depends_on:
       configurator:
         condition: service_completed_successfully
@@ -193,8 +193,8 @@ services:
       - erpnext_sites:/home/frappe/frappe-bench/sites
       - erpnext_logs:/home/frappe/frappe-bench/logs
     environment:
-      FRAPPE_REDIS_CACHE: ${ERPNEXT_REDIS_CACHE:-redis://:${REDIS_PASSWORD:-password}@${ERPNEXT_REDIS_HOST:-redis}:6379/0}
-      FRAPPE_REDIS_QUEUE: ${ERPNEXT_REDIS_QUEUE:-redis://:${REDIS_PASSWORD:-password}@${ERPNEXT_REDIS_HOST:-redis}:6379/1}
+      FRAPPE_REDIS_CACHE: ${ERPNEXT_REDIS_CACHE:-redis://:${REDIS_PASSWORD:-password}@${ERPNEXT_REDIS_HOST:-redis}:6379}
+      FRAPPE_REDIS_QUEUE: ${ERPNEXT_REDIS_QUEUE:-redis://:${REDIS_PASSWORD:-password}@${ERPNEXT_REDIS_HOST:-redis}:6379}
     depends_on:
       configurator:
         condition: service_completed_successfully
@@ -239,8 +239,8 @@ services:
       - node
       - /home/frappe/frappe-bench/apps/frappe/socketio.js
     environment:
-      FRAPPE_REDIS_CACHE: ${ERPNEXT_REDIS_CACHE:-redis://:${REDIS_PASSWORD:-password}@${ERPNEXT_REDIS_HOST:-redis}:6379/0}
-      FRAPPE_REDIS_QUEUE: ${ERPNEXT_REDIS_QUEUE:-redis://:${REDIS_PASSWORD:-password}@${ERPNEXT_REDIS_HOST:-redis}:6379/1}
+      FRAPPE_REDIS_CACHE: ${ERPNEXT_REDIS_CACHE:-redis://:${REDIS_PASSWORD:-password}@${ERPNEXT_REDIS_HOST:-redis}:6379}
+      FRAPPE_REDIS_QUEUE: ${ERPNEXT_REDIS_QUEUE:-redis://:${REDIS_PASSWORD:-password}@${ERPNEXT_REDIS_HOST:-redis}:6379}
     volumes:
       - erpnext_sites:/home/frappe/frappe-bench/sites
       - erpnext_logs:/home/frappe/frappe-bench/logs
