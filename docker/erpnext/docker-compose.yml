@@ -49,7 +49,7 @@ services:
       DB_PORT: "${MARIADB_PORT:-3306}"
       REDIS_CACHE: ${ERPNEXT_REDIS_CACHE:-:${REDIS_PASSWORD:-password}@redis:6379/0}
       REDIS_QUEUE: ${ERPNEXT_REDIS_QUEUE:-:${REDIS_PASSWORD:-password}@redis:6379/1}
-      SOCKETIO_PORT: "9000"
+      SOCKETIO_PORT: "${ERPNEXT_SOCKETIO_PORT:-9000}"
     volumes:
       - erpnext_sites:/home/frappe/frappe-bench/sites
       - erpnext_logs:/home/frappe/frappe-bench/logs
@@ -65,6 +65,10 @@ services:
     volumes:
       - erpnext_sites:/home/frappe/frappe-bench/sites
       - erpnext_logs:/home/frappe/frappe-bench/logs
+    environment:
+      DB_NAME: ${ERPNEXT_DB_NAME:-}
+      DB_USER: ${ERPNEXT_DB_USER:-}
+      DB_PASSWORD: ${ERPNEXT_DB_PASSWORD:-}
     entrypoint:
       - bash
       - -c
@@ -85,10 +89,14 @@ services:
           fi
         done;
         echo "sites/common_site_config.json found";
-        if [ -d "sites/frontend" ]; then
-          echo "Site frontend already exists, skipping creation";
+        if [ -d "sites/${ERPNEXT_SITE_NAME:-frontend}" ]; then
+          echo "Site ${ERPNEXT_SITE_NAME:-frontend} already exists, skipping creation";
         else
-          bench new-site --mariadb-user-host-login-scope='%' --admin-password=${ERPNEXT_ADMIN_PASSWORD:-admin} --db-root-username=root --db-root-password=${MARIADB_ROOT_PASSWORD:-password} --install-app erpnext --set-default frontend;
+          EXTRA_ARGS="";
+          if [ -n "$$DB_NAME" ]; then EXTRA_ARGS="$$EXTRA_ARGS --db-name $$DB_NAME"; fi;
+          if [ -n "$$DB_USER" ]; then EXTRA_ARGS="$$EXTRA_ARGS --db-user $$DB_USER"; fi;
+          if [ -n "$$DB_PASSWORD" ]; then EXTRA_ARGS="$$EXTRA_ARGS --db-password $$DB_PASSWORD"; fi;
+          bench new-site --mariadb-user-host-login-scope='%' --admin-password=${ERPNEXT_ADMIN_PASSWORD:-admin} --db-root-username=root --db-root-password=${MARIADB_ROOT_PASSWORD:-password} $$EXTRA_ARGS --install-app erpnext --set-default ${ERPNEXT_SITE_NAME:-frontend};
         fi;
 
   frontend:
@@ -111,13 +119,13 @@ services:
       - nginx-entrypoint.sh
     environment:
       BACKEND: backend:8000
-      FRAPPE_SITE_NAME_HEADER: frontend
-      SOCKETIO: websocket:9000
+      FRAPPE_SITE_NAME_HEADER: ${ERPNEXT_SITE_NAME:-frontend}
+      SOCKETIO: websocket:${ERPNEXT_SOCKETIO_PORT:-9000}
       UPSTREAM_REAL_IP_ADDRESS: 127.0.0.1
       UPSTREAM_REAL_IP_HEADER: X-Forwarded-For
       UPSTREAM_REAL_IP_RECURSIVE: "off"
-      PROXY_READ_TIMEOUT: 120
-      CLIENT_MAX_BODY_SIZE: 50m
+      PROXY_READ_TIMEOUT: ${ERPNEXT_PROXY_READ_TIMEOUT:-120}
+      CLIENT_MAX_BODY_SIZE: ${ERPNEXT_CLIENT_MAX_BODY_SIZE:-50m}
     volumes:
       - erpnext_sites:/home/frappe/frappe-bench/sites
       - erpnext_logs:/home/frappe/frappe-bench/logs
@@ -144,8 +152,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "${ERPNEXT_CPU_LIMIT:-0.5}"
-          memory: ${ERPNEXT_MEMORY_LIMIT:-512M}
+          cpus: "${ERPNEXT_WORKER_CPU_LIMIT:-0.5}"
+          memory: ${ERPNEXT_WORKER_MEMORY_LIMIT:-512M}
       restart_policy:
         condition: on-failure
     command:
@@ -172,8 +180,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "${ERPNEXT_CPU_LIMIT:-0.5}"
-          memory: ${ERPNEXT_MEMORY_LIMIT:-512M}
+          cpus: "${ERPNEXT_WORKER_CPU_LIMIT:-0.5}"
+          memory: ${ERPNEXT_WORKER_MEMORY_LIMIT:-512M}
       restart_policy:
         condition: on-failure
     command:
@@ -200,8 +208,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "${ERPNEXT_CPU_LIMIT:-0.5}"
-          memory: ${ERPNEXT_MEMORY_LIMIT:-512M}
+          cpus: "${ERPNEXT_WORKER_CPU_LIMIT:-0.5}"
+          memory: ${ERPNEXT_WORKER_MEMORY_LIMIT:-512M}
       restart_policy:
         condition: on-failure
     command:
@@ -223,8 +231,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "${ERPNEXT_CPU_LIMIT:-0.5}"
-          memory: ${ERPNEXT_MEMORY_LIMIT:-512M}
+          cpus: "${ERPNEXT_WORKER_CPU_LIMIT:-0.5}"
+          memory: ${ERPNEXT_WORKER_MEMORY_LIMIT:-512M}
       restart_policy:
         condition: on-failure
     command:

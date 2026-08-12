@@ -36,3 +36,10 @@ docker-compose.override.yaml
 # Temporary files
 *.tmp
 *.temp
+
+# Certificates & Traefik certs
+*.pem
+*.crt
+*.key
+docker/traefik/certs/*
+!docker/traefik/certs/.gitkeep
