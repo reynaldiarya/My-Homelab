@@ -15,6 +15,7 @@ DOCKER_COMPOSE = docker compose --env-file .env
 .PHONY: start-blesta stop-blesta update-blesta logs-blesta
 .PHONY: start-bugsink stop-bugsink update-bugsink logs-bugsink
 .PHONY: start-changedetection stop-changedetection update-changedetection logs-changedetection
+.PHONY: start-erpnext stop-erpnext update-erpnext logs-erpnext
 .PHONY: start-excalidraw stop-excalidraw update-excalidraw logs-excalidraw
 .PHONY: start-flaresolverr stop-flaresolverr update-flaresolverr logs-flaresolverr
 .PHONY: start-grafana stop-grafana update-grafana logs-grafana
@@ -67,7 +68,7 @@ help:
 	@echo ""
 	@echo "Available services (A-Z):"
 	@echo "  actual-budget, adguard-home, bento-pdf, beszel, blesta, bugsink,"
-	@echo "  changedetection, excalidraw, flaresolverr, grafana, homepage,"
+	@echo "  changedetection, erpnext, excalidraw, flaresolverr, grafana, homepage,"
 	@echo "  influxdb, it-tools, listmonk,"
 	@echo "  mariadb, mongodb, n8n, netdata, nextcloud, ollama, onlyoffice, open-webui,"
 	@echo "  openspeedtest, portainer, postgres, redis, ryot,"
@@ -98,6 +99,7 @@ start-all: network
 	$(DOCKER_COMPOSE) -f docker/blesta/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/bugsink/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/changedetection/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/erpnext/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/excalidraw/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/flaresolverr/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/grafana/docker-compose.yml up -d
@@ -137,6 +139,7 @@ stop-all:
 	$(DOCKER_COMPOSE) -f docker/blesta/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/bugsink/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/changedetection/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/erpnext/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/excalidraw/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/flaresolverr/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/grafana/docker-compose.yml down
@@ -294,6 +297,22 @@ update-changedetection: network
 
 logs-changedetection:
 	$(DOCKER_COMPOSE) -f docker/changedetection/docker-compose.yml logs -f
+
+# ================================
+# ERPNext
+# ================================
+start-erpnext: network
+	$(DOCKER_COMPOSE) -f docker/erpnext/docker-compose.yml up -d
+
+stop-erpnext:
+	$(DOCKER_COMPOSE) -f docker/erpnext/docker-compose.yml down
+
+update-erpnext: network
+	$(DOCKER_COMPOSE) -f docker/erpnext/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/erpnext/docker-compose.yml up -d
+
+logs-erpnext:
+	$(DOCKER_COMPOSE) -f docker/erpnext/docker-compose.yml logs -f
 
 # ================================
 # Excalidraw
