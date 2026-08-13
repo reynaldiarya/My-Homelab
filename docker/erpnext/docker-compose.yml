@@ -49,7 +49,7 @@ services:
       DB_PORT: "${MARIADB_PORT:-3306}"
       REDIS_CACHE: ${ERPNEXT_REDIS_CACHE:-redis://:${REDIS_PASSWORD:-password}@${ERPNEXT_REDIS_HOST:-redis}:6379}
       REDIS_QUEUE: ${ERPNEXT_REDIS_QUEUE:-redis://:${REDIS_PASSWORD:-password}@${ERPNEXT_REDIS_HOST:-redis}:6379}
-      SOCKETIO_PORT: "${ERPNEXT_SOCKETIO_PORT:-9000}"
+      SOCKETIO_PORT: "${ERPNEXT_CLIENT_SOCKETIO_PORT:-443}"
     volumes:
       - erpnext_sites:/home/frappe/frappe-bench/sites
       - erpnext_logs:/home/frappe/frappe-bench/logs
@@ -120,7 +120,7 @@ services:
     environment:
       BACKEND: backend:8000
       FRAPPE_SITE_NAME_HEADER: ${ERPNEXT_SITE_NAME:-frontend}
-      SOCKETIO: websocket:${ERPNEXT_SOCKETIO_PORT:-9000}
+      SOCKETIO: websocket:9000
       UPSTREAM_REAL_IP_ADDRESS: 127.0.0.1
       UPSTREAM_REAL_IP_HEADER: X-Forwarded-For
       UPSTREAM_REAL_IP_RECURSIVE: "off"
