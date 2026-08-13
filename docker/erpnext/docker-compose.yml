@@ -1,6 +1,6 @@
 services:
   backend:
-    image: frappe/erpnext:latest
+    image: frappe/erpnext:v16
     container_name: erpnext-backend
     restart: unless-stopped
     networks:
@@ -25,7 +25,7 @@ services:
         condition: service_completed_successfully
 
   configurator:
-    image: frappe/erpnext:latest
+    image: frappe/erpnext:v16
     container_name: erpnext-configurator
     networks:
       - homelab
@@ -55,7 +55,7 @@ services:
       - erpnext_logs:/home/frappe/frappe-bench/logs
 
   create-site:
-    image: frappe/erpnext:latest
+    image: frappe/erpnext:v16
     container_name: erpnext-create-site
     networks:
       - homelab
@@ -100,7 +100,7 @@ services:
         fi;
 
   frontend:
-    image: frappe/erpnext:latest
+    image: frappe/erpnext:v16
     container_name: erpnext-frontend
     restart: unless-stopped
     networks:
@@ -144,7 +144,7 @@ services:
       - "traefik.http.services.erpnext-svc.loadbalancer.server.port=8080"
 
   queue-long:
-    image: frappe/erpnext:latest
+    image: frappe/erpnext:v16
     container_name: erpnext-queue-long
     restart: unless-stopped
     networks:
@@ -172,7 +172,7 @@ services:
         condition: service_completed_successfully
 
   queue-short:
-    image: frappe/erpnext:latest
+    image: frappe/erpnext:v16
     container_name: erpnext-queue-short
     restart: unless-stopped
     networks:
@@ -200,7 +200,7 @@ services:
         condition: service_completed_successfully
 
   scheduler:
-    image: frappe/erpnext:latest
+    image: frappe/erpnext:v16
     container_name: erpnext-scheduler
     restart: unless-stopped
     networks:
@@ -223,7 +223,7 @@ services:
         condition: service_completed_successfully
 
   websocket:
-    image: frappe/erpnext:latest
+    image: frappe/erpnext:v16
     container_name: erpnext-websocket
     restart: unless-stopped
     networks:
