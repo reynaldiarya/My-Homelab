@@ -21,7 +21,7 @@ services:
       - "traefik.http.routers.changedetection.tls=true"
       - "traefik.http.routers.changedetection.middlewares=secure-headers@docker"
       - "traefik.http.routers.changedetection.service=changedetection-svc"
-      - "traefik.http.routers.changedetection-local.rule=Host(`changedetection.${LOCAL_DOMAIN:-local}`)"
+      - "traefik.http.routers.changedetection-local.rule=Host(`changedetection.${LOCAL_DOMAIN:-home.arpa}`)"
       - "traefik.http.routers.changedetection-local.entrypoints=websecure"
       - "traefik.http.routers.changedetection-local.tls=true"
       - "traefik.http.routers.changedetection-local.middlewares=secure-headers@docker"

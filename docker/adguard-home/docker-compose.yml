@@ -21,7 +21,7 @@ services:
       - "traefik.http.routers.adguard-home.tls=true"
       - "traefik.http.routers.adguard-home.middlewares=secure-headers@docker,internal-only@file"
       - "traefik.http.routers.adguard-home.service=adguard-home-svc"
-      - "traefik.http.routers.adguard-home-local.rule=Host(`adguard.${LOCAL_DOMAIN:-local}`)"
+      - "traefik.http.routers.adguard-home-local.rule=Host(`adguard.${LOCAL_DOMAIN:-home.arpa}`)"
       - "traefik.http.routers.adguard-home-local.entrypoints=websecure"
       - "traefik.http.routers.adguard-home-local.tls=true"
       - "traefik.http.routers.adguard-home-local.middlewares=secure-headers@docker"

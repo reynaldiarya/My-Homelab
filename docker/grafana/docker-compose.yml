@@ -26,7 +26,7 @@ services:
       - "traefik.http.routers.grafana.tls=true"
       - "traefik.http.routers.grafana.middlewares=secure-headers@docker"
       - "traefik.http.routers.grafana.service=grafana-svc"
-      - "traefik.http.routers.grafana-local.rule=Host(`grafana.${LOCAL_DOMAIN:-local}`)"
+      - "traefik.http.routers.grafana-local.rule=Host(`grafana.${LOCAL_DOMAIN:-home.arpa}`)"
       - "traefik.http.routers.grafana-local.entrypoints=websecure"
       - "traefik.http.routers.grafana-local.tls=true"
       - "traefik.http.routers.grafana-local.middlewares=secure-headers@docker"

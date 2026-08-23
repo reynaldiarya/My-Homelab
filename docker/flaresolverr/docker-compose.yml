@@ -20,7 +20,7 @@ services:
       - "traefik.http.routers.flaresolverr.tls=true"
       - "traefik.http.routers.flaresolverr.middlewares=secure-headers@docker,internal-only@file"
       - "traefik.http.routers.flaresolverr.service=flaresolverr-svc"
-      - "traefik.http.routers.flaresolverr-local.rule=Host(`flaresolverr.${LOCAL_DOMAIN:-local}`)"
+      - "traefik.http.routers.flaresolverr-local.rule=Host(`flaresolverr.${LOCAL_DOMAIN:-home.arpa}`)"
       - "traefik.http.routers.flaresolverr-local.entrypoints=websecure"
       - "traefik.http.routers.flaresolverr-local.tls=true"
       - "traefik.http.routers.flaresolverr-local.middlewares=secure-headers@docker"

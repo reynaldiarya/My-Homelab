@@ -25,7 +25,7 @@ services:
       - "traefik.http.routers.wealthfolio.tls=true"
       - "traefik.http.routers.wealthfolio.middlewares=secure-headers@docker"
       - "traefik.http.routers.wealthfolio.service=wealthfolio-svc"
-      - "traefik.http.routers.wealthfolio-local.rule=Host(`wealthfolio.${LOCAL_DOMAIN:-local}`)"
+      - "traefik.http.routers.wealthfolio-local.rule=Host(`wealthfolio.${LOCAL_DOMAIN:-home.arpa}`)"
       - "traefik.http.routers.wealthfolio-local.entrypoints=websecure"
       - "traefik.http.routers.wealthfolio-local.tls=true"
       - "traefik.http.routers.wealthfolio-local.middlewares=secure-headers@docker"

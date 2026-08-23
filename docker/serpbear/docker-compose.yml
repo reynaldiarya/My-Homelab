@@ -21,7 +21,7 @@ services:
       - "traefik.http.routers.serpbear.tls=true"
       - "traefik.http.routers.serpbear.middlewares=secure-headers@docker"
       - "traefik.http.routers.serpbear.service=serpbear-svc"
-      - "traefik.http.routers.serpbear-local.rule=Host(`serpbear.${LOCAL_DOMAIN:-local}`)"
+      - "traefik.http.routers.serpbear-local.rule=Host(`serpbear.${LOCAL_DOMAIN:-home.arpa}`)"
       - "traefik.http.routers.serpbear-local.entrypoints=websecure"
       - "traefik.http.routers.serpbear-local.tls=true"
       - "traefik.http.routers.serpbear-local.middlewares=secure-headers@docker"

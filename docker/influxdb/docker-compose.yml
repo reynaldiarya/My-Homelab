@@ -23,7 +23,7 @@ services:
       - "traefik.http.routers.influxdb.tls=true"
       - "traefik.http.routers.influxdb.middlewares=secure-headers@docker,internal-only@file"
       - "traefik.http.routers.influxdb.service=influxdb-svc"
-      - "traefik.http.routers.influxdb-local.rule=Host(`influxdb.${LOCAL_DOMAIN:-local}`)"
+      - "traefik.http.routers.influxdb-local.rule=Host(`influxdb.${LOCAL_DOMAIN:-home.arpa}`)"
       - "traefik.http.routers.influxdb-local.entrypoints=websecure"
       - "traefik.http.routers.influxdb-local.tls=true"
       - "traefik.http.routers.influxdb-local.middlewares=secure-headers@docker"

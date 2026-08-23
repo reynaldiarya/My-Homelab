@@ -12,7 +12,7 @@ services:
       - "traefik.http.routers.excalidraw.tls=true"
       - "traefik.http.routers.excalidraw.middlewares=secure-headers@docker"
       - "traefik.http.routers.excalidraw.service=excalidraw-svc"
-      - "traefik.http.routers.excalidraw-local.rule=Host(`excalidraw.${LOCAL_DOMAIN:-local}`)"
+      - "traefik.http.routers.excalidraw-local.rule=Host(`excalidraw.${LOCAL_DOMAIN:-home.arpa}`)"
       - "traefik.http.routers.excalidraw-local.entrypoints=websecure"
       - "traefik.http.routers.excalidraw-local.tls=true"
       - "traefik.http.routers.excalidraw-local.middlewares=secure-headers@docker"

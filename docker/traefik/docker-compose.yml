@@ -24,7 +24,7 @@ services:
       - "traefik.http.routers.traefik-dashboard.priority=1"
       - "traefik.http.routers.traefik-dashboard.tls=true"
       - "traefik.http.routers.traefik-dashboard.service=api@internal"
-      - "traefik.http.routers.traefik-dashboard-local.rule=Host(`traefik.${LOCAL_DOMAIN:-local}`)"
+      - "traefik.http.routers.traefik-dashboard-local.rule=Host(`traefik.${LOCAL_DOMAIN:-home.arpa}`)"
       - "traefik.http.routers.traefik-dashboard-local.entrypoints=websecure"
       - "traefik.http.routers.traefik-dashboard-local.tls=true"
       - "traefik.http.routers.traefik-dashboard-local.middlewares=traefik-auth@docker,secure-headers@docker"

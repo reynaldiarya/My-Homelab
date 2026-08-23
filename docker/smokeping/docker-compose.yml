@@ -21,7 +21,7 @@ services:
       - "traefik.http.routers.smokeping.tls=true"
       - "traefik.http.routers.smokeping.middlewares=secure-headers@docker,internal-only@file"
       - "traefik.http.routers.smokeping.service=smokeping-svc"
-      - "traefik.http.routers.smokeping-local.rule=Host(`smokeping.${LOCAL_DOMAIN:-local}`)"
+      - "traefik.http.routers.smokeping-local.rule=Host(`smokeping.${LOCAL_DOMAIN:-home.arpa}`)"
       - "traefik.http.routers.smokeping-local.entrypoints=websecure"
       - "traefik.http.routers.smokeping-local.tls=true"
       - "traefik.http.routers.smokeping-local.middlewares=secure-headers@docker"

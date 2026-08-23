@@ -17,7 +17,7 @@ services:
       - "traefik.http.routers.wallos.tls=true"
       - "traefik.http.routers.wallos.middlewares=secure-headers@docker"
       - "traefik.http.routers.wallos.service=wallos-svc"
-      - "traefik.http.routers.wallos-local.rule=Host(`wallos.${LOCAL_DOMAIN:-local}`)"
+      - "traefik.http.routers.wallos-local.rule=Host(`wallos.${LOCAL_DOMAIN:-home.arpa}`)"
       - "traefik.http.routers.wallos-local.entrypoints=websecure"
       - "traefik.http.routers.wallos-local.tls=true"
       - "traefik.http.routers.wallos-local.middlewares=secure-headers@docker"

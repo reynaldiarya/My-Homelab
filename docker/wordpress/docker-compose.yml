@@ -26,7 +26,7 @@ services:
       - "traefik.http.routers.wordpress.tls=true"
       - "traefik.http.routers.wordpress.middlewares=secure-headers@docker"
       - "traefik.http.routers.wordpress.service=wordpress-svc"
-      - "traefik.http.routers.wordpress-local.rule=Host(`wordpress.${LOCAL_DOMAIN:-local}`)"
+      - "traefik.http.routers.wordpress-local.rule=Host(`wordpress.${LOCAL_DOMAIN:-home.arpa}`)"
       - "traefik.http.routers.wordpress-local.entrypoints=websecure"
       - "traefik.http.routers.wordpress-local.tls=true"
       - "traefik.http.routers.wordpress-local.middlewares=secure-headers@docker"

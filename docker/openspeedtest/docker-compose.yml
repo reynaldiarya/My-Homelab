@@ -12,7 +12,7 @@ services:
       - "traefik.http.routers.openspeedtest.tls=true"
       - "traefik.http.routers.openspeedtest.middlewares=secure-headers@docker"
       - "traefik.http.routers.openspeedtest.service=openspeedtest-svc"
-      - "traefik.http.routers.openspeedtest-local.rule=Host(`speedtest.${LOCAL_DOMAIN:-local}`)"
+      - "traefik.http.routers.openspeedtest-local.rule=Host(`speedtest.${LOCAL_DOMAIN:-home.arpa}`)"
       - "traefik.http.routers.openspeedtest-local.entrypoints=websecure"
       - "traefik.http.routers.openspeedtest-local.tls=true"
       - "traefik.http.routers.openspeedtest-local.middlewares=secure-headers@docker"

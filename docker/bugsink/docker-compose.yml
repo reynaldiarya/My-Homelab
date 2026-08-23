@@ -18,7 +18,7 @@ services:
       - "traefik.http.routers.bugsink.tls=true"
       - "traefik.http.routers.bugsink.middlewares=secure-headers@docker"
       - "traefik.http.routers.bugsink.service=bugsink-svc"
-      - "traefik.http.routers.bugsink-local.rule=Host(`bugsink.${LOCAL_DOMAIN:-local}`)"
+      - "traefik.http.routers.bugsink-local.rule=Host(`bugsink.${LOCAL_DOMAIN:-home.arpa}`)"
       - "traefik.http.routers.bugsink-local.entrypoints=websecure"
       - "traefik.http.routers.bugsink-local.tls=true"
       - "traefik.http.routers.bugsink-local.middlewares=secure-headers@docker"

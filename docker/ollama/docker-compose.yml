@@ -20,7 +20,7 @@ services:
       - "traefik.http.routers.ollama.tls=true"
       - "traefik.http.routers.ollama.middlewares=secure-headers@docker,internal-only@file"
       - "traefik.http.routers.ollama.service=ollama-svc"
-      - "traefik.http.routers.ollama-local.rule=Host(`ollama.${LOCAL_DOMAIN:-local}`)"
+      - "traefik.http.routers.ollama-local.rule=Host(`ollama.${LOCAL_DOMAIN:-home.arpa}`)"
       - "traefik.http.routers.ollama-local.entrypoints=websecure"
       - "traefik.http.routers.ollama-local.tls=true"
       - "traefik.http.routers.ollama-local.middlewares=secure-headers@docker"

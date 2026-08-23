@@ -51,7 +51,7 @@ services:
       REDIS_CACHE: ${ERPNEXT_REDIS_CACHE:-redis://:${REDIS_PASSWORD:-password}@${ERPNEXT_REDIS_HOST:-redis}:6379}
       REDIS_QUEUE: ${ERPNEXT_REDIS_QUEUE:-redis://:${REDIS_PASSWORD:-password}@${ERPNEXT_REDIS_HOST:-redis}:6379}
       SOCKETIO_PORT: "${ERPNEXT_CLIENT_SOCKETIO_PORT:-443}"
-      ALLOWED_CORS: '${ERPNEXT_ALLOWED_CORS_ORIGINS:-["https://erpnext.local"]}'
+      ALLOWED_CORS: '${ERPNEXT_ALLOWED_CORS_ORIGINS:-["https://erpnext.home.arpa"]}'
     volumes:
       - erpnext_sites:/home/frappe/frappe-bench/sites
       - erpnext_logs:/home/frappe/frappe-bench/logs
@@ -138,7 +138,7 @@ services:
       - "traefik.http.routers.erpnext.tls=true"
       - "traefik.http.routers.erpnext.middlewares=secure-headers@docker"
       - "traefik.http.routers.erpnext.service=erpnext-svc"
-      - "traefik.http.routers.erpnext-local.rule=Host(`erpnext.${LOCAL_DOMAIN:-local}`)"
+      - "traefik.http.routers.erpnext-local.rule=Host(`erpnext.${LOCAL_DOMAIN:-home.arpa}`)"
       - "traefik.http.routers.erpnext-local.entrypoints=websecure"
       - "traefik.http.routers.erpnext-local.tls=true"
       - "traefik.http.routers.erpnext-local.middlewares=secure-headers@docker"

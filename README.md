@@ -20,9 +20,9 @@ My Homelab provides a robust, centralized environment for running 37 self-hosted
 
 - **Traefik v3 Reverse Proxy** — All services accessible via HTTPS subdomain, no direct port exposure
 - **Cloudflare Origin Certificate** — Valid 15-year TLS cert, no Let's Encrypt rate limits or API tokens required
-- **Dual-Access Routing** — Every service accessible via `service.yourdomain.com` (internet) AND `service.local` (LAN)
+- **Dual-Access Routing** — Every service accessible via `service.yourdomain.com` (internet) AND `service.home.arpa` (LAN)
 - **Cloudflare Tunnel** — No port forwarding required on your router; IP never exposed to the internet
-- **AdGuard Home DNS** — Local DNS rewrites so all `*.local` subdomains resolve to the server on LAN
+- **AdGuard Home DNS** — Local DNS rewrites so all `*.home.arpa` subdomains resolve to the server on LAN
 - **Resource Limits** — CPU and memory limits on every container to prevent host instability
 - **Healthchecks** — Database services (PostgreSQL, MariaDB, Redis, MongoDB) have healthchecks for proper dependency management
 - **Security Hardened** — HSTS, XSS protection, referrer policy, no-new-privileges, read-only docker socket mounts
@@ -52,7 +52,7 @@ My Homelab provides a robust, centralized environment for running 37 self-hosted
          ▼
 [ Traefik v3 :443 ] ──── reads Host header ────►  Container A, B, C...
          │
-         └── also listens for *.local (LAN direct)
+         └── also listens for *.home.arpa (LAN direct)
 ```
 
 ## Installation
@@ -111,7 +111,7 @@ All configuration is managed via the central `.env` file.
 |----------|-------------|---------|
 | `TZ` | Timezone for all containers | `Asia/Jakarta` |
 | `TRAEFIK_DOMAIN` | Your public domain | `yourdomain.com` |
-| `LOCAL_DOMAIN` | Your local LAN domain suffix | `local` |
+| `LOCAL_DOMAIN` | Your local LAN domain suffix | `home.arpa` |
 | `TRAEFIK_DASHBOARD_AUTH` | Basic auth for Traefik dashboard (htpasswd format, escape `$` as `$$`) | `admin:$$2y$$...` |
 
 ### Generating Traefik Dashboard Password
@@ -161,11 +161,11 @@ In AdGuard Home → Filters → DNS Rewrites, add:
 
 | Domain | Answer |
 |--------|--------|
-| `*.local` | `192.168.1.X` (your server IP) |
+| `*.home.arpa` | `192.168.1.X` (your server IP) |
 
-Then access services at `https://portainer.local`, `https://nextcloud.local`, etc.
+Then access services at `https://portainer.home.arpa`, `https://nextcloud.home.arpa`, etc.
 
-> **Note**: Browser will show an SSL warning for `.local` domains since the Cloudflare Origin Certificate is issued for `*.yourdomain.com`. Click Advanced → Accept Risk, or install the Cloudflare CA certificate on your devices.
+> **Note**: Browser will show an SSL warning for `.home.arpa` domains since the Cloudflare Origin Certificate is issued for `*.yourdomain.com`. Click Advanced → Accept Risk, or install the Cloudflare CA certificate on your devices.
 
 ## Usage
 

@@ -20,7 +20,7 @@ services:
       - "traefik.http.routers.onlyoffice.tls=true"
       - "traefik.http.routers.onlyoffice.middlewares=secure-headers@docker"
       - "traefik.http.routers.onlyoffice.service=onlyoffice-svc"
-      - "traefik.http.routers.onlyoffice-local.rule=Host(`onlyoffice.${LOCAL_DOMAIN:-local}`)"
+      - "traefik.http.routers.onlyoffice-local.rule=Host(`onlyoffice.${LOCAL_DOMAIN:-home.arpa}`)"
       - "traefik.http.routers.onlyoffice-local.entrypoints=websecure"
       - "traefik.http.routers.onlyoffice-local.tls=true"
       - "traefik.http.routers.onlyoffice-local.middlewares=secure-headers@docker"

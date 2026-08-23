@@ -28,7 +28,7 @@ services:
       - "traefik.http.routers.n8n.tls=true"
       - "traefik.http.routers.n8n.middlewares=secure-headers@docker"
       - "traefik.http.routers.n8n.service=n8n-svc"
-      - "traefik.http.routers.n8n-local.rule=Host(`n8n.${LOCAL_DOMAIN:-local}`)"
+      - "traefik.http.routers.n8n-local.rule=Host(`n8n.${LOCAL_DOMAIN:-home.arpa}`)"
       - "traefik.http.routers.n8n-local.entrypoints=websecure"
       - "traefik.http.routers.n8n-local.tls=true"
       - "traefik.http.routers.n8n-local.middlewares=secure-headers@docker"

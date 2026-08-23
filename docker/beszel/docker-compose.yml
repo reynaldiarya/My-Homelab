@@ -15,7 +15,7 @@ services:
       - "traefik.http.routers.beszel.tls=true"
       - "traefik.http.routers.beszel.middlewares=secure-headers@docker"
       - "traefik.http.routers.beszel.service=beszel-svc"
-      - "traefik.http.routers.beszel-local.rule=Host(`beszel.${LOCAL_DOMAIN:-local}`)"
+      - "traefik.http.routers.beszel-local.rule=Host(`beszel.${LOCAL_DOMAIN:-home.arpa}`)"
       - "traefik.http.routers.beszel-local.entrypoints=websecure"
       - "traefik.http.routers.beszel-local.tls=true"
       - "traefik.http.routers.beszel-local.middlewares=secure-headers@docker"
