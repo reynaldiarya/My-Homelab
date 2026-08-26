@@ -4,8 +4,6 @@ probe = FPing
 
 menu = Top
 title = Network Latency Grapher
-remark = Welcome to the SmokePing website. \
-         Here you will learn all about the latency of our network.
 
 + CDN
 menu = CDN & Anycast
@@ -45,11 +43,6 @@ host = kiki.bunny.net
 menu = CDN77 (AS60068)
 title = CDN77 (AS60068)
 host = www.cdn77.com
-
-++ CacheFly
-menu = CacheFly (AS30081)
-title = CacheFly (AS30081)
-host = www.cachefly.com
 
 + CloudProviders
 menu = Cloud Providers
@@ -155,16 +148,6 @@ menu = Telkomsel (AS23693)
 title = Telekomunikasi Selular / Telkomsel (AS23693)
 host = 114.125.96.29
 
-++ Telin
-menu = Telin (AS17974)
-title = Telin / Telkom International (AS17974)
-host = 110.139.0.1
-
-++ GlobalXtreme
-menu = GlobalXtreme (AS45701)
-title = GlobalXtreme (AS45701)
-host = 103.52.37.1
-
 ++ Iconnet
 menu = Iconnet / PLN (AS9341)
 title = Iconnet PLN Group (AS9341)
@@ -244,16 +227,6 @@ menu = X / Twitter
 title = X (formerly Twitter)
 host = www.x.com
 
-++ Netflix
-menu = Netflix
-title = Netflix Streaming
-host = www.netflix.com
-
-++ Spotify
-menu = Spotify
-title = Spotify Music Streaming
-host = www.spotify.com
-
 ++ Discord
 menu = Discord
 title = Discord Voice & Chat
@@ -293,20 +266,10 @@ menu = AdGuard DNS
 title = AdGuard Public DNS 94.140.14.14
 host = 94.140.14.14
 
-++ NextDNS
-menu = NextDNS
-title = NextDNS Anycast 45.90.28.0
-host = 45.90.28.0
-
 ++ ControlD
 menu = Control D
 title = Control D DNS 76.76.2.0
 host = 76.76.2.0
-
-++ CleanBrowsing
-menu = CleanBrowsing
-title = CleanBrowsing DNS 185.228.168.168
-host = 185.228.168.168
 
 + DNSProbes
 menu = DNS Resolution
@@ -343,27 +306,15 @@ title = AdGuard DNS Lookup Speed (94.140.14.14)
 host = 94.140.14.14
 lookup = www.google.com
 
-++ NextDNS
-menu = NextDNS
-title = NextDNS Lookup Speed (45.90.28.0)
-host = 45.90.28.0
-lookup = www.google.com
-
 ++ ControlD
 menu = Control D
 title = Control D Lookup Speed (76.76.2.0)
 host = 76.76.2.0
 lookup = www.google.com
 
-++ CleanBrowsing
-menu = CleanBrowsing
-title = CleanBrowsing Lookup Speed (185.228.168.168)
-host = 185.228.168.168
-lookup = www.google.com
-
 + RegionalLatency
 menu = Regional APAC
-title = Asia-Pacific Regional Latency (OVH Nodes)
+title = Asia-Pacific Regional Latency (Telco & Backbone)
 
 ++ EquinixSydney
 menu = AU Equinix Sydney (AS15830)
@@ -390,20 +341,10 @@ menu = MY Telecom Malaysia (AS4788)
 title = Telekom Malaysia (AS4788)
 host = 60.48.183.254
 
-++ NepalTelecom
-menu = NP Nepal Telecom (AS23752)
-title = Nepal Telecommunications (AS23752)
-host = 49.244.0.1
-
 ++ SkyCablePH
 menu = PH SKYBroadband (AS23944)
 title = SKYBroadband / SKYCable Philippines (AS23944)
 host = 114.108.211.1
-
-++ PakistanTelecom
-menu = PK Pakistan Internet Exchange (AS17557)
-title = Pakistan Internet Exchange(AS17557)
-host = 202.125.128.1
 
 ++ Singtel
 menu = SG SG.GS (AS24482)

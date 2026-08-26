@@ -2,6 +2,7 @@ services:
   smokeping:
     image: lscr.io/linuxserver/smokeping:latest
     container_name: smokeping
+    hostname: smokeping
     restart: unless-stopped
     environment:
       - TZ=${TZ:-Asia/Jakarta}
