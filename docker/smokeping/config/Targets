@@ -133,11 +133,6 @@ menu = MyRepublic (AS63859)
 title = MyRepublic Indonesia (AS63859)
 host = 66.96.224.1
 
-++ NTTIndo
-menu = NTT Indonesia (AS10217)
-title = NTT Indonesia (AS10217)
-host = 202.171.27.9
-
 ++ Telkom
 menu = Telkom (AS7713)
 title = Telekomunikasi Indonesia / IndiHome (AS7713)
