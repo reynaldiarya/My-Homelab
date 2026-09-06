@@ -1,0 +1,39 @@
+services:
+  docuseal:
+    image: docuseal/docuseal:latest
+    container_name: docuseal
+    restart: unless-stopped
+    environment:
+      TZ: ${TZ:-Asia/Jakarta}
+      DATABASE_URL: postgres://${POSTGRES_USER:-root}:${POSTGRES_PASSWORD:-password}@${DOCUSEAL_DB_HOST:-postgres}:5432/${DOCUSEAL_DB_NAME:-docuseal}
+      SECRET_KEY_BASE: ${DOCUSEAL_SECRET_KEY_BASE:-change_me_generate_with_openssl_rand_hex_64}
+      FORCE_SSL: "true"
+    volumes:
+      - docuseal_data:/data
+    networks:
+      - homelab
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.docuseal.rule=Host(`docuseal.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
+      - "traefik.http.routers.docuseal.entrypoints=websecure"
+      - "traefik.http.routers.docuseal.tls=true"
+      - "traefik.http.routers.docuseal.middlewares=secure-headers@docker"
+      - "traefik.http.routers.docuseal.service=docuseal-svc"
+      - "traefik.http.routers.docuseal-local.rule=Host(`docuseal.${LOCAL_DOMAIN:-home.arpa}`)"
+      - "traefik.http.routers.docuseal-local.entrypoints=websecure"
+      - "traefik.http.routers.docuseal-local.tls=true"
+      - "traefik.http.routers.docuseal-local.middlewares=secure-headers@docker"
+      - "traefik.http.routers.docuseal-local.service=docuseal-svc"
+      - "traefik.http.services.docuseal-svc.loadbalancer.server.port=3000"
+    deploy:
+      resources:
+        limits:
+          cpus: "${DOCUSEAL_CPU_LIMIT:-1}"
+          memory: ${DOCUSEAL_MEMORY_LIMIT:-1G}
+
+networks:
+  homelab:
+    external: true
+
+volumes:
+  docuseal_data:

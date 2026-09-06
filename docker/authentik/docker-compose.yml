@@ -1,0 +1,77 @@
+services:
+  server:
+    image: ghcr.io/goauthentik/server:latest
+    container_name: authentik-server
+    restart: unless-stopped
+    command: server
+    shm_size: 512mb
+    environment:
+      TZ: UTC
+      AUTHENTIK_POSTGRESQL__HOST: ${AUTHENTIK_DB_HOST:-postgres}
+      AUTHENTIK_POSTGRESQL__USER: ${POSTGRES_USER:-root}
+      AUTHENTIK_POSTGRESQL__NAME: ${AUTHENTIK_DB_NAME:-authentik}
+      AUTHENTIK_POSTGRESQL__PASSWORD: ${POSTGRES_PASSWORD:-password}
+      AUTHENTIK_SECRET_KEY: ${AUTHENTIK_SECRET_KEY:-change_me_generate_with_openssl_rand_base64_60}
+      AUTHENTIK_LOG_LEVEL: ${AUTHENTIK_LOG_LEVEL:-info}
+      AUTHENTIK_ERROR_REPORTING__ENABLED: "${AUTHENTIK_ERROR_REPORTING_ENABLED:-false}"
+    volumes:
+      - authentik_data:/data
+      - authentik_templates:/templates
+    networks:
+      - homelab
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.authentik.rule=Host(`authentik.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
+      - "traefik.http.routers.authentik.entrypoints=websecure"
+      - "traefik.http.routers.authentik.tls=true"
+      - "traefik.http.routers.authentik.middlewares=secure-headers@docker"
+      - "traefik.http.routers.authentik.service=authentik-svc"
+      - "traefik.http.routers.authentik-local.rule=Host(`authentik.${LOCAL_DOMAIN:-home.arpa}`)"
+      - "traefik.http.routers.authentik-local.entrypoints=websecure"
+      - "traefik.http.routers.authentik-local.tls=true"
+      - "traefik.http.routers.authentik-local.middlewares=secure-headers@docker"
+      - "traefik.http.routers.authentik-local.service=authentik-svc"
+      - "traefik.http.services.authentik-svc.loadbalancer.server.port=9000"
+    deploy:
+      resources:
+        limits:
+          cpus: "${AUTHENTIK_CPU_LIMIT:-1}"
+          memory: ${AUTHENTIK_MEMORY_LIMIT:-1G}
+
+  worker:
+    image: ghcr.io/goauthentik/server:latest
+    container_name: authentik-worker
+    restart: unless-stopped
+    command: worker
+    user: root
+    shm_size: 512mb
+    environment:
+      TZ: UTC
+      AUTHENTIK_POSTGRESQL__HOST: ${AUTHENTIK_DB_HOST:-postgres}
+      AUTHENTIK_POSTGRESQL__USER: ${POSTGRES_USER:-root}
+      AUTHENTIK_POSTGRESQL__NAME: ${AUTHENTIK_DB_NAME:-authentik}
+      AUTHENTIK_POSTGRESQL__PASSWORD: ${POSTGRES_PASSWORD:-password}
+      AUTHENTIK_SECRET_KEY: ${AUTHENTIK_SECRET_KEY:-change_me_generate_with_openssl_rand_base64_60}
+      AUTHENTIK_LOG_LEVEL: ${AUTHENTIK_LOG_LEVEL:-info}
+      AUTHENTIK_ERROR_REPORTING__ENABLED: "${AUTHENTIK_ERROR_REPORTING_ENABLED:-false}"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - authentik_data:/data
+      - authentik_certs:/certs
+      - authentik_templates:/templates
+    networks:
+      - homelab
+    deploy:
+      resources:
+        limits:
+          cpus: "${AUTHENTIK_WORKER_CPU_LIMIT:-1}"
+          memory: ${AUTHENTIK_WORKER_MEMORY_LIMIT:-1G}
+
+networks:
+  homelab:
+    external: true
+
+volumes:
+  authentik_data:
+  authentik_certs:
+  authentik_templates:

@@ -1,0 +1,65 @@
+services:
+  trek:
+    image: mauriceboe/trek:latest
+    container_name: trek
+    restart: unless-stopped
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - SETUID
+      - SETGID
+    tmpfs:
+      - /tmp:noexec,nosuid,size=128m
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      ENCRYPTION_KEY: ${TREK_ENCRYPTION_KEY:-change_me_generate_with_openssl_rand_hex_32}
+      TZ: ${TZ:-Asia/Jakarta}
+      LOG_LEVEL: ${TREK_LOG_LEVEL:-info}
+      ALLOWED_ORIGINS: https://trek.${TRAEFIK_DOMAIN:-yourdomain.com},https://trek.${LOCAL_DOMAIN:-home.arpa}
+      APP_URL: https://trek.${TRAEFIK_DOMAIN:-yourdomain.com}
+      FORCE_HTTPS: "true"
+      TRUST_PROXY: "1"
+      ADMIN_EMAIL: ${TREK_ADMIN_EMAIL:-admin@trek.local}
+      ADMIN_PASSWORD: ${TREK_ADMIN_PASSWORD:-change_me_on_first_boot}
+    volumes:
+      - trek_data:/app/data
+      - trek_uploads:/app/uploads
+    networks:
+      - homelab
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.trek.rule=Host(`trek.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
+      - "traefik.http.routers.trek.entrypoints=websecure"
+      - "traefik.http.routers.trek.tls=true"
+      - "traefik.http.routers.trek.middlewares=secure-headers@docker"
+      - "traefik.http.routers.trek.service=trek-svc"
+      - "traefik.http.routers.trek-local.rule=Host(`trek.${LOCAL_DOMAIN:-home.arpa}`)"
+      - "traefik.http.routers.trek-local.entrypoints=websecure"
+      - "traefik.http.routers.trek-local.tls=true"
+      - "traefik.http.routers.trek-local.middlewares=secure-headers@docker"
+      - "traefik.http.routers.trek-local.service=trek-svc"
+      - "traefik.http.services.trek-svc.loadbalancer.server.port=3000"
+    deploy:
+      resources:
+        limits:
+          cpus: "${TREK_CPU_LIMIT:-1}"
+          memory: ${TREK_MEMORY_LIMIT:-1G}
+
+networks:
+  homelab:
+    external: true
+
+volumes:
+  trek_data:
+  trek_uploads:

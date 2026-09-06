@@ -59,6 +59,10 @@
         icon: sh-bugsink.png
         href: "{{HOMEPAGE_VAR_BUGSINK_URL}}"
         description: Error Tracking
+    - Docuseal:
+        icon: sh-docuseal.png
+        href: "{{HOMEPAGE_VAR_DOCUSEAL_URL}}"
+        description: Document Signing
     - Excalidraw:
         icon: sh-excalidraw.png
         href: "{{HOMEPAGE_VAR_EXCALIDRAW_URL}}"
@@ -83,6 +87,14 @@
         icon: sh-serpbear.png
         href: "{{HOMEPAGE_VAR_SERPBEAR_URL}}"
         description: SEO Tracker
+    - Webcheck:
+        icon: mdi-web-check
+        href: "{{HOMEPAGE_VAR_WEBCHECK_URL}}"
+        description: Website OSINT Analyzer
+    - Meilisearch:
+        icon: sh-meilisearch.png
+        href: "{{HOMEPAGE_VAR_MEILISEARCH_URL}}"
+        description: Search Engine
 
 # AI Group
 - AI:
@@ -105,6 +117,10 @@
         icon: sh-onlyoffice.png
         href: "{{HOMEPAGE_VAR_ONLYOFFICE_URL}}"
         description: Online Office Suite
+    - AFFiNE:
+        icon: sh-affine.png
+        href: "{{HOMEPAGE_VAR_AFFINE_URL}}"
+        description: Knowledge Base & Whiteboard
 
 # Media Group
 - Media:
@@ -112,6 +128,13 @@
         icon: sh-ryot.png
         href: "{{HOMEPAGE_VAR_RYOT_URL}}"
         description: Media Tracker
+
+# Travel Group
+- Travel:
+    - Trek:
+        icon: mdi-airplane
+        href: "{{HOMEPAGE_VAR_TREK_URL}}"
+        description: Travel Planner
 
 # Automation
 - Automation:
@@ -130,6 +153,10 @@
         icon: sh-traefik.png
         href: "{{HOMEPAGE_VAR_TRAEFIK_URL}}"
         description: Reverse Proxy Dashboard
+    - Authentik:
+        icon: sh-authentik.png
+        href: "{{HOMEPAGE_VAR_AUTHENTIK_URL}}"
+        description: Identity & SSO Provider
 
 # Marketing
 - Marketing:
@@ -166,3 +193,18 @@
         icon: sh-wordpress.png
         href: "{{HOMEPAGE_VAR_WORDPRESS_URL}}"
         description: Content Management System
+    - Vaultwarden:
+        icon: sh-vaultwarden.png
+        href: "{{HOMEPAGE_VAR_VAULTWARDEN_URL}}"
+        description: Password Manager
+
+# Storage Group
+- Storage:
+    - RustFS:
+        icon: sh-minio.png
+        href: "{{HOMEPAGE_VAR_RUSTFS_URL}}"
+        description: S3 Object Storage Console
+    - RustFS S3 API:
+        icon: sh-minio.png
+        href: "{{HOMEPAGE_VAR_RUSTFS_S3_URL}}"
+        description: S3 API Endpoint

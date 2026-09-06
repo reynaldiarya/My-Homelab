@@ -1,0 +1,64 @@
+services:
+  affine:
+    image: ghcr.io/toeverything/affine:stable
+    container_name: affine
+    restart: unless-stopped
+    environment:
+      TZ: ${TZ:-Asia/Jakarta}
+      REDIS_SERVER_HOST: ${AFFINE_REDIS_HOST:-redis}
+      REDIS_SERVER_PORT: "${REDIS_PORT:-6379}"
+      REDIS_SERVER_PASSWORD: ${REDIS_PASSWORD:-password}
+      REDIS_SERVER_DATABASE: "${AFFINE_REDIS_DB:-5}"
+      DATABASE_URL: postgres://${POSTGRES_USER:-root}:${POSTGRES_PASSWORD:-password}@${AFFINE_DB_HOST:-postgres}:5432/${AFFINE_DB_NAME:-affine}
+      DEPLOYMENT_TYPE: selfhosted
+    volumes:
+      - affine_storage:/root/.affine/storage
+      - affine_config:/root/.affine/config
+    networks:
+      - homelab
+    depends_on:
+      affine-migration:
+        condition: service_completed_successfully
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.affine.rule=Host(`affine.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
+      - "traefik.http.routers.affine.entrypoints=websecure"
+      - "traefik.http.routers.affine.tls=true"
+      - "traefik.http.routers.affine.middlewares=secure-headers@docker"
+      - "traefik.http.routers.affine.service=affine-svc"
+      - "traefik.http.routers.affine-local.rule=Host(`affine.${LOCAL_DOMAIN:-home.arpa}`)"
+      - "traefik.http.routers.affine-local.entrypoints=websecure"
+      - "traefik.http.routers.affine-local.tls=true"
+      - "traefik.http.routers.affine-local.middlewares=secure-headers@docker"
+      - "traefik.http.routers.affine-local.service=affine-svc"
+      - "traefik.http.services.affine-svc.loadbalancer.server.port=3010"
+    deploy:
+      resources:
+        limits:
+          cpus: "${AFFINE_CPU_LIMIT:-1}"
+          memory: ${AFFINE_MEMORY_LIMIT:-2G}
+
+  affine-migration:
+    image: ghcr.io/toeverything/affine:stable
+    container_name: affine-migration
+    command: ["sh", "-c", "node ./scripts/self-host-predeploy.js"]
+    environment:
+      REDIS_SERVER_HOST: ${AFFINE_REDIS_HOST:-redis}
+      REDIS_SERVER_PORT: "${REDIS_PORT:-6379}"
+      REDIS_SERVER_PASSWORD: ${REDIS_PASSWORD:-password}
+      REDIS_SERVER_DATABASE: "${AFFINE_REDIS_DB:-5}"
+      DATABASE_URL: postgres://${POSTGRES_USER:-root}:${POSTGRES_PASSWORD:-password}@${AFFINE_DB_HOST:-postgres}:5432/${AFFINE_DB_NAME:-affine}
+      DEPLOYMENT_TYPE: selfhosted
+    volumes:
+      - affine_storage:/root/.affine/storage
+      - affine_config:/root/.affine/config
+    networks:
+      - homelab
+
+networks:
+  homelab:
+    external: true
+
+volumes:
+  affine_storage:
+  affine_config:

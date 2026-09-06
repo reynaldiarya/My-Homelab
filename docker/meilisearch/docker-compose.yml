@@ -1,0 +1,39 @@
+services:
+  meilisearch:
+    image: getmeili/meilisearch:latest
+    container_name: meilisearch
+    restart: unless-stopped
+    environment:
+      TZ: ${TZ:-Asia/Jakarta}
+      MEILI_MASTER_KEY: ${MEILI_MASTER_KEY:-your_master_key_here}
+      MEILI_ENV: ${MEILI_ENV:-production}
+      MEILI_NO_ANALYTICS: "${MEILI_NO_ANALYTICS:-true}"
+    volumes:
+      - meilisearch_data:/meili_data
+    networks:
+      - homelab
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.meilisearch.rule=Host(`meilisearch.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
+      - "traefik.http.routers.meilisearch.entrypoints=websecure"
+      - "traefik.http.routers.meilisearch.tls=true"
+      - "traefik.http.routers.meilisearch.middlewares=secure-headers@docker"
+      - "traefik.http.routers.meilisearch.service=meilisearch-svc"
+      - "traefik.http.routers.meilisearch-local.rule=Host(`meilisearch.${LOCAL_DOMAIN:-home.arpa}`)"
+      - "traefik.http.routers.meilisearch-local.entrypoints=websecure"
+      - "traefik.http.routers.meilisearch-local.tls=true"
+      - "traefik.http.routers.meilisearch-local.middlewares=secure-headers@docker"
+      - "traefik.http.routers.meilisearch-local.service=meilisearch-svc"
+      - "traefik.http.services.meilisearch-svc.loadbalancer.server.port=7700"
+    deploy:
+      resources:
+        limits:
+          cpus: "${MEILISEARCH_CPU_LIMIT:-1}"
+          memory: ${MEILISEARCH_MEMORY_LIMIT:-1G}
+
+networks:
+  homelab:
+    external: true
+
+volumes:
+  meilisearch_data:

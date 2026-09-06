@@ -1,0 +1,66 @@
+services:
+  rustfs:
+    image: rustfs/rustfs:latest
+    container_name: rustfs
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    command: /data
+    environment:
+      TZ: ${TZ:-Asia/Jakarta}
+      RUSTFS_VOLUMES: /data
+      RUSTFS_ADDRESS: 0.0.0.0:9000
+      RUSTFS_CONSOLE_ADDRESS: 0.0.0.0:9001
+      RUSTFS_CONSOLE_ENABLE: "true"
+      RUSTFS_CONSOLE_CORS_ALLOWED_ORIGINS: "*"
+      RUSTFS_ACCESS_KEY: ${RUSTFS_ACCESS_KEY:-rustfsadmin}
+      RUSTFS_SECRET_KEY: ${RUSTFS_SECRET_KEY:-change_me_to_a_long_random_secret}
+      RUSTFS_OBS_LOGGER_LEVEL: error
+    volumes:
+      - rustfs_data:/data
+    networks:
+      - homelab
+    healthcheck:
+      test: ["CMD", "sh", "-c", "curl -fsS http://127.0.0.1:9000/health && curl -fsS http://127.0.0.1:9001/rustfs/console/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    labels:
+      - "traefik.enable=true"
+      # Console UI -> rustfs.yourdomain.com
+      - "traefik.http.routers.rustfs.rule=Host(`rustfs.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
+      - "traefik.http.routers.rustfs.entrypoints=websecure"
+      - "traefik.http.routers.rustfs.tls=true"
+      - "traefik.http.routers.rustfs.middlewares=secure-headers@docker"
+      - "traefik.http.routers.rustfs.service=rustfs-svc"
+      - "traefik.http.routers.rustfs-local.rule=Host(`rustfs.${LOCAL_DOMAIN:-home.arpa}`)"
+      - "traefik.http.routers.rustfs-local.entrypoints=websecure"
+      - "traefik.http.routers.rustfs-local.tls=true"
+      - "traefik.http.routers.rustfs-local.middlewares=secure-headers@docker"
+      - "traefik.http.routers.rustfs-local.service=rustfs-svc"
+      - "traefik.http.services.rustfs-svc.loadbalancer.server.port=9001"
+      # S3 API -> s3.yourdomain.com
+      - "traefik.http.routers.rustfs-s3.rule=Host(`s3.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
+      - "traefik.http.routers.rustfs-s3.entrypoints=websecure"
+      - "traefik.http.routers.rustfs-s3.tls=true"
+      - "traefik.http.routers.rustfs-s3.middlewares=secure-headers@docker"
+      - "traefik.http.routers.rustfs-s3.service=rustfs-s3-svc"
+      - "traefik.http.routers.rustfs-s3-local.rule=Host(`s3.${LOCAL_DOMAIN:-home.arpa}`)"
+      - "traefik.http.routers.rustfs-s3-local.entrypoints=websecure"
+      - "traefik.http.routers.rustfs-s3-local.tls=true"
+      - "traefik.http.routers.rustfs-s3-local.middlewares=secure-headers@docker"
+      - "traefik.http.routers.rustfs-s3-local.service=rustfs-s3-svc"
+      - "traefik.http.services.rustfs-s3-svc.loadbalancer.server.port=9000"
+    deploy:
+      resources:
+        limits:
+          cpus: "${RUSTFS_CPU_LIMIT:-1}"
+          memory: ${RUSTFS_MEMORY_LIMIT:-1G}
+
+networks:
+  homelab:
+    external: true
+
+volumes:
+  rustfs_data:
