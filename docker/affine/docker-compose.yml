@@ -7,9 +7,9 @@ services:
       TZ: ${TZ:-Asia/Jakarta}
       REDIS_SERVER_HOST: ${AFFINE_REDIS_HOST:-redis}
       REDIS_SERVER_PORT: "${REDIS_PORT:-6379}"
-      REDIS_SERVER_PASSWORD: ${REDIS_PASSWORD:-password}
+      REDIS_SERVER_PASSWORD: ${AFFINE_REDIS_PASSWORD:-change_me_to_a_secure_password}
       REDIS_SERVER_DATABASE: "${AFFINE_REDIS_DB:-5}"
-      DATABASE_URL: postgres://${POSTGRES_USER:-root}:${POSTGRES_PASSWORD:-password}@${AFFINE_DB_HOST:-postgres}:5432/${AFFINE_DB_NAME:-affine}
+      DATABASE_URL: postgres://${AFFINE_DB_USER:-affine}:${AFFINE_DB_PASSWORD:-change_me_to_a_secure_password}@${AFFINE_DB_HOST:-postgres}:5432/${AFFINE_DB_NAME:-affine}
       DEPLOYMENT_TYPE: selfhosted
     volumes:
       - affine_storage:/root/.affine/storage
@@ -45,9 +45,9 @@ services:
     environment:
       REDIS_SERVER_HOST: ${AFFINE_REDIS_HOST:-redis}
       REDIS_SERVER_PORT: "${REDIS_PORT:-6379}"
-      REDIS_SERVER_PASSWORD: ${REDIS_PASSWORD:-password}
+      REDIS_SERVER_PASSWORD: ${AFFINE_REDIS_PASSWORD:-change_me_to_a_secure_password}
       REDIS_SERVER_DATABASE: "${AFFINE_REDIS_DB:-5}"
-      DATABASE_URL: postgres://${POSTGRES_USER:-root}:${POSTGRES_PASSWORD:-password}@${AFFINE_DB_HOST:-postgres}:5432/${AFFINE_DB_NAME:-affine}
+      DATABASE_URL: postgres://${AFFINE_DB_USER:-affine}:${AFFINE_DB_PASSWORD:-change_me_to_a_secure_password}@${AFFINE_DB_HOST:-postgres}:5432/${AFFINE_DB_NAME:-affine}
       DEPLOYMENT_TYPE: selfhosted
     volumes:
       - affine_storage:/root/.affine/storage

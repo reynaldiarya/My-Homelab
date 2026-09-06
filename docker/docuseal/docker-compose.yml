@@ -5,7 +5,7 @@ services:
     restart: unless-stopped
     environment:
       TZ: ${TZ:-Asia/Jakarta}
-      DATABASE_URL: postgres://${POSTGRES_USER:-root}:${POSTGRES_PASSWORD:-password}@${DOCUSEAL_DB_HOST:-postgres}:5432/${DOCUSEAL_DB_NAME:-docuseal}
+      DATABASE_URL: postgres://${DOCUSEAL_DB_USER:-docuseal}:${DOCUSEAL_DB_PASSWORD:-change_me_to_a_secure_password}@${DOCUSEAL_DB_HOST:-postgres}:5432/${DOCUSEAL_DB_NAME:-docuseal}
       SECRET_KEY_BASE: ${DOCUSEAL_SECRET_KEY_BASE:-change_me_generate_with_openssl_rand_hex_64}
       FORCE_SSL: "true"
     volumes:
