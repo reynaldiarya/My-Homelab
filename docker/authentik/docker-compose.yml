@@ -7,6 +7,8 @@ services:
     shm_size: 512mb
     environment:
       TZ: UTC
+      AUTHENTIK_REDIS__HOST: ${AUTHENTIK_REDIS_HOST:-redis}
+      AUTHENTIK_REDIS__PASSWORD: ${AUTHENTIK_REDIS_PASSWORD:-change_me_to_a_secure_password}
       AUTHENTIK_POSTGRESQL__HOST: ${AUTHENTIK_DB_HOST:-postgres}
       AUTHENTIK_POSTGRESQL__USER: ${AUTHENTIK_DB_USER:-authentik}
       AUTHENTIK_POSTGRESQL__NAME: ${AUTHENTIK_DB_NAME:-authentik}
@@ -47,6 +49,8 @@ services:
     shm_size: 512mb
     environment:
       TZ: UTC
+      AUTHENTIK_REDIS__HOST: ${AUTHENTIK_REDIS_HOST:-redis}
+      AUTHENTIK_REDIS__PASSWORD: ${AUTHENTIK_REDIS_PASSWORD:-change_me_to_a_secure_password}
       AUTHENTIK_POSTGRESQL__HOST: ${AUTHENTIK_DB_HOST:-postgres}
       AUTHENTIK_POSTGRESQL__USER: ${AUTHENTIK_DB_USER:-authentik}
       AUTHENTIK_POSTGRESQL__NAME: ${AUTHENTIK_DB_NAME:-authentik}
