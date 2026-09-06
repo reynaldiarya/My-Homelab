@@ -1,0 +1,31 @@
+services:
+  webcheck:
+    image: lissy93/web-check:latest
+    container_name: webcheck
+    restart: unless-stopped
+    environment:
+      TZ: ${TZ:-Asia/Jakarta}
+    networks:
+      - homelab
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.webcheck.rule=Host(`webcheck.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
+      - "traefik.http.routers.webcheck.entrypoints=websecure"
+      - "traefik.http.routers.webcheck.tls=true"
+      - "traefik.http.routers.webcheck.middlewares=secure-headers@docker"
+      - "traefik.http.routers.webcheck.service=webcheck-svc"
+      - "traefik.http.routers.webcheck-local.rule=Host(`webcheck.${LOCAL_DOMAIN:-home.arpa}`)"
+      - "traefik.http.routers.webcheck-local.entrypoints=websecure"
+      - "traefik.http.routers.webcheck-local.tls=true"
+      - "traefik.http.routers.webcheck-local.middlewares=secure-headers@docker"
+      - "traefik.http.routers.webcheck-local.service=webcheck-svc"
+      - "traefik.http.services.webcheck-svc.loadbalancer.server.port=3000"
+    deploy:
+      resources:
+        limits:
+          cpus: "${WEBCHECK_CPU_LIMIT:-0.5}"
+          memory: ${WEBCHECK_MEMORY_LIMIT:-512M}
+
+networks:
+  homelab:
+    external: true

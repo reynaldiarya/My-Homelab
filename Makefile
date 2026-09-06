@@ -10,11 +10,14 @@ DOCKER_COMPOSE = docker compose --env-file .env
 .PHONY: start-all stop-all update-all logs-all
 .PHONY: start-actual-budget stop-actual-budget update-actual-budget logs-actual-budget
 .PHONY: start-adguard-home stop-adguard-home update-adguard-home logs-adguard-home
+.PHONY: start-affine stop-affine update-affine logs-affine
+.PHONY: start-authentik stop-authentik update-authentik logs-authentik
 .PHONY: start-beszel stop-beszel update-beszel logs-beszel
 .PHONY: start-bento-pdf stop-bento-pdf update-bento-pdf logs-bento-pdf
 .PHONY: start-blesta stop-blesta update-blesta logs-blesta
 .PHONY: start-bugsink stop-bugsink update-bugsink logs-bugsink
 .PHONY: start-changedetection stop-changedetection update-changedetection logs-changedetection
+.PHONY: start-docuseal stop-docuseal update-docuseal logs-docuseal
 .PHONY: start-erpnext stop-erpnext update-erpnext logs-erpnext
 .PHONY: start-excalidraw stop-excalidraw update-excalidraw logs-excalidraw
 .PHONY: start-flaresolverr stop-flaresolverr update-flaresolverr logs-flaresolverr
@@ -24,6 +27,7 @@ DOCKER_COMPOSE = docker compose --env-file .env
 .PHONY: start-it-tools stop-it-tools update-it-tools logs-it-tools
 .PHONY: start-listmonk stop-listmonk update-listmonk logs-listmonk
 .PHONY: start-mariadb stop-mariadb update-mariadb logs-mariadb
+.PHONY: start-meilisearch stop-meilisearch update-meilisearch logs-meilisearch
 .PHONY: start-mongodb stop-mongodb update-mongodb logs-mongodb
 .PHONY: start-n8n stop-n8n update-n8n logs-n8n
 .PHONY: start-netdata stop-netdata update-netdata logs-netdata
@@ -35,15 +39,19 @@ DOCKER_COMPOSE = docker compose --env-file .env
 .PHONY: start-portainer stop-portainer update-portainer logs-portainer
 .PHONY: start-postgres stop-postgres update-postgres logs-postgres
 .PHONY: start-redis stop-redis update-redis logs-redis
+.PHONY: start-rustfs stop-rustfs update-rustfs logs-rustfs
 .PHONY: start-ryot stop-ryot update-ryot logs-ryot
 .PHONY: start-serpbear stop-serpbear update-serpbear logs-serpbear
 .PHONY: start-smokeping stop-smokeping update-smokeping logs-smokeping
 .PHONY: start-socks5 stop-socks5 update-socks5 logs-socks5
 .PHONY: start-stirling-pdf stop-stirling-pdf update-stirling-pdf logs-stirling-pdf
 .PHONY: start-traefik stop-traefik update-traefik logs-traefik
+.PHONY: start-trek stop-trek update-trek logs-trek
 .PHONY: start-uptime-kuma stop-uptime-kuma update-uptime-kuma logs-uptime-kuma
+.PHONY: start-vaultwarden stop-vaultwarden update-vaultwarden logs-vaultwarden
 .PHONY: start-wallos stop-wallos update-wallos logs-wallos
 .PHONY: start-wealthfolio stop-wealthfolio update-wealthfolio logs-wealthfolio
+.PHONY: start-webcheck stop-webcheck update-webcheck logs-webcheck
 .PHONY: start-wordpress stop-wordpress update-wordpress logs-wordpress
 
 # Default target
@@ -67,13 +75,13 @@ help:
 	@echo "  make logs-<service>   - View service logs"
 	@echo ""
 	@echo "Available services (A-Z):"
-	@echo "  actual-budget, adguard-home, bento-pdf, beszel, blesta, bugsink,"
-	@echo "  changedetection, erpnext, excalidraw, flaresolverr, grafana, homepage,"
+	@echo "  actual-budget, adguard-home, affine, authentik, bento-pdf, beszel, blesta, bugsink,"
+	@echo "  changedetection, docuseal, erpnext, excalidraw, flaresolverr, grafana, homepage,"
 	@echo "  influxdb, it-tools, listmonk,"
-	@echo "  mariadb, mongodb, n8n, netdata, nextcloud, ollama, onlyoffice, open-webui,"
-	@echo "  openspeedtest, portainer, postgres, redis, ryot,"
-	@echo "  serpbear, smokeping, socks5, stirling-pdf, traefik, uptime-kuma, wallos,"
-	@echo "  wealthfolio, wordpress"
+	@echo "  mariadb, meilisearch, mongodb, n8n, netdata, nextcloud, ollama, onlyoffice, open-webui,"
+	@echo "  openspeedtest, portainer, postgres, redis, rustfs, ryot,"
+	@echo "  serpbear, smokeping, socks5, stirling-pdf, traefik, trek, uptime-kuma, vaultwarden,"
+	@echo "  wallos, wealthfolio, webcheck, wordpress"
 	@echo ""
 	@echo "Examples:"
 	@echo "  make start-mariadb"
@@ -94,11 +102,14 @@ start-all: network
 	$(DOCKER_COMPOSE) -f docker/traefik/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/actual-budget/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/adguard-home/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/affine/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/authentik/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/beszel/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/bento-pdf/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/blesta/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/bugsink/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/changedetection/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/docuseal/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/erpnext/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/excalidraw/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/flaresolverr/docker-compose.yml up -d
@@ -108,6 +119,7 @@ start-all: network
 	$(DOCKER_COMPOSE) -f docker/it-tools/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/listmonk/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/mariadb/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/meilisearch/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/mongodb/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/n8n/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/netdata/docker-compose.yml up -d
@@ -119,14 +131,18 @@ start-all: network
 	$(DOCKER_COMPOSE) -f docker/portainer/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/postgres/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/redis/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/rustfs/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/ryot/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/serpbear/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/smokeping/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/socks5/docker-compose.yaml up -d
 	$(DOCKER_COMPOSE) -f docker/stirling-pdf/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/trek/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/uptime-kuma/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/vaultwarden/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/wallos/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/wealthfolio/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/webcheck/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/wordpress/docker-compose.yml up -d
 	@echo "✅ All services started!"
 
@@ -134,11 +150,14 @@ stop-all:
 	@echo "Stopping all services..."
 	$(DOCKER_COMPOSE) -f docker/actual-budget/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/adguard-home/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/affine/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/authentik/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/beszel/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/bento-pdf/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/blesta/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/bugsink/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/changedetection/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/docuseal/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/erpnext/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/excalidraw/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/flaresolverr/docker-compose.yml down
@@ -148,6 +167,7 @@ stop-all:
 	$(DOCKER_COMPOSE) -f docker/it-tools/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/listmonk/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/mariadb/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/meilisearch/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/mongodb/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/n8n/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/netdata/docker-compose.yml down
@@ -159,14 +179,18 @@ stop-all:
 	$(DOCKER_COMPOSE) -f docker/portainer/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/postgres/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/redis/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/rustfs/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/ryot/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/serpbear/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/smokeping/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/socks5/docker-compose.yaml down
 	$(DOCKER_COMPOSE) -f docker/stirling-pdf/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/trek/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/uptime-kuma/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/vaultwarden/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/wallos/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/wealthfolio/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/webcheck/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/wordpress/docker-compose.yml down
 	@echo "✅ All services stopped!"
 
@@ -217,6 +241,38 @@ update-adguard-home: network
 
 logs-adguard-home:
 	$(DOCKER_COMPOSE) -f docker/adguard-home/docker-compose.yml logs -f
+
+# ================================
+# AFFiNE
+# ================================
+start-affine: network
+	$(DOCKER_COMPOSE) -f docker/affine/docker-compose.yml up -d
+
+stop-affine:
+	$(DOCKER_COMPOSE) -f docker/affine/docker-compose.yml down
+
+update-affine: network
+	$(DOCKER_COMPOSE) -f docker/affine/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/affine/docker-compose.yml up -d
+
+logs-affine:
+	$(DOCKER_COMPOSE) -f docker/affine/docker-compose.yml logs -f
+
+# ================================
+# Authentik
+# ================================
+start-authentik: network
+	$(DOCKER_COMPOSE) -f docker/authentik/docker-compose.yml up -d
+
+stop-authentik:
+	$(DOCKER_COMPOSE) -f docker/authentik/docker-compose.yml down
+
+update-authentik: network
+	$(DOCKER_COMPOSE) -f docker/authentik/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/authentik/docker-compose.yml up -d
+
+logs-authentik:
+	$(DOCKER_COMPOSE) -f docker/authentik/docker-compose.yml logs -f
 
 # ================================
 # Beszel
@@ -297,6 +353,22 @@ update-changedetection: network
 
 logs-changedetection:
 	$(DOCKER_COMPOSE) -f docker/changedetection/docker-compose.yml logs -f
+
+# ================================
+# Docuseal
+# ================================
+start-docuseal: network
+	$(DOCKER_COMPOSE) -f docker/docuseal/docker-compose.yml up -d
+
+stop-docuseal:
+	$(DOCKER_COMPOSE) -f docker/docuseal/docker-compose.yml down
+
+update-docuseal: network
+	$(DOCKER_COMPOSE) -f docker/docuseal/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/docuseal/docker-compose.yml up -d
+
+logs-docuseal:
+	$(DOCKER_COMPOSE) -f docker/docuseal/docker-compose.yml logs -f
 
 # ================================
 # ERPNext
@@ -453,6 +525,22 @@ update-mariadb: network
 
 logs-mariadb:
 	$(DOCKER_COMPOSE) -f docker/mariadb/docker-compose.yml logs -f
+
+# ================================
+# Meilisearch
+# ================================
+start-meilisearch: network
+	$(DOCKER_COMPOSE) -f docker/meilisearch/docker-compose.yml up -d
+
+stop-meilisearch:
+	$(DOCKER_COMPOSE) -f docker/meilisearch/docker-compose.yml down
+
+update-meilisearch: network
+	$(DOCKER_COMPOSE) -f docker/meilisearch/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/meilisearch/docker-compose.yml up -d
+
+logs-meilisearch:
+	$(DOCKER_COMPOSE) -f docker/meilisearch/docker-compose.yml logs -f
 
 # ================================
 # MongoDB
@@ -631,6 +719,22 @@ logs-redis:
 	$(DOCKER_COMPOSE) -f docker/redis/docker-compose.yml logs -f
 
 # ================================
+# RustFS
+# ================================
+start-rustfs: network
+	$(DOCKER_COMPOSE) -f docker/rustfs/docker-compose.yml up -d
+
+stop-rustfs:
+	$(DOCKER_COMPOSE) -f docker/rustfs/docker-compose.yml down
+
+update-rustfs: network
+	$(DOCKER_COMPOSE) -f docker/rustfs/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/rustfs/docker-compose.yml up -d
+
+logs-rustfs:
+	$(DOCKER_COMPOSE) -f docker/rustfs/docker-compose.yml logs -f
+
+# ================================
 # Ryot
 # ================================
 start-ryot: network
@@ -733,6 +837,23 @@ traefik-cert-dump:
 
 
 # ================================
+# Trek
+# ================================
+start-trek: network
+	$(DOCKER_COMPOSE) -f docker/trek/docker-compose.yml up -d
+
+stop-trek:
+	$(DOCKER_COMPOSE) -f docker/trek/docker-compose.yml down
+
+update-trek: network
+	$(DOCKER_COMPOSE) -f docker/trek/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/trek/docker-compose.yml up -d
+
+logs-trek:
+	$(DOCKER_COMPOSE) -f docker/trek/docker-compose.yml logs -f
+
+
+# ================================
 # Uptime Kuma
 # ================================
 start-uptime-kuma: network
@@ -747,6 +868,22 @@ update-uptime-kuma: network
 
 logs-uptime-kuma:
 	$(DOCKER_COMPOSE) -f docker/uptime-kuma/docker-compose.yml logs -f
+
+# ================================
+# Vaultwarden
+# ================================
+start-vaultwarden: network
+	$(DOCKER_COMPOSE) -f docker/vaultwarden/docker-compose.yml up -d
+
+stop-vaultwarden:
+	$(DOCKER_COMPOSE) -f docker/vaultwarden/docker-compose.yml down
+
+update-vaultwarden: network
+	$(DOCKER_COMPOSE) -f docker/vaultwarden/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/vaultwarden/docker-compose.yml up -d
+
+logs-vaultwarden:
+	$(DOCKER_COMPOSE) -f docker/vaultwarden/docker-compose.yml logs -f
 
 # ================================
 # Wallos
@@ -779,6 +916,22 @@ update-wealthfolio: network
 
 logs-wealthfolio:
 	$(DOCKER_COMPOSE) -f docker/wealthfolio/docker-compose.yml logs -f
+
+# ================================
+# Webcheck
+# ================================
+start-webcheck: network
+	$(DOCKER_COMPOSE) -f docker/webcheck/docker-compose.yml up -d
+
+stop-webcheck:
+	$(DOCKER_COMPOSE) -f docker/webcheck/docker-compose.yml down
+
+update-webcheck: network
+	$(DOCKER_COMPOSE) -f docker/webcheck/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/webcheck/docker-compose.yml up -d
+
+logs-webcheck:
+	$(DOCKER_COMPOSE) -f docker/webcheck/docker-compose.yml logs -f
 
 # ================================
 # WordPress
