@@ -7,9 +7,10 @@ services:
     hostname: chr
     environment:
       TZ: ${TZ:-Asia/Jakarta}
+    volumes:
+      - mikrotik_data:/rw
     networks:
-      mikrotik_net:
-        ipv4_address: ${MIKROTIK_IP:-192.168.1.250}
+      - mikrotik_net
     deploy:
       resources:
         limits:
@@ -21,7 +22,6 @@ networks:
     driver: macvlan
     driver_opts:
       parent: ${MIKROTIK_INTERFACE:-eth0}
-    ipam:
-      config:
-        - subnet: ${MIKROTIK_SUBNET:-192.168.1.0/24}
-          gateway: ${MIKROTIK_GATEWAY:-192.168.1.1}
+
+volumes:
+  mikrotik_data:
