@@ -1,0 +1,30 @@
+services:
+  openwrt:
+    image: albrechtloh/openwrt-docker:latest
+    container_name: openwrt
+    restart: unless-stopped
+    privileged: true
+    pid: "host"
+    environment:
+      TZ: ${TZ:-Asia/Jakarta}
+      WAN_IF: "${OPENWRT_WAN_IF:-host}"
+      LAN_IF: "${OPENWRT_LAN_IF:-veth}"
+      FORWARD_LUCI: "true"
+    volumes:
+      - openwrt_data:/storage
+      - /dev:/dev/
+    devices:
+      - /dev/kvm
+    device_cgroup_rules:
+      - "c *:* rwm"
+    cap_add:
+      - NET_ADMIN
+    stop_grace_period: 2m
+    deploy:
+      resources:
+        limits:
+          cpus: "${OPENWRT_CPU_LIMIT:-2}"
+          memory: ${OPENWRT_MEMORY_LIMIT:-1G}
+
+volumes:
+  openwrt_data:

@@ -1,0 +1,26 @@
+services:
+  mikrotik:
+    image: mikrotik/chr:latest
+    container_name: mikrotik
+    restart: unless-stopped
+    privileged: true
+    hostname: chr
+    environment:
+      TZ: ${TZ:-Asia/Jakarta}
+    volumes:
+      - mikrotik_data:/rw
+    networks:
+      homelab:
+        ipv4_address: ${MIKROTIK_IP:-172.20.0.250}
+    deploy:
+      resources:
+        limits:
+          cpus: "${MIKROTIK_CPU_LIMIT:-1}"
+          memory: ${MIKROTIK_MEMORY_LIMIT:-512M}
+
+networks:
+  homelab:
+    external: true
+
+volumes:
+  mikrotik_data:

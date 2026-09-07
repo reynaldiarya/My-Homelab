@@ -1,0 +1,27 @@
+services:
+  zima:
+    image: dockurr/zima:latest
+    container_name: zima
+    restart: unless-stopped
+    privileged: true
+    environment:
+      TZ: ${TZ:-Asia/Jakarta}
+      DISK_SIZE: "${ZIMA_DISK_SIZE:-64G}"
+      RAM_SIZE: "${ZIMA_RAM_SIZE:-4G}"
+      CPU_CORES: "${ZIMA_CPU_CORES:-2}"
+    volumes:
+      - zima_data:/storage
+    devices:
+      - /dev/kvm
+      - /dev/net/tun
+    cap_add:
+      - NET_ADMIN
+    stop_grace_period: 2m
+    deploy:
+      resources:
+        limits:
+          cpus: "${ZIMA_CPU_LIMIT:-4}"
+          memory: ${ZIMA_MEMORY_LIMIT:-8G}
+
+volumes:
+  zima_data:

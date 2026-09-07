@@ -28,6 +28,7 @@ DOCKER_COMPOSE = docker compose --env-file .env
 .PHONY: start-listmonk stop-listmonk update-listmonk logs-listmonk
 .PHONY: start-mariadb stop-mariadb update-mariadb logs-mariadb
 .PHONY: start-meilisearch stop-meilisearch update-meilisearch logs-meilisearch
+.PHONY: start-mikrotik stop-mikrotik update-mikrotik logs-mikrotik
 .PHONY: start-mongodb stop-mongodb update-mongodb logs-mongodb
 .PHONY: start-n8n stop-n8n update-n8n logs-n8n
 .PHONY: start-netdata stop-netdata update-netdata logs-netdata
@@ -36,6 +37,7 @@ DOCKER_COMPOSE = docker compose --env-file .env
 .PHONY: start-ollama stop-ollama update-ollama logs-ollama
 .PHONY: start-open-webui stop-open-webui update-open-webui logs-open-webui
 .PHONY: start-openspeedtest stop-openspeedtest update-openspeedtest logs-openspeedtest
+.PHONY: start-openwrt stop-openwrt update-openwrt logs-openwrt
 .PHONY: start-portainer stop-portainer update-portainer logs-portainer
 .PHONY: start-postgres stop-postgres update-postgres logs-postgres
 .PHONY: start-redis stop-redis update-redis logs-redis
@@ -53,6 +55,7 @@ DOCKER_COMPOSE = docker compose --env-file .env
 .PHONY: start-wealthfolio stop-wealthfolio update-wealthfolio logs-wealthfolio
 .PHONY: start-webcheck stop-webcheck update-webcheck logs-webcheck
 .PHONY: start-wordpress stop-wordpress update-wordpress logs-wordpress
+.PHONY: start-zimaos stop-zimaos update-zimaos logs-zimaos
 
 # Default target
 help:
@@ -78,10 +81,10 @@ help:
 	@echo "  actual-budget, adguard-home, affine, authentik, bento-pdf, beszel, blesta, bugsink,"
 	@echo "  changedetection, docuseal, erpnext, excalidraw, flaresolverr, grafana, homepage,"
 	@echo "  influxdb, it-tools, listmonk,"
-	@echo "  mariadb, meilisearch, mongodb, n8n, netdata, nextcloud, ollama, onlyoffice, open-webui,"
-	@echo "  openspeedtest, portainer, postgres, redis, rustfs, ryot,"
+	@echo "  mariadb, meilisearch, mikrotik, mongodb, n8n, netdata, nextcloud, ollama, onlyoffice,"
+	@echo "  open-webui, openspeedtest, openwrt, portainer, postgres, redis, rustfs, ryot,"
 	@echo "  serpbear, smokeping, socks5, stirling-pdf, traefik, trek, uptime-kuma, vaultwarden,"
-	@echo "  wallos, wealthfolio, webcheck, wordpress"
+	@echo "  wallos, wealthfolio, webcheck, wordpress, zimaos"
 	@echo ""
 	@echo "Examples:"
 	@echo "  make start-mariadb"
@@ -120,6 +123,7 @@ start-all: network
 	$(DOCKER_COMPOSE) -f docker/listmonk/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/mariadb/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/meilisearch/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/mikrotik/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/mongodb/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/n8n/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/netdata/docker-compose.yml up -d
@@ -128,6 +132,7 @@ start-all: network
 	$(DOCKER_COMPOSE) -f docker/onlyoffice/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/open-webui/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/openspeedtest/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/openwrt/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/portainer/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/postgres/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/redis/docker-compose.yml up -d
@@ -144,6 +149,7 @@ start-all: network
 	$(DOCKER_COMPOSE) -f docker/wealthfolio/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/webcheck/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/wordpress/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/zimaos/docker-compose.yml up -d
 	@echo "✅ All services started!"
 
 stop-all:
@@ -168,6 +174,7 @@ stop-all:
 	$(DOCKER_COMPOSE) -f docker/listmonk/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/mariadb/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/meilisearch/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/mikrotik/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/mongodb/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/n8n/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/netdata/docker-compose.yml down
@@ -176,6 +183,7 @@ stop-all:
 	$(DOCKER_COMPOSE) -f docker/onlyoffice/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/open-webui/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/openspeedtest/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/openwrt/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/portainer/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/postgres/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/redis/docker-compose.yml down
@@ -192,6 +200,7 @@ stop-all:
 	$(DOCKER_COMPOSE) -f docker/wealthfolio/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/webcheck/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/wordpress/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/zimaos/docker-compose.yml down
 	@echo "✅ All services stopped!"
 
 update-all: network
@@ -543,6 +552,22 @@ logs-meilisearch:
 	$(DOCKER_COMPOSE) -f docker/meilisearch/docker-compose.yml logs -f
 
 # ================================
+# MikroTik CHR
+# ================================
+start-mikrotik: network
+	$(DOCKER_COMPOSE) -f docker/mikrotik/docker-compose.yml up -d
+
+stop-mikrotik:
+	$(DOCKER_COMPOSE) -f docker/mikrotik/docker-compose.yml down
+
+update-mikrotik: network
+	$(DOCKER_COMPOSE) -f docker/mikrotik/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/mikrotik/docker-compose.yml up -d
+
+logs-mikrotik:
+	$(DOCKER_COMPOSE) -f docker/mikrotik/docker-compose.yml logs -f
+
+# ================================
 # MongoDB
 # ================================
 start-mongodb: network
@@ -669,6 +694,22 @@ update-openspeedtest: network
 
 logs-openspeedtest:
 	$(DOCKER_COMPOSE) -f docker/openspeedtest/docker-compose.yml logs -f
+
+# ================================
+# OpenWrt
+# ================================
+start-openwrt: network
+	$(DOCKER_COMPOSE) -f docker/openwrt/docker-compose.yml up -d
+
+stop-openwrt:
+	$(DOCKER_COMPOSE) -f docker/openwrt/docker-compose.yml down
+
+update-openwrt: network
+	$(DOCKER_COMPOSE) -f docker/openwrt/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/openwrt/docker-compose.yml up -d
+
+logs-openwrt:
+	$(DOCKER_COMPOSE) -f docker/openwrt/docker-compose.yml logs -f
 
 # ================================
 # Portainer
@@ -948,3 +989,19 @@ update-wordpress: network
 
 logs-wordpress:
 	$(DOCKER_COMPOSE) -f docker/wordpress/docker-compose.yml logs -f
+
+# ================================
+# ZimaOS
+# ================================
+start-zimaos: network
+	$(DOCKER_COMPOSE) -f docker/zimaos/docker-compose.yml up -d
+
+stop-zimaos:
+	$(DOCKER_COMPOSE) -f docker/zimaos/docker-compose.yml down
+
+update-zimaos: network
+	$(DOCKER_COMPOSE) -f docker/zimaos/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/zimaos/docker-compose.yml up -d
+
+logs-zimaos:
+	$(DOCKER_COMPOSE) -f docker/zimaos/docker-compose.yml logs -f

@@ -18,6 +18,13 @@
         icon: sh-adguard-home.png
         href: "{{HOMEPAGE_VAR_ADGUARD_HOME_URL}}"
         description: DNS Blocker
+    - MikroTik CHR:
+        icon: sh-mikrotik.png
+        description: RouterOS (Winbox/WebFig)
+    - OpenWrt:
+        icon: sh-openwrt.png
+        href: "{{HOMEPAGE_VAR_OPENWRT_URL}}"
+        description: Router Firmware (LuCI)
     - Uptime Kuma:
         icon: sh-uptime-kuma.png
         href: "{{HOMEPAGE_VAR_UPTIME_KUMA_URL}}"
@@ -208,3 +215,7 @@
         icon: sh-minio.png
         href: "{{HOMEPAGE_VAR_RUSTFS_S3_URL}}"
         description: S3 API Endpoint
+    - ZimaOS:
+        icon: sh-zimaos.png
+        href: "{{HOMEPAGE_VAR_ZIMAOS_URL}}"
+        description: Home Server OS Dashboard
