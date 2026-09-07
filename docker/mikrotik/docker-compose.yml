@@ -7,11 +7,14 @@ services:
     hostname: chr
     environment:
       TZ: ${TZ:-Asia/Jakarta}
+    ports:
+      - "${MIKROTIK_WINBOX_PORT:-8291}:8291"
+      - "${MIKROTIK_WEBFIG_PORT:-8080}:80"
+      - "${MIKROTIK_SSH_PORT:-2222}:22"
     volumes:
       - mikrotik_data:/rw
     networks:
-      homelab:
-        ipv4_address: ${MIKROTIK_IP:-172.20.0.250}
+      - homelab
     deploy:
       resources:
         limits:
