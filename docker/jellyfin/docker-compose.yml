@@ -1,0 +1,39 @@
+services:
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    container_name: jellyfin
+    restart: unless-stopped
+    environment:
+      TZ: ${TZ:-Asia/Jakarta}
+    volumes:
+      - jellyfin_config:/config
+      - jellyfin_cache:/cache
+      - ${MEDIA_DIR:-/media}:/media:ro
+    networks:
+      - homelab
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.jellyfin.rule=Host(`jellyfin.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
+      - "traefik.http.routers.jellyfin.entrypoints=websecure"
+      - "traefik.http.routers.jellyfin.tls=true"
+      - "traefik.http.routers.jellyfin.middlewares=secure-headers@docker"
+      - "traefik.http.routers.jellyfin.service=jellyfin-svc"
+      - "traefik.http.routers.jellyfin-local.rule=Host(`jellyfin.${LOCAL_DOMAIN:-home.arpa}`)"
+      - "traefik.http.routers.jellyfin-local.entrypoints=websecure"
+      - "traefik.http.routers.jellyfin-local.tls=true"
+      - "traefik.http.routers.jellyfin-local.middlewares=secure-headers@docker"
+      - "traefik.http.routers.jellyfin-local.service=jellyfin-svc"
+      - "traefik.http.services.jellyfin-svc.loadbalancer.server.port=8096"
+    deploy:
+      resources:
+        limits:
+          cpus: "${JELLYFIN_CPU_LIMIT:-2}"
+          memory: ${JELLYFIN_MEMORY_LIMIT:-4G}
+
+networks:
+  homelab:
+    external: true
+
+volumes:
+  jellyfin_config:
+  jellyfin_cache:

@@ -62,6 +62,10 @@
         icon: sh-bento.png
         href: "{{HOMEPAGE_VAR_BENTO_PDF_URL}}"
         description: PDF Utilities
+    - qBittorrent:
+        icon: sh-qbittorrent.png
+        href: "{{HOMEPAGE_VAR_QBITTORRENT_URL}}"
+        description: qBittorrent
     - Bugsink:
         icon: sh-bugsink.png
         href: "{{HOMEPAGE_VAR_BUGSINK_URL}}"
@@ -131,6 +135,10 @@
 
 # Media Group
 - Media:
+    - Jellyfin:
+        icon: sh-jellyfin.png
+        href: "{{HOMEPAGE_VAR_JELLYFIN_URL}}"
+        description: Media Server
     - Ryot:
         icon: sh-ryot.png
         href: "{{HOMEPAGE_VAR_RYOT_URL}}"

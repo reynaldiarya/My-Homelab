@@ -25,6 +25,7 @@ DOCKER_COMPOSE = docker compose --env-file .env
 .PHONY: start-homepage stop-homepage update-homepage logs-homepage
 .PHONY: start-influxdb stop-influxdb update-influxdb logs-influxdb
 .PHONY: start-it-tools stop-it-tools update-it-tools logs-it-tools
+.PHONY: start-jellyfin stop-jellyfin update-jellyfin logs-jellyfin
 .PHONY: start-listmonk stop-listmonk update-listmonk logs-listmonk
 .PHONY: start-mariadb stop-mariadb update-mariadb logs-mariadb
 .PHONY: start-meilisearch stop-meilisearch update-meilisearch logs-meilisearch
@@ -40,6 +41,7 @@ DOCKER_COMPOSE = docker compose --env-file .env
 .PHONY: start-openwrt stop-openwrt update-openwrt logs-openwrt
 .PHONY: start-portainer stop-portainer update-portainer logs-portainer
 .PHONY: start-postgres stop-postgres update-postgres logs-postgres
+.PHONY: start-qbittorrent stop-qbittorrent update-qbittorrent logs-qbittorrent
 .PHONY: start-redis stop-redis update-redis logs-redis
 .PHONY: start-rustfs stop-rustfs update-rustfs logs-rustfs
 .PHONY: start-ryot stop-ryot update-ryot logs-ryot
@@ -79,9 +81,9 @@ help:
 	@echo "Available services (A-Z):"
 	@echo "  actual-budget, adguard-home, affine, authentik, bento-pdf, beszel, blesta, bugsink,"
 	@echo "  changedetection, docuseal, erpnext, excalidraw, flaresolverr, grafana, homepage,"
-	@echo "  influxdb, it-tools, listmonk,"
+	@echo "  influxdb, it-tools, jellyfin, listmonk,"
 	@echo "  mariadb, meilisearch, mikrotik, mongodb, n8n, netdata, nextcloud, ollama, onlyoffice,"
-	@echo "  open-webui, openspeedtest, openwrt, portainer, postgres, redis, rustfs, ryot,"
+	@echo "  open-webui, openspeedtest, openwrt, portainer, postgres, qbittorrent, redis, rustfs, ryot,"
 	@echo "  serpbear, smokeping, socks5, stirling-pdf, traefik, trek, uptime-kuma, vaultwarden,"
 	@echo "  wallos, wealthfolio, webcheck, wordpress"
 	@echo ""
@@ -119,6 +121,7 @@ start-all: network
 	$(DOCKER_COMPOSE) -f docker/homepage/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/influxdb/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/it-tools/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/jellyfin/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/listmonk/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/mariadb/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/meilisearch/docker-compose.yml up -d
@@ -134,6 +137,7 @@ start-all: network
 	$(DOCKER_COMPOSE) -f docker/openwrt/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/portainer/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/postgres/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/qbittorrent/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/redis/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/rustfs/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/ryot/docker-compose.yml up -d
@@ -169,6 +173,7 @@ stop-all:
 	$(DOCKER_COMPOSE) -f docker/homepage/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/influxdb/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/it-tools/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/jellyfin/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/listmonk/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/mariadb/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/meilisearch/docker-compose.yml down
@@ -184,6 +189,7 @@ stop-all:
 	$(DOCKER_COMPOSE) -f docker/openwrt/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/portainer/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/postgres/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/qbittorrent/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/redis/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/rustfs/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/ryot/docker-compose.yml down
@@ -501,6 +507,22 @@ logs-it-tools:
 	$(DOCKER_COMPOSE) -f docker/it-tools/docker-compose.yml logs -f
 
 # ================================
+# Jellyfin
+# ================================
+start-jellyfin: network
+	$(DOCKER_COMPOSE) -f docker/jellyfin/docker-compose.yml up -d
+
+stop-jellyfin:
+	$(DOCKER_COMPOSE) -f docker/jellyfin/docker-compose.yml down
+
+update-jellyfin: network
+	$(DOCKER_COMPOSE) -f docker/jellyfin/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/jellyfin/docker-compose.yml up -d
+
+logs-jellyfin:
+	$(DOCKER_COMPOSE) -f docker/jellyfin/docker-compose.yml logs -f
+
+# ================================
 # Listmonk
 # ================================
 start-listmonk: network
@@ -723,6 +745,22 @@ update-portainer: network
 
 logs-portainer:
 	$(DOCKER_COMPOSE) -f docker/portainer/docker-compose.yml logs -f
+
+# ================================
+# qBittorrent
+# ================================
+start-qbittorrent: network
+	$(DOCKER_COMPOSE) -f docker/qbittorrent/docker-compose.yml up -d
+
+stop-qbittorrent:
+	$(DOCKER_COMPOSE) -f docker/qbittorrent/docker-compose.yml down
+
+update-qbittorrent: network
+	$(DOCKER_COMPOSE) -f docker/qbittorrent/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/qbittorrent/docker-compose.yml up -d
+
+logs-qbittorrent:
+	$(DOCKER_COMPOSE) -f docker/qbittorrent/docker-compose.yml logs -f
 
 # ================================
 # PostgreSQL
