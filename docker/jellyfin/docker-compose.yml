@@ -5,6 +5,8 @@ services:
     restart: unless-stopped
     environment:
       TZ: ${TZ:-Asia/Jakarta}
+    ports:
+      - "${JELLYFIN_PORT:-8096}:8096"
     volumes:
       - jellyfin_config:/config
       - jellyfin_cache:/cache
