@@ -9,7 +9,8 @@ services:
       PGID: ${SONARR_PGID:-1000}
     volumes:
       - sonarr_config:/config
-      - ${MEDIA_DIR:-/media}:/media
+      - ${MEDIA_DIR:-/media}/tv:/tv
+      - ${MEDIA_DIR:-/media}/anime:/anime
       - ${MEDIA_DIR:-/media}:/downloads
     networks:
       - homelab

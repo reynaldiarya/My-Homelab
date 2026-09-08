@@ -11,7 +11,7 @@ services:
       TORRENTING_PORT: ${QBITTORRENT_PORT:-6881}
     volumes:
       - qbittorrent_config:/config
-      - ${MEDIA_DIR:-/media}:/downloads
+      - ${MEDIA_DIR:-/media}/downloads:/downloads
     networks:
       - homelab
     ports:

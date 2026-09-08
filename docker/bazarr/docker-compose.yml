@@ -9,7 +9,9 @@ services:
       PGID: ${BAZARR_PGID:-1000}
     volumes:
       - bazarr_config:/config
-      - ${MEDIA_DIR:-/media}:/media
+      - ${MEDIA_DIR:-/media}/movies:/movies
+      - ${MEDIA_DIR:-/media}/tv:/tv
+      - ${MEDIA_DIR:-/media}/anime:/anime
       - ${MEDIA_DIR:-/media}:/downloads
     networks:
       - homelab

@@ -9,7 +9,7 @@ services:
       PGID: ${RADARR_PGID:-1000}
     volumes:
       - radarr_config:/config
-      - ${MEDIA_DIR:-/media}:/media
+      - ${MEDIA_DIR:-/media}/movies:/media
       - ${MEDIA_DIR:-/media}:/downloads
     networks:
       - homelab
