@@ -3,6 +3,8 @@ services:
     image: jellyfin/jellyfin:latest
     container_name: jellyfin
     restart: unless-stopped
+    devices:
+      - /dev/dri:/dev/dri
     environment:
       TZ: ${TZ:-Asia/Jakarta}
     ports:
