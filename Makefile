@@ -55,7 +55,6 @@ DOCKER_COMPOSE = docker compose --env-file .env
 .PHONY: start-wealthfolio stop-wealthfolio update-wealthfolio logs-wealthfolio
 .PHONY: start-webcheck stop-webcheck update-webcheck logs-webcheck
 .PHONY: start-wordpress stop-wordpress update-wordpress logs-wordpress
-.PHONY: start-zimaos stop-zimaos update-zimaos logs-zimaos
 
 # Default target
 help:
@@ -84,7 +83,7 @@ help:
 	@echo "  mariadb, meilisearch, mikrotik, mongodb, n8n, netdata, nextcloud, ollama, onlyoffice,"
 	@echo "  open-webui, openspeedtest, openwrt, portainer, postgres, redis, rustfs, ryot,"
 	@echo "  serpbear, smokeping, socks5, stirling-pdf, traefik, trek, uptime-kuma, vaultwarden,"
-	@echo "  wallos, wealthfolio, webcheck, wordpress, zimaos"
+	@echo "  wallos, wealthfolio, webcheck, wordpress"
 	@echo ""
 	@echo "Examples:"
 	@echo "  make start-mariadb"
@@ -149,7 +148,6 @@ start-all: network
 	$(DOCKER_COMPOSE) -f docker/wealthfolio/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/webcheck/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/wordpress/docker-compose.yml up -d
-	$(DOCKER_COMPOSE) -f docker/zimaos/docker-compose.yml up -d
 	@echo "✅ All services started!"
 
 stop-all:
@@ -200,7 +198,6 @@ stop-all:
 	$(DOCKER_COMPOSE) -f docker/wealthfolio/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/webcheck/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/wordpress/docker-compose.yml down
-	$(DOCKER_COMPOSE) -f docker/zimaos/docker-compose.yml down
 	@echo "✅ All services stopped!"
 
 update-all: network
@@ -989,19 +986,3 @@ update-wordpress: network
 
 logs-wordpress:
 	$(DOCKER_COMPOSE) -f docker/wordpress/docker-compose.yml logs -f
-
-# ================================
-# ZimaOS
-# ================================
-start-zimaos: network
-	$(DOCKER_COMPOSE) -f docker/zimaos/docker-compose.yml up -d
-
-stop-zimaos:
-	$(DOCKER_COMPOSE) -f docker/zimaos/docker-compose.yml down
-
-update-zimaos: network
-	$(DOCKER_COMPOSE) -f docker/zimaos/docker-compose.yml pull
-	$(DOCKER_COMPOSE) -f docker/zimaos/docker-compose.yml up -d
-
-logs-zimaos:
-	$(DOCKER_COMPOSE) -f docker/zimaos/docker-compose.yml logs -f

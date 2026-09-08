@@ -14,7 +14,7 @@ A self-hosted Docker infrastructure with Traefik reverse proxy, automatic HTTPS 
 
 ## Description
 
-My Homelab provides a robust, centralized environment for running 48 self-hosted applications. All services are routed through **Traefik v3** as a reverse proxy with **HTTPS enforced** on every route using **Cloudflare Origin Certificate**. Services are accessible both via public domain (through Cloudflare Tunnel) and local domain (through AdGuard Home DNS on LAN) — without exposing any direct ports to the internet.
+My Homelab provides a robust, centralized environment for running 47 self-hosted applications. All services are routed through **Traefik v3** as a reverse proxy with **HTTPS enforced** on every route using **Cloudflare Origin Certificate**. Services are accessible both via public domain (through Cloudflare Tunnel) and local domain (through AdGuard Home DNS on LAN) — without exposing any direct ports to the internet.
 
 ## Features
 
@@ -266,7 +266,6 @@ make logs-<service>
     ├── wealthfolio/          # Investment tracking
     ├── webcheck/             # Website OSINT analyzer
     ├── wordpress/            # CMS and blog platform
-    └── zimaos/               # ZimaOS home server (no Traefik - KVM)
 ```
 
 ## Security Notes
@@ -281,7 +280,7 @@ make logs-<service>
 
 The `Makefile` exposes the following primary service targets:
 
-`actual-budget`, `adguard-home`, `affine`, `authentik`, `bento-pdf`, `beszel`, `blesta`, `bugsink`, `changedetection`, `docuseal`, `erpnext`, `excalidraw`, `flaresolverr`, `grafana`, `homepage`, `influxdb`, `it-tools`, `listmonk`, `mariadb`, `meilisearch`, `mikrotik`, `mongodb`, `n8n`, `netdata`, `nextcloud`, `ollama`, `onlyoffice`, `open-webui`, `openspeedtest`, `openwrt`, `portainer`, `postgres`, `redis`, `rustfs`, `ryot`, `serpbear`, `smokeping`, `socks5`, `stirling-pdf`, `traefik`, `trek`, `uptime-kuma`, `vaultwarden`, `wallos`, `wealthfolio`, `webcheck`, `wordpress`, `zimaos`
+`actual-budget`, `adguard-home`, `affine`, `authentik`, `bento-pdf`, `beszel`, `blesta`, `bugsink`, `changedetection`, `docuseal`, `erpnext`, `excalidraw`, `flaresolverr`, `grafana`, `homepage`, `influxdb`, `it-tools`, `listmonk`, `mariadb`, `meilisearch`, `mikrotik`, `mongodb`, `n8n`, `netdata`, `nextcloud`, `ollama`, `onlyoffice`, `open-webui`, `openspeedtest`, `openwrt`, `portainer`, `postgres`, `redis`, `rustfs`, `ryot`, `serpbear`, `smokeping`, `socks5`, `stirling-pdf`, `traefik`, `trek`, `uptime-kuma`, `vaultwarden`, `wallos`, `wealthfolio`, `webcheck`, `wordpress`
 
 ## Contributing
 

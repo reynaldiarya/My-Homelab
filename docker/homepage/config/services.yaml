@@ -215,7 +215,3 @@
         icon: sh-minio.png
         href: "{{HOMEPAGE_VAR_RUSTFS_S3_URL}}"
         description: S3 API Endpoint
-    - ZimaOS:
-        icon: sh-zimaos.png
-        href: "{{HOMEPAGE_VAR_ZIMAOS_URL}}"
-        description: Home Server OS Dashboard
