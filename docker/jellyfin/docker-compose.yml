@@ -12,9 +12,7 @@ services:
     volumes:
       - jellyfin_config:/config
       - jellyfin_cache:/cache
-      - ${MEDIA_DIR:-/media}/movies:/media/movies:ro
-      - ${MEDIA_DIR:-/media}/tv:/media/tv:ro
-      - ${MEDIA_DIR:-/media}/anime:/media/anime:ro
+      - ${MEDIA_DIR:-/media}:/data
     networks:
       - homelab
     labels:
