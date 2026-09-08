@@ -10,6 +10,7 @@ services:
     volumes:
       - radarr_config:/config
       - ${MEDIA_DIR:-/media}:/media
+      - ${MEDIA_DIR:-/media}:/downloads
     networks:
       - homelab
     labels:
