@@ -1,0 +1,39 @@
+services:
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    restart: unless-stopped
+    environment:
+      TZ: ${TZ:-Asia/Jakarta}
+      PUID: ${SONARR_PUID:-1000}
+      PGID: ${SONARR_PGID:-1000}
+    volumes:
+      - sonarr_config:/config
+      - ${MEDIA_DIR:-/media}:/media
+    networks:
+      - homelab
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.sonarr.rule=Host(`sonarr.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
+      - "traefik.http.routers.sonarr.entrypoints=websecure"
+      - "traefik.http.routers.sonarr.tls=true"
+      - "traefik.http.routers.sonarr.middlewares=secure-headers@docker"
+      - "traefik.http.routers.sonarr.service=sonarr-svc"
+      - "traefik.http.routers.sonarr-local.rule=Host(`sonarr.${LOCAL_DOMAIN:-home.arpa}`)"
+      - "traefik.http.routers.sonarr-local.entrypoints=websecure"
+      - "traefik.http.routers.sonarr-local.tls=true"
+      - "traefik.http.routers.sonarr-local.middlewares=secure-headers@docker"
+      - "traefik.http.routers.sonarr-local.service=sonarr-svc"
+      - "traefik.http.services.sonarr-svc.loadbalancer.server.port=8989"
+    deploy:
+      resources:
+        limits:
+          cpus: "${SONARR_CPU_LIMIT:-0.5}"
+          memory: ${SONARR_MEMORY_LIMIT:-512M}
+
+networks:
+  homelab:
+    external: true
+
+volumes:
+  sonarr_config:

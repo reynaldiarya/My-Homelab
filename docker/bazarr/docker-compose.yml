@@ -1,0 +1,39 @@
+services:
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    restart: unless-stopped
+    environment:
+      TZ: ${TZ:-Asia/Jakarta}
+      PUID: ${BAZARR_PUID:-1000}
+      PGID: ${BAZARR_PGID:-1000}
+    volumes:
+      - bazarr_config:/config
+      - ${MEDIA_DIR:-/media}:/media
+    networks:
+      - homelab
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.bazarr.rule=Host(`bazarr.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
+      - "traefik.http.routers.bazarr.entrypoints=websecure"
+      - "traefik.http.routers.bazarr.tls=true"
+      - "traefik.http.routers.bazarr.middlewares=secure-headers@docker"
+      - "traefik.http.routers.bazarr.service=bazarr-svc"
+      - "traefik.http.routers.bazarr-local.rule=Host(`bazarr.${LOCAL_DOMAIN:-home.arpa}`)"
+      - "traefik.http.routers.bazarr-local.entrypoints=websecure"
+      - "traefik.http.routers.bazarr-local.tls=true"
+      - "traefik.http.routers.bazarr-local.middlewares=secure-headers@docker"
+      - "traefik.http.routers.bazarr-local.service=bazarr-svc"
+      - "traefik.http.services.bazarr-svc.loadbalancer.server.port=6767"
+    deploy:
+      resources:
+        limits:
+          cpus: "${BAZARR_CPU_LIMIT:-0.5}"
+          memory: ${BAZARR_MEMORY_LIMIT:-512M}
+
+networks:
+  homelab:
+    external: true
+
+volumes:
+  bazarr_config:

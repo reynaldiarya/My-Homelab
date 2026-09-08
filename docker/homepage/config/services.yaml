@@ -62,10 +62,14 @@
         icon: sh-bento.png
         href: "{{HOMEPAGE_VAR_BENTO_PDF_URL}}"
         description: PDF Utilities
+    - Prowlarr:
+        icon: sh-prowlarr.png
+        href: "{{HOMEPAGE_VAR_PROWLARR_URL}}"
+        description: Indexer Manager
     - qBittorrent:
         icon: sh-qbittorrent.png
         href: "{{HOMEPAGE_VAR_QBITTORRENT_URL}}"
-        description: qBittorrent
+        description: Torrent Downloader
     - Bugsink:
         icon: sh-bugsink.png
         href: "{{HOMEPAGE_VAR_BUGSINK_URL}}"
@@ -139,6 +143,18 @@
         icon: sh-jellyfin.png
         href: "{{HOMEPAGE_VAR_JELLYFIN_URL}}"
         description: Media Server
+    - Radarr:
+        icon: sh-radarr.png
+        href: "{{HOMEPAGE_VAR_RADARR_URL}}"
+        description: Movie Manager
+    - Sonarr:
+        icon: sh-sonarr.png
+        href: "{{HOMEPAGE_VAR_SONARR_URL}}"
+        description: TV/Anime Manager
+    - Bazarr:
+        icon: sh-bazarr.png
+        href: "{{HOMEPAGE_VAR_BAZARR_URL}}"
+        description: Subtitle Downloader
     - Ryot:
         icon: sh-ryot.png
         href: "{{HOMEPAGE_VAR_RYOT_URL}}"

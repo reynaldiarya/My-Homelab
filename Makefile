@@ -12,6 +12,7 @@ DOCKER_COMPOSE = docker compose --env-file .env
 .PHONY: start-adguard-home stop-adguard-home update-adguard-home logs-adguard-home
 .PHONY: start-affine stop-affine update-affine logs-affine
 .PHONY: start-authentik stop-authentik update-authentik logs-authentik
+.PHONY: start-bazarr stop-bazarr update-bazarr logs-bazarr
 .PHONY: start-beszel stop-beszel update-beszel logs-beszel
 .PHONY: start-bento-pdf stop-bento-pdf update-bento-pdf logs-bento-pdf
 .PHONY: start-blesta stop-blesta update-blesta logs-blesta
@@ -41,13 +42,16 @@ DOCKER_COMPOSE = docker compose --env-file .env
 .PHONY: start-openwrt stop-openwrt update-openwrt logs-openwrt
 .PHONY: start-portainer stop-portainer update-portainer logs-portainer
 .PHONY: start-postgres stop-postgres update-postgres logs-postgres
+.PHONY: start-prowlarr stop-prowlarr update-prowlarr logs-prowlarr
 .PHONY: start-qbittorrent stop-qbittorrent update-qbittorrent logs-qbittorrent
+.PHONY: start-radarr stop-radarr update-radarr logs-radarr
 .PHONY: start-redis stop-redis update-redis logs-redis
 .PHONY: start-rustfs stop-rustfs update-rustfs logs-rustfs
 .PHONY: start-ryot stop-ryot update-ryot logs-ryot
 .PHONY: start-serpbear stop-serpbear update-serpbear logs-serpbear
 .PHONY: start-smokeping stop-smokeping update-smokeping logs-smokeping
 .PHONY: start-socks5 stop-socks5 update-socks5 logs-socks5
+.PHONY: start-sonarr stop-sonarr update-sonarr logs-sonarr
 .PHONY: start-stirling-pdf stop-stirling-pdf update-stirling-pdf logs-stirling-pdf
 .PHONY: start-traefik stop-traefik update-traefik logs-traefik
 .PHONY: start-trek stop-trek update-trek logs-trek
@@ -79,12 +83,12 @@ help:
 	@echo "  make logs-<service>   - View service logs"
 	@echo ""
 	@echo "Available services (A-Z):"
-	@echo "  actual-budget, adguard-home, affine, authentik, bento-pdf, beszel, blesta, bugsink,"
+	@echo "  actual-budget, adguard-home, affine, authentik, bazarr, bento-pdf, beszel, blesta, bugsink,"
 	@echo "  changedetection, docuseal, erpnext, excalidraw, flaresolverr, grafana, homepage,"
 	@echo "  influxdb, it-tools, jellyfin, listmonk,"
 	@echo "  mariadb, meilisearch, mikrotik, mongodb, n8n, netdata, nextcloud, ollama, onlyoffice,"
-	@echo "  open-webui, openspeedtest, openwrt, portainer, postgres, qbittorrent, redis, rustfs, ryot,"
-	@echo "  serpbear, smokeping, socks5, stirling-pdf, traefik, trek, uptime-kuma, vaultwarden,"
+	@echo "  open-webui, openspeedtest, openwrt, portainer, postgres, prowlarr, qbittorrent, radarr,"
+	@echo "  serpbear, smokeping, socks5, sonarr, stirling-pdf, traefik, trek, uptime-kuma, vaultwarden,"
 	@echo "  wallos, wealthfolio, webcheck, wordpress"
 	@echo ""
 	@echo "Examples:"
@@ -108,6 +112,7 @@ start-all: network
 	$(DOCKER_COMPOSE) -f docker/adguard-home/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/affine/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/authentik/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/bazarr/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/beszel/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/bento-pdf/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/blesta/docker-compose.yml up -d
@@ -137,13 +142,16 @@ start-all: network
 	$(DOCKER_COMPOSE) -f docker/openwrt/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/portainer/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/postgres/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/prowlarr/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/qbittorrent/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/radarr/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/redis/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/rustfs/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/ryot/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/serpbear/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/smokeping/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/socks5/docker-compose.yaml up -d
+	$(DOCKER_COMPOSE) -f docker/sonarr/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/stirling-pdf/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/trek/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/uptime-kuma/docker-compose.yml up -d
@@ -160,6 +168,7 @@ stop-all:
 	$(DOCKER_COMPOSE) -f docker/adguard-home/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/affine/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/authentik/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/bazarr/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/beszel/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/bento-pdf/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/blesta/docker-compose.yml down
@@ -189,13 +198,16 @@ stop-all:
 	$(DOCKER_COMPOSE) -f docker/openwrt/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/portainer/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/postgres/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/prowlarr/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/qbittorrent/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/radarr/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/redis/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/rustfs/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/ryot/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/serpbear/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/smokeping/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/socks5/docker-compose.yaml down
+	$(DOCKER_COMPOSE) -f docker/sonarr/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/stirling-pdf/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/trek/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/uptime-kuma/docker-compose.yml down
@@ -301,6 +313,22 @@ update-beszel: network
 
 logs-beszel:
 	$(DOCKER_COMPOSE) -f docker/beszel/docker-compose.yml logs -f
+
+# ================================
+# Bazarr
+# ================================
+start-bazarr: network
+	$(DOCKER_COMPOSE) -f docker/bazarr/docker-compose.yml up -d
+
+stop-bazarr:
+	$(DOCKER_COMPOSE) -f docker/bazarr/docker-compose.yml down
+
+update-bazarr: network
+	$(DOCKER_COMPOSE) -f docker/bazarr/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/bazarr/docker-compose.yml up -d
+
+logs-bazarr:
+	$(DOCKER_COMPOSE) -f docker/bazarr/docker-compose.yml logs -f
 
 # ================================
 # Bento PDF
@@ -747,6 +775,22 @@ logs-portainer:
 	$(DOCKER_COMPOSE) -f docker/portainer/docker-compose.yml logs -f
 
 # ================================
+# Prowlarr
+# ================================
+start-prowlarr: network
+	$(DOCKER_COMPOSE) -f docker/prowlarr/docker-compose.yml up -d
+
+stop-prowlarr:
+	$(DOCKER_COMPOSE) -f docker/prowlarr/docker-compose.yml down
+
+update-prowlarr: network
+	$(DOCKER_COMPOSE) -f docker/prowlarr/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/prowlarr/docker-compose.yml up -d
+
+logs-prowlarr:
+	$(DOCKER_COMPOSE) -f docker/prowlarr/docker-compose.yml logs -f
+
+# ================================
 # qBittorrent
 # ================================
 start-qbittorrent: network
@@ -761,6 +805,22 @@ update-qbittorrent: network
 
 logs-qbittorrent:
 	$(DOCKER_COMPOSE) -f docker/qbittorrent/docker-compose.yml logs -f
+
+# ================================
+# Radarr
+# ================================
+start-radarr: network
+	$(DOCKER_COMPOSE) -f docker/radarr/docker-compose.yml up -d
+
+stop-radarr:
+	$(DOCKER_COMPOSE) -f docker/radarr/docker-compose.yml down
+
+update-radarr: network
+	$(DOCKER_COMPOSE) -f docker/radarr/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/radarr/docker-compose.yml up -d
+
+logs-radarr:
+	$(DOCKER_COMPOSE) -f docker/radarr/docker-compose.yml logs -f
 
 # ================================
 # PostgreSQL
@@ -873,6 +933,22 @@ update-socks5: network
 
 logs-socks5:
 	$(DOCKER_COMPOSE) -f docker/socks5/docker-compose.yaml logs -f
+
+# ================================
+# Sonarr
+# ================================
+start-sonarr: network
+	$(DOCKER_COMPOSE) -f docker/sonarr/docker-compose.yml up -d
+
+stop-sonarr:
+	$(DOCKER_COMPOSE) -f docker/sonarr/docker-compose.yml down
+
+update-sonarr: network
+	$(DOCKER_COMPOSE) -f docker/sonarr/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/sonarr/docker-compose.yml up -d
+
+logs-sonarr:
+	$(DOCKER_COMPOSE) -f docker/sonarr/docker-compose.yml logs -f
 
 # ================================
 # Stirling PDF
