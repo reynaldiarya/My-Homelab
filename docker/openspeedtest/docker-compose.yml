@@ -5,19 +5,8 @@ services:
     restart: unless-stopped
     networks:
       - homelab
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.openspeedtest.rule=Host(`speedtest.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
-      - "traefik.http.routers.openspeedtest.entrypoints=websecure"
-      - "traefik.http.routers.openspeedtest.tls=true"
-      - "traefik.http.routers.openspeedtest.middlewares=secure-headers@docker"
-      - "traefik.http.routers.openspeedtest.service=openspeedtest-svc"
-      - "traefik.http.routers.openspeedtest-local.rule=Host(`speedtest.${LOCAL_DOMAIN:-home.arpa}`)"
-      - "traefik.http.routers.openspeedtest-local.entrypoints=websecure"
-      - "traefik.http.routers.openspeedtest-local.tls=true"
-      - "traefik.http.routers.openspeedtest-local.middlewares=secure-headers@docker"
-      - "traefik.http.routers.openspeedtest-local.service=openspeedtest-svc"
-      - "traefik.http.services.openspeedtest-svc.loadbalancer.server.port=3000"
+    ports:
+      - "${BIND_IP}:${OPENSPEEDTEST_PORT:-3094}:3000"
     deploy:
       resources:
         limits:
