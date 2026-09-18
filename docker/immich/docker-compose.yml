@@ -7,6 +7,8 @@ services:
       - /dev/dri:/dev/dri
     environment:
       TZ: ${TZ:-Asia/Jakarta}
+      PUID: ${IMMICH_PUID:-1000}
+      PGID: ${IMMICH_PGID:-1000}
       DB_HOSTNAME: ${IMMICH_DB_HOST:-postgres}
       DB_PORT: ${IMMICH_DB_PORT:-5432}
       DB_USERNAME: ${IMMICH_DB_USERNAME:-root}
@@ -17,7 +19,7 @@ services:
       REDIS_PASSWORD: ${IMMICH_REDIS_PASSWORD:-password}
       REDIS_DBINDEX: ${IMMICH_REDIS_DB_INDEX:-3}
     volumes:
-      - immich_upload:/usr/src/app/upload
+      - ${IMMICH_UPLOAD_LOCATION:-/data/immich}:/usr/src/app/upload
     networks:
       - homelab
     labels:
@@ -65,5 +67,4 @@ networks:
     external: true
 
 volumes:
-  immich_upload:
   immich_model_cache:
