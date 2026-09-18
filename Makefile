@@ -24,6 +24,7 @@ DOCKER_COMPOSE = docker compose --env-file .env
 .PHONY: start-flaresolverr stop-flaresolverr update-flaresolverr logs-flaresolverr
 .PHONY: start-grafana stop-grafana update-grafana logs-grafana
 .PHONY: start-homepage stop-homepage update-homepage logs-homepage
+.PHONY: start-immich stop-immich update-immich logs-immich
 .PHONY: start-influxdb stop-influxdb update-influxdb logs-influxdb
 .PHONY: start-it-tools stop-it-tools update-it-tools logs-it-tools
 .PHONY: start-jellyfin stop-jellyfin update-jellyfin logs-jellyfin
@@ -33,6 +34,7 @@ DOCKER_COMPOSE = docker compose --env-file .env
 .PHONY: start-mikrotik stop-mikrotik update-mikrotik logs-mikrotik
 .PHONY: start-mongodb stop-mongodb update-mongodb logs-mongodb
 .PHONY: start-n8n stop-n8n update-n8n logs-n8n
+.PHONY: start-navidrome stop-navidrome update-navidrome logs-navidrome
 .PHONY: start-netdata stop-netdata update-netdata logs-netdata
 .PHONY: start-nextcloud stop-nextcloud update-nextcloud logs-nextcloud
 .PHONY: start-onlyoffice stop-onlyoffice update-onlyoffice logs-onlyoffice
@@ -84,9 +86,9 @@ help:
 	@echo ""
 	@echo "Available services (A-Z):"
 	@echo "  actual-budget, adguard-home, affine, authentik, bazarr, bento-pdf, beszel, blesta, bugsink,"
-	@echo "  changedetection, docuseal, erpnext, excalidraw, flaresolverr, grafana, homepage,"
+	@echo "  changedetection, docuseal, erpnext, excalidraw, flaresolverr, grafana, homepage, immich,"
 	@echo "  influxdb, it-tools, jellyfin, listmonk,"
-	@echo "  mariadb, meilisearch, mikrotik, mongodb, n8n, netdata, nextcloud, ollama, onlyoffice,"
+	@echo "  mariadb, meilisearch, mikrotik, mongodb, n8n, navidrome, netdata, nextcloud, ollama, onlyoffice,"
 	@echo "  open-webui, openspeedtest, openwrt, portainer, postgres, prowlarr, qbittorrent, radarr,"
 	@echo "  serpbear, smokeping, socks5, sonarr, stirling-pdf, traefik, trek, uptime-kuma, vaultwarden,"
 	@echo "  wallos, wealthfolio, webcheck, wordpress"
@@ -124,6 +126,7 @@ start-all: network
 	$(DOCKER_COMPOSE) -f docker/flaresolverr/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/grafana/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/homepage/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/immich/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/influxdb/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/it-tools/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/jellyfin/docker-compose.yml up -d
@@ -133,6 +136,7 @@ start-all: network
 	$(DOCKER_COMPOSE) -f docker/mikrotik/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/mongodb/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/n8n/docker-compose.yml up -d
+	$(DOCKER_COMPOSE) -f docker/navidrome/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/netdata/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/nextcloud/docker-compose.yml up -d
 	$(DOCKER_COMPOSE) -f docker/ollama/docker-compose.yml up -d
@@ -180,6 +184,7 @@ stop-all:
 	$(DOCKER_COMPOSE) -f docker/flaresolverr/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/grafana/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/homepage/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/immich/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/influxdb/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/it-tools/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/jellyfin/docker-compose.yml down
@@ -189,6 +194,7 @@ stop-all:
 	$(DOCKER_COMPOSE) -f docker/mikrotik/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/mongodb/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/n8n/docker-compose.yml down
+	$(DOCKER_COMPOSE) -f docker/navidrome/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/netdata/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/nextcloud/docker-compose.yml down
 	$(DOCKER_COMPOSE) -f docker/ollama/docker-compose.yml down
@@ -503,6 +509,22 @@ logs-homepage:
 	$(DOCKER_COMPOSE) -f docker/homepage/docker-compose.yml logs -f
 
 # ================================
+# Immich
+# ================================
+start-immich: network
+	$(DOCKER_COMPOSE) -f docker/immich/docker-compose.yml up -d
+
+stop-immich:
+	$(DOCKER_COMPOSE) -f docker/immich/docker-compose.yml down
+
+update-immich: network
+	$(DOCKER_COMPOSE) -f docker/immich/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/immich/docker-compose.yml up -d
+
+logs-immich:
+	$(DOCKER_COMPOSE) -f docker/immich/docker-compose.yml logs -f
+
+# ================================
 # InfluxDB
 # ================================
 start-influxdb: network
@@ -645,6 +667,22 @@ update-n8n: network
 
 logs-n8n:
 	$(DOCKER_COMPOSE) -f docker/n8n/docker-compose.yml logs -f
+
+# ================================
+# Navidrome
+# ================================
+start-navidrome: network
+	$(DOCKER_COMPOSE) -f docker/navidrome/docker-compose.yml up -d
+
+stop-navidrome:
+	$(DOCKER_COMPOSE) -f docker/navidrome/docker-compose.yml down
+
+update-navidrome: network
+	$(DOCKER_COMPOSE) -f docker/navidrome/docker-compose.yml pull
+	$(DOCKER_COMPOSE) -f docker/navidrome/docker-compose.yml up -d
+
+logs-navidrome:
+	$(DOCKER_COMPOSE) -f docker/navidrome/docker-compose.yml logs -f
 
 # ================================
 # Netdata

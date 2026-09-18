@@ -1,0 +1,43 @@
+services:
+  navidrome:
+    image: deluan/navidrome:latest
+    container_name: navidrome
+    restart: unless-stopped
+    environment:
+      TZ: ${TZ:-Asia/Jakarta}
+      PUID: ${NAVIDROME_PUID:-1000}
+      PGID: ${NAVIDROME_PGID:-1000}
+      ND_MUSICFOLDER: /music
+      ND_DATAFOLDER: /data
+      ND_LOGLEVEL: ${NAVIDROME_LOG_LEVEL:-info}
+      ND_SCANSCHEDULE: ${NAVIDROME_SCAN_SCHEDULE:-1h}
+    volumes:
+      - navidrome_data:/data
+      - ${MEDIA_DIR:-/media}/music:/music:ro
+    networks:
+      - homelab
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.navidrome.rule=Host(`navidrome.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
+      - "traefik.http.routers.navidrome.entrypoints=websecure"
+      - "traefik.http.routers.navidrome.tls=true"
+      - "traefik.http.routers.navidrome.middlewares=secure-headers@docker"
+      - "traefik.http.routers.navidrome.service=navidrome-svc"
+      - "traefik.http.routers.navidrome-local.rule=Host(`navidrome.${LOCAL_DOMAIN:-home.arpa}`)"
+      - "traefik.http.routers.navidrome-local.entrypoints=websecure"
+      - "traefik.http.routers.navidrome-local.tls=true"
+      - "traefik.http.routers.navidrome-local.middlewares=secure-headers@docker"
+      - "traefik.http.routers.navidrome-local.service=navidrome-svc"
+      - "traefik.http.services.navidrome-svc.loadbalancer.server.port=4533"
+    deploy:
+      resources:
+        limits:
+          cpus: "${NAVIDROME_CPU_LIMIT:-0.5}"
+          memory: ${NAVIDROME_MEMORY_LIMIT:-512M}
+
+networks:
+  homelab:
+    external: true
+
+volumes:
+  navidrome_data:

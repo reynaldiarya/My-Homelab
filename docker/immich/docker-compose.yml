@@ -1,0 +1,69 @@
+services:
+  immich-server:
+    image: ghcr.io/immich-app/immich-server:release
+    container_name: immich-server
+    restart: unless-stopped
+    devices:
+      - /dev/dri:/dev/dri
+    environment:
+      TZ: ${TZ:-Asia/Jakarta}
+      DB_HOSTNAME: ${IMMICH_DB_HOST:-postgres}
+      DB_PORT: ${IMMICH_DB_PORT:-5432}
+      DB_USERNAME: ${IMMICH_DB_USERNAME:-root}
+      DB_PASSWORD: ${IMMICH_DB_PASSWORD:-password}
+      DB_DATABASE_NAME: ${IMMICH_DB_DATABASE:-immich}
+      REDIS_HOSTNAME: ${IMMICH_REDIS_HOST:-redis}
+      REDIS_PORT: ${IMMICH_REDIS_PORT:-6379}
+      REDIS_PASSWORD: ${IMMICH_REDIS_PASSWORD:-password}
+      REDIS_DBINDEX: ${IMMICH_REDIS_DB_INDEX:-3}
+    volumes:
+      - immich_upload:/usr/src/app/upload
+    networks:
+      - homelab
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.immich.rule=Host(`immich.${TRAEFIK_DOMAIN:-yourdomain.com}`)"
+      - "traefik.http.routers.immich.entrypoints=websecure"
+      - "traefik.http.routers.immich.tls=true"
+      - "traefik.http.routers.immich.middlewares=secure-headers@docker"
+      - "traefik.http.routers.immich.service=immich-svc"
+      - "traefik.http.routers.immich-local.rule=Host(`immich.${LOCAL_DOMAIN:-home.arpa}`)"
+      - "traefik.http.routers.immich-local.entrypoints=websecure"
+      - "traefik.http.routers.immich-local.tls=true"
+      - "traefik.http.routers.immich-local.middlewares=secure-headers@docker"
+      - "traefik.http.routers.immich-local.service=immich-svc"
+      - "traefik.http.services.immich-svc.loadbalancer.server.port=2283"
+    deploy:
+      resources:
+        limits:
+          cpus: "${IMMICH_CPU_LIMIT:-1}"
+          memory: ${IMMICH_MEMORY_LIMIT:-2G}
+
+  immich-machine-learning:
+    image: ghcr.io/immich-app/immich-machine-learning:release
+    container_name: immich-machine-learning
+    restart: unless-stopped
+    devices:
+      - /dev/dri:/dev/dri
+    environment:
+      TZ: ${TZ:-Asia/Jakarta}
+      MACHINE_LEARNING_CACHE_FOLDER: /cache
+      MACHINE_LEARNING_WORKERS: ${IMMICH_ML_WORKERS:-1}
+      MACHINE_LEARNING_REQUEST_THREADS: ${IMMICH_ML_REQUEST_THREADS:-1}
+    volumes:
+      - immich_model_cache:/cache
+    networks:
+      - homelab
+    deploy:
+      resources:
+        limits:
+          cpus: "${IMMICH_ML_CPU_LIMIT:-1}"
+          memory: ${IMMICH_ML_MEMORY_LIMIT:-2G}
+
+networks:
+  homelab:
+    external: true
+
+volumes:
+  immich_upload:
+  immich_model_cache:

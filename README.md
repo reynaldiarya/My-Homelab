@@ -14,7 +14,7 @@ A self-hosted Docker infrastructure with Traefik reverse proxy, automatic HTTPS 
 
 ## Description
 
-My Homelab provides a robust, centralized environment for running 53 self-hosted applications. All services are routed through **Traefik v3** as a reverse proxy with **HTTPS enforced** on every route using **Cloudflare Origin Certificate**. Services are accessible both via public domain (through Cloudflare Tunnel) and local domain (through AdGuard Home DNS on LAN) — without exposing any direct ports to the internet.
+My Homelab provides a robust, centralized environment for running 55 self-hosted applications. All services are routed through **Traefik v3** as a reverse proxy with **HTTPS enforced** on every route using **Cloudflare Origin Certificate**. Services are accessible both via public domain (through Cloudflare Tunnel) and local domain (through AdGuard Home DNS on LAN) — without exposing any direct ports to the internet.
 
 ## Features
 
@@ -236,6 +236,7 @@ make logs-<service>
     ├── flaresolverr/         # Cloudflare challenge solver (internal)
     ├── grafana/              # Data visualization
     ├── homepage/             # Application dashboard
+    ├── immich/               # Self-hosted photo & video manager
     ├── influxdb/             # Time-series database (internal)
     ├── it-tools/             # Developer utility suite
     ├── jellyfin/             # Media server
@@ -245,6 +246,7 @@ make logs-<service>
     ├── mikrotik/             # RouterOS CHR (no Traefik - Winbox/WebFig)
     ├── mongodb/              # NoSQL database (localhost only)
     ├── n8n/                  # Workflow automation
+    ├── navidrome/            # Music streaming server
     ├── netdata/              # Real-time performance monitoring (internal)
     ├── nextcloud/            # Cloud collaboration and storage
     ├── ollama/               # Local large language models (internal)
@@ -286,7 +288,7 @@ make logs-<service>
 
 The `Makefile` exposes the following primary service targets:
 
-`actual-budget`, `adguard-home`, `affine`, `authentik`, `bazarr`, `bento-pdf`, `beszel`, `blesta`, `bugsink`, `changedetection`, `docuseal`, `erpnext`, `excalidraw`, `flaresolverr`, `grafana`, `homepage`, `influxdb`, `it-tools`, `jellyfin`, `listmonk`, `mariadb`, `meilisearch`, `mikrotik`, `mongodb`, `n8n`, `netdata`, `nextcloud`, `ollama`, `onlyoffice`, `open-webui`, `openspeedtest`, `openwrt`, `portainer`, `postgres`, `prowlarr`, `qbittorrent`, `radarr`, `redis`, `rustfs`, `ryot`, `serpbear`, `smokeping`, `socks5`, `sonarr`, `stirling-pdf`, `traefik`, `trek`, `uptime-kuma`, `vaultwarden`, `wallos`, `wealthfolio`, `webcheck`, `wordpress`
+`actual-budget`, `adguard-home`, `affine`, `authentik`, `bazarr`, `bento-pdf`, `beszel`, `blesta`, `bugsink`, `changedetection`, `docuseal`, `erpnext`, `excalidraw`, `flaresolverr`, `grafana`, `homepage`, `immich`, `influxdb`, `it-tools`, `jellyfin`, `listmonk`, `mariadb`, `meilisearch`, `mikrotik`, `mongodb`, `n8n`, `navidrome`, `netdata`, `nextcloud`, `ollama`, `onlyoffice`, `open-webui`, `openspeedtest`, `openwrt`, `portainer`, `postgres`, `prowlarr`, `qbittorrent`, `radarr`, `redis`, `rustfs`, `ryot`, `serpbear`, `smokeping`, `socks5`, `sonarr`, `stirling-pdf`, `traefik`, `trek`, `uptime-kuma`, `vaultwarden`, `wallos`, `wealthfolio`, `webcheck`, `wordpress`
 
 ## Contributing
 
