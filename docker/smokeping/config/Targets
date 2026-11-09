@@ -79,26 +79,6 @@ probe = TCPPing
 port = 443
 host = s8southeastasia.blob.core.windows.net
 
-++ DigitalOceanSG
-menu = DigitalOcean SG
-title = DigitalOcean Singapore (SGP1)
-host = sgp1.digitaloceanspaces.com
-
-++ VultrSG
-menu = Vultr Singapore
-title = Vultr Singapore
-host = sgp-ping.vultr.com
-
-++ LinodeSG
-menu = Linode Singapore
-title = Akamai/Linode Singapore (ap-south)
-host = speedtest.singapore.linode.com
-
-++ OVHsingapore
-menu = OVH Singapore
-title = OVH Cloud Singapore
-host = sgp.proof.ovh.net
-
 ++ OracleCloudSG
 menu = Oracle Cloud SG
 title = Oracle Cloud Singapore
